@@ -1,4 +1,4 @@
-# 2021-2022 VEX Robotics SDSMT [![2021-2022 VEX CI](https://github.com/VEX-Robotics-SDSMT/VEXU2021-2022/actions/workflows/ci-pipeline.yml/badge.svg)](https://github.com/VEX-Robotics-SDSMT/VEXU2021-2022/actions/workflows/ci-pipeline.yml)
+# 2022-2023 VEX Robotics SDSMT 
 
 This repo contains code for the 2021-2022 SDSMT VEX Robotics Club.
 
