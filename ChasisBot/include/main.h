@@ -35,6 +35,7 @@
 #define PROS_USE_LITERALS
 
 #include "api.h"
+#include "PID.h"
 
 /**
  * You should add more #includes here
@@ -79,3 +80,8 @@ void opcontrol(void);
 #endif
 
 #endif  // _PROS_MAIN_H_
+
+
+//globals - these will be set in the vex initialize function and should never be changed again.
+
+Mines::PID testPID;

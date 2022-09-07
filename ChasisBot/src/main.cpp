@@ -1,4 +1,5 @@
 #include "main.h"
+#include "PID.h"
 #include <string>
 
 /**
@@ -24,11 +25,23 @@ void testTask(){
 	int delta = 5;
 	while(true)
 	{	
-		pros::lcd::clear_line(3);
 		pros::lcd::set_text(3, "async loops : " + std::to_string(loopCount));
 		pros::Task::delay_until(&startTime, delta);
 		loopCount++;
 	}
+}
+
+void PIDTask(){
+	std::uint32_t startTime = pros::millis();
+	int deltaTime = 20;
+
+	while(true)
+	{
+		//add PID calls
+
+		pros::Task::delay_until(&startTime, deltaTime);
+	}
+
 }
 
 /**
@@ -42,6 +55,11 @@ void initialize() {
 	pros::lcd::set_text(1, "Hello PROS User!");
 
 	pros::lcd::register_btn1_cb(on_center_button);
+
+
+	//set up PIDs
+	testPID = Mines::PID();	
+
 }
 
 /**
