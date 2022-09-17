@@ -1,4 +1,4 @@
-#include "main.h"
+#include "./../include/main.h"
 #include <string>
 
 /**
@@ -60,7 +60,11 @@ void disabled() {}
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-void competition_initialize() {}
+void competition_initialize() 
+{
+	int side = 0;
+	initVariables(side);
+}
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
