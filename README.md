@@ -1,6 +1,6 @@
 # 2022-2023 VEX Robotics SDSMT 
 
-This repo contains code for the 2021-2022 SDSMT VEX Robotics Club.
+This repo contains code for the 2022-2023 SDSMT VEX Robotics Club.
 
 # Troubleshooting
 
