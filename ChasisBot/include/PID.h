@@ -8,7 +8,7 @@ namespace Mines
 {
 
     class PID
-    {
+    {        
         //Constants - technically changable, but if so, no often
         double KP = 0.005;
         double KI = 0;
@@ -31,25 +31,32 @@ namespace Mines
         double velocity;
         double acceleration;
 
+        //function pointer to the position function
+        double (*position)();
+
         private:
             double bindToMagnitude(double value);
             void resetTimers();
+            void update(double deltaT);
+            void updateTask();
 
         public:
-            void setPIDConst(double kp, double ki, double kd);
-            void setMaxAcceleration(double maxPositive, double maxNegative);
-            void setMaxAcceleration(double maxAcceleration);
-            void setTolerance(double tolerance);
-            void setTarget(double target);
-            void setStopped(bool stopped);
+            PID(double (*positionFunction)());
 
-            void update(double deltaT, double currentPosition);
+            void StartTask();
+            void SetPIDConst(double kp, double ki, double kd);
+            void SetMaxAcceleration(double maxPositive, double maxNegative);
+            void SetMaxAcceleration(double maxAcceleration);
+            void SetTolerance(double tolerance);
+            void SetTarget(double target);
+            void SetStopped(bool stopped);
 
-            double getVelocity();
-            double getAcceleration();
-            double getTimeSinceTargetReached();
-            double getTimeSinceTargetSet();
-            bool getStopped();
+
+            double GetVelocity();
+            double GetAcceleration();
+            double GetTimeSinceTargetReached();
+            double GetTimeSinceTargetSet();
+            bool GetStopped();
     };
 }
 

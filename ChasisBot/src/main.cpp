@@ -1,6 +1,19 @@
 #include "main.h"
 #include "PID.h"
+#include "pros/llemu.hpp"
+#include "pros/misc.hpp"
+#include "pros/rtos.hpp"
 #include <string>
+
+
+
+//globals
+
+pros::Motor test_mtr(20);
+int calls = 0;
+
+
+
 
 /**
  * A callback function for LLEMU's center button.
@@ -18,32 +31,6 @@ void on_center_button() {
 	}
 }
 
-
-void testTask(){
-	int loopCount = 0;
-	std::uint32_t startTime = pros::millis();
-	int delta = 5;
-	while(true)
-	{	
-		pros::lcd::set_text(3, "async loops : " + std::to_string(loopCount));
-		pros::Task::delay_until(&startTime, delta);
-		loopCount++;
-	}
-}
-
-void PIDTask(){
-	std::uint32_t startTime = pros::millis();
-	int deltaTime = 20;
-
-	while(true)
-	{
-		//add PID calls
-
-		pros::Task::delay_until(&startTime, deltaTime);
-	}
-
-}
-
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -58,7 +45,7 @@ void initialize() {
 
 
 	//set up PIDs
-	testPID = Mines::PID();	
+	//testPID = Mines::PID();	
 
 }
 
@@ -106,10 +93,23 @@ void autonomous() {}
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
+
+double posFunc()
+{
+	double pos = test_mtr.get_position();
+	pros::lcd::print(4, "calls: %d, pos: %f", calls, pos);
+	calls++;
+	return pos;
+}
+
+
 void opcontrol() {
 	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	pros::Motor left_mtr(1);
-	pros::Motor right_mtr(2);
+	test_mtr.tare_position();
+	Mines::PID pid(&posFunc);
+	pid.SetPIDConst(0.1, 0.001, 0);
+
+	pid.StartTask();
 
 	//LoggerBase logger = Loggerbase();
 
@@ -125,15 +125,16 @@ void opcontrol() {
 		pros::delay(20);
 	}*/
 
-	pros::Task my_callable_task (testTask, "callable_task");
-
 	int loopCount = 0;
 	std::uint32_t startTime = pros::millis();
 	int delta = 100;
+
+	pid.SetTarget(1000);
 	while(true)
 	{	
-		pros::lcd::set_text(4, "main loops : " + std::to_string(loopCount));
-		pros::Task::delay_until(&startTime, delta);
-		loopCount++;
+		double speed = pid.GetVelocity();
+		pros::lcd::print(5, "velocity: %f", speed);
+		test_mtr.move_velocity(speed);
+		pros::Task::delay(20);
 	}
 }

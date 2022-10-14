@@ -1,7 +1,13 @@
 #include "PID.h"
+#include "pros/rtos.hpp"
 
 namespace Mines
 {
+    PID::PID(double (*positionFunction)())
+    {
+        position = positionFunction;
+    }
+
     double PID::bindToMagnitude(double value)
     {
         if (value > MAX_POSITIVE_ACCELERATION)
@@ -18,8 +24,9 @@ namespace Mines
         }
     }
 
-    void PID::update(double deltaT, double currentPosition)
+    void PID::update(double deltaT)
     {
+        double currentPosition = position();
         double error = target - currentPosition;
         double positional = KP * error;
         double integral = KI * ( lastIntergral + (error * deltaT));
@@ -35,6 +42,24 @@ namespace Mines
         velocity = controlVariable;
     }
 
+    void PID::updateTask()
+    {
+        std::uint32_t startTime = pros::millis();
+        int deltaTime = 20;
+
+        while(true)
+        {
+            update(deltaTime);
+            pros::Task::delay_until(&startTime, deltaTime);
+        }
+    }
+
+    void PID::StartTask(){
+        pros::Task my_task([this] { 
+            this->updateTask(); 
+        } );
+    }
+
     //----------------Getters/Setters-------------------
     void PID::resetTimers()
     {
@@ -42,62 +67,62 @@ namespace Mines
         timeSinceTargetSet = 0;
     }
 
-    void PID::setPIDConst(double kp, double ki, double kd)
+    void PID::SetPIDConst(double kp, double ki, double kd)
     {
         KP = kp;
         KI = ki;
         KD = kd;
     }
 
-    void PID::setMaxAcceleration(double maxPositive, double maxNegative)
+    void PID::SetMaxAcceleration(double maxPositive, double maxNegative)
     {
         MAX_NEGATIVE_ACCELERATION = maxNegative;
         MAX_POSITIVE_ACCELERATION = maxPositive;
     }
 
-    void PID::setMaxAcceleration(double maxAcceleration)
+    void PID::SetMaxAcceleration(double maxAcceleration)
     {
         MAX_NEGATIVE_ACCELERATION = maxAcceleration;
         MAX_POSITIVE_ACCELERATION = maxAcceleration;
     }
 
-    void PID::setTolerance(double tolerance)
+    void PID::SetTolerance(double tolerance)
     {
         this->tolerance = tolerance;
     }
 
-    void PID::setTarget(double target)
+    void PID::SetTarget(double target)
     {
         resetTimers();
         this->target = target;
     }
 
-    void PID::setStopped(bool stopped)
+    void PID::SetStopped(bool stopped)
     {
         this->stopped = stopped;
     }
 
-    double PID::getVelocity()
+    double PID::GetVelocity()
     {
         return velocity;
     }
 
-    double PID::getAcceleration()
+    double PID::GetAcceleration()
     {
         return acceleration;
     }
 
-    double PID::getTimeSinceTargetReached()
+    double PID::GetTimeSinceTargetReached()
     {
         return timeSinceTargetReached;
     }
 
-    double PID::getTimeSinceTargetSet()
+    double PID::GetTimeSinceTargetSet()
     {
         return timeSinceTargetSet;
     }
 
-    bool PID::getStopped()
+    bool PID::GetStopped()
     {
         return stopped;
     }
