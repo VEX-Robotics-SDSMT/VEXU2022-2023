@@ -6,27 +6,18 @@ namespace Mines
     PID::PID(double (*positionFunction)())
     {
         position = positionFunction;
+        hasInterface = false;
     }
 
-    double PID::bindToMagnitude(double value)
+    PID::PID(PIDInterface *inputInterface)
     {
-        if (value > MAX_POSITIVE_ACCELERATION)
-        {
-            return MAX_POSITIVE_ACCELERATION;
-        }
-        else if (value < MAX_NEGATIVE_ACCELERATION)
-        {
-            return MAX_NEGATIVE_ACCELERATION;
-        }
-        else
-        {
-            return value;
-        }
+        interface = inputInterface;
+        hasInterface = true;
     }
 
     void PID::update(double deltaT)
     {
-        double currentPosition = position();
+        double currentPosition = getPosition();
         double error = target - currentPosition;
         double positional = KP * error;
         double integral = KI * ( lastIntergral + (error * deltaT));
@@ -38,8 +29,7 @@ namespace Mines
         lastIntergral = integral;
 
         //setting output variables
-        acceleration = controlVariable - velocity;
-        velocity = controlVariable;
+        setOutput(controlVariable);
     }
 
     void PID::updateTask()
@@ -51,6 +41,27 @@ namespace Mines
         {
             update(deltaTime);
             pros::Task::delay_until(&startTime, deltaTime);
+        }
+    }
+
+    double PID::getPosition()
+    {
+        if (hasInterface)
+        {
+            return interface->getPositionPID();
+        }
+        else {
+            return position();
+        }
+    }
+
+    void PID::setOutput(double value)
+    {
+        velocity = value;
+
+        if (hasInterface)
+        {
+            interface->setVelocityPID(value);
         }
     }
 
@@ -74,18 +85,6 @@ namespace Mines
         KD = kd;
     }
 
-    void PID::SetMaxAcceleration(double maxPositive, double maxNegative)
-    {
-        MAX_NEGATIVE_ACCELERATION = maxNegative;
-        MAX_POSITIVE_ACCELERATION = maxPositive;
-    }
-
-    void PID::SetMaxAcceleration(double maxAcceleration)
-    {
-        MAX_NEGATIVE_ACCELERATION = maxAcceleration;
-        MAX_POSITIVE_ACCELERATION = maxAcceleration;
-    }
-
     void PID::SetTolerance(double tolerance)
     {
         this->tolerance = tolerance;
@@ -105,11 +104,6 @@ namespace Mines
     double PID::GetVelocity()
     {
         return velocity;
-    }
-
-    double PID::GetAcceleration()
-    {
-        return acceleration;
     }
 
     double PID::GetTimeSinceTargetReached()

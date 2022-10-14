@@ -6,6 +6,13 @@
 
 namespace Mines
 {
+    class PIDInterface
+    {
+        public:
+            virtual double getPositionPID() = 0;
+            virtual void setVelocityPID(double value) = 0;
+    };
+
 
     class PID
     {        
@@ -13,8 +20,6 @@ namespace Mines
         double KP = 0.005;
         double KI = 0;
         double KD = 0.0001;
-        double MAX_NEGATIVE_ACCELERATION = 1;
-        double MAX_POSITIVE_ACCELERATION = 1;
 
         //Setpoints - goal variables of the algorithm
         double target = 0;
@@ -29,38 +34,34 @@ namespace Mines
         double timeSinceTargetReached;
         double timeSinceTargetSet;
         double velocity;
-        double acceleration;
 
         //function pointer to the position function
         double (*position)();
+        PIDInterface *interface;
+        bool hasInterface;
 
         private:
-            double bindToMagnitude(double value);
             void resetTimers();
             void update(double deltaT);
             void updateTask();
+            double getPosition();
+            void setOutput(double value);
 
         public:
             PID(double (*positionFunction)());
+            PID(PIDInterface *inputInterface);
 
             void StartTask();
             void SetPIDConst(double kp, double ki, double kd);
-            void SetMaxAcceleration(double maxPositive, double maxNegative);
-            void SetMaxAcceleration(double maxAcceleration);
             void SetTolerance(double tolerance);
             void SetTarget(double target);
             void SetStopped(bool stopped);
 
-
             double GetVelocity();
-            double GetAcceleration();
             double GetTimeSinceTargetReached();
             double GetTimeSinceTargetSet();
             bool GetStopped();
     };
 }
-
-
-
 
 #endif

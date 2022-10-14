@@ -2,6 +2,7 @@
 #include "PID.h"
 #include "pros/llemu.hpp"
 #include "pros/misc.hpp"
+#include "pros/motors.h"
 #include "pros/rtos.hpp"
 #include <string>
 
@@ -94,7 +95,13 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 
-double posFunc()
+
+MotPID::MotPID()
+{
+
+}
+
+double MotPID::getPositionPID()
 {
 	double pos = test_mtr.get_position();
 	pros::lcd::print(4, "calls: %d, pos: %f", calls, pos);
@@ -102,11 +109,18 @@ double posFunc()
 	return pos;
 }
 
+void MotPID::setVelocityPID(double value)
+{
+	test_mtr.move_velocity(value);
+}
+
 
 void opcontrol() {
 	pros::Controller master(pros::E_CONTROLLER_MASTER);
 	test_mtr.tare_position();
-	Mines::PID pid(&posFunc);
+	MotPID in;
+	
+	Mines::PID pid(&in);
 	pid.SetPIDConst(0.1, 0.001, 0);
 
 	pid.StartTask();
@@ -129,7 +143,7 @@ void opcontrol() {
 	std::uint32_t startTime = pros::millis();
 	int delta = 100;
 
-	pid.SetTarget(1000);
+	pid.SetTarget(5000);
 	while(true)
 	{	
 		double speed = pid.GetVelocity();
