@@ -3,6 +3,7 @@
 #include "pros/llemu.hpp"
 #include "pros/misc.hpp"
 #include "pros/motors.h"
+#include "pros/rtos.h"
 #include "pros/rtos.hpp"
 #include <string>
 
@@ -104,51 +105,43 @@ MotPID::MotPID()
 double MotPID::getPositionPID()
 {
 	double pos = test_mtr.get_position();
-	pros::lcd::print(4, "calls: %d, pos: %f", calls, pos);
+	pros::lcd::print(4, "get_position|calls: %d, pos: %f", calls, pos);
 	calls++;
 	return pos;
 }
 
 void MotPID::setVelocityPID(double value)
 {
+	pros::lcd::print(5, "get_position velocity: %f", value);
 	test_mtr.move_velocity(value);
 }
 
 
-void opcontrol() {
+void opcontrol() {	
 	pros::Controller master(pros::E_CONTROLLER_MASTER);
 	test_mtr.tare_position();
 	MotPID in;
-	
 	Mines::PID pid(&in);
 	pid.SetPIDConst(0.1, 0.001, 0);
-
 	pid.StartTask();
 
-	//LoggerBase logger = Loggerbase();
-
-	/*while (true) {
-		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
-		int left = master.get_analog(ANALOG_LEFT_Y);
-		int right = master.get_analog(ANALOG_RIGHT_Y);
-
-		left_mtr = left;
-		right_mtr = right;
-		pros::delay(20);
-	}*/
-
 	int loopCount = 0;
-	std::uint32_t startTime = pros::millis();
-	int delta = 100;
 
 	pid.SetTarget(5000);
+
+	while(loopCount < 20)
+	{
+		pros::lcd::print(6, "main loop: %d", loopCount);
+		loopCount++;
+		pros::c::delay(100);
+	}
+
+	pid.SetTarget(-120);
+	
+
+	//DO NOT REMOVE: Main should not exit while there are subtasks going on - it will crash the robot
 	while(true)
-	{	
-		double speed = pid.GetVelocity();
-		pros::lcd::print(5, "velocity: %f", speed);
-		test_mtr.move_velocity(speed);
-		pros::Task::delay(20);
+	{
+		pros::c::delay(1000);
 	}
 }

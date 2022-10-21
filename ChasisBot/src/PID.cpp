@@ -1,18 +1,13 @@
 #include "PID.h"
+#include "display/lv_misc/lv_task.h"
+#include "pros/rtos.h"
 #include "pros/rtos.hpp"
 
 namespace Mines
 {
-    PID::PID(double (*positionFunction)())
-    {
-        position = positionFunction;
-        hasInterface = false;
-    }
-
     PID::PID(PIDInterface *inputInterface)
     {
         interface = inputInterface;
-        hasInterface = true;
     }
 
     void PID::update(double deltaT)
@@ -26,7 +21,7 @@ namespace Mines
 
         //setting loop variables
         lastError = error;
-        lastIntergral = integral;
+        lastIntergral = integral; 
 
         //setting output variables
         setOutput(controlVariable);
@@ -36,39 +31,36 @@ namespace Mines
     {
         std::uint32_t startTime = pros::millis();
         int deltaTime = 20;
+        int count = 0;
 
         while(true)
         {
+            count++;
             update(deltaTime);
-            pros::Task::delay_until(&startTime, deltaTime);
+            
+            pros::Task::delay(deltaTime);
         }
     }
 
     double PID::getPosition()
     {
-        if (hasInterface)
-        {
-            return interface->getPositionPID();
-        }
-        else {
-            return position();
-        }
+        return interface->getPositionPID();
     }
 
     void PID::setOutput(double value)
     {
         velocity = value;
+        interface->setVelocityPID(value);
+    }
 
-        if (hasInterface)
-        {
-            interface->setVelocityPID(value);
-        }
+    void PID::taskStarter(void* arg)
+    {
+        PID* pidPtr = static_cast<PID *>(arg);  
+        pidPtr->updateTask();
     }
 
     void PID::StartTask(){
-        pros::Task my_task([this] { 
-            this->updateTask(); 
-        } );
+        pros::Task my_task(taskStarter, this, "PID task");
     }
 
     //----------------Getters/Setters-------------------

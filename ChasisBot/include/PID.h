@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include "api.h"
 
 namespace Mines
 {
@@ -35,23 +36,21 @@ namespace Mines
         double timeSinceTargetSet;
         double velocity;
 
-        //function pointer to the position function
-        double (*position)();
-        PIDInterface *interface;
-        bool hasInterface;
-
         private:
+            static void taskStarter(void* arg);
             void resetTimers();
             void update(double deltaT);
-            void updateTask();
             double getPosition();
             void setOutput(double value);
 
         public:
+            PIDInterface *interface;
+
             PID(double (*positionFunction)());
             PID(PIDInterface *inputInterface);
 
             void StartTask();
+            void updateTask();
             void SetPIDConst(double kp, double ki, double kd);
             void SetTolerance(double tolerance);
             void SetTarget(double target);
