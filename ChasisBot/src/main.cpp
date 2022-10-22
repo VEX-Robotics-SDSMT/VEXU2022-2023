@@ -1,5 +1,6 @@
-#include "./../include/main.h"
 #include <string>
+#include "../include/main.h"
+#include "../include/globals.h"
 
 /**
  * A callback function for LLEMU's center button.
@@ -7,6 +8,9 @@
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
+
+
+
 void on_center_button() {
 	static bool pressed = false;
 	pressed = !pressed;
@@ -42,6 +46,7 @@ void initialize() {
 	pros::lcd::set_text(1, "Hello PROS User!");
 
 	pros::lcd::register_btn1_cb(on_center_button);
+	pros::Master::clear();
 }
 
 /**
