@@ -19,10 +19,17 @@ class MinesMotorGroup
 
     //public functions
     public:
-    void Initialize(std::vector<pros::Motor> &motors);
-    void Initialize(pros::Motor motors[], int numMotors);
+        MinesMotorGroup(std::vector<pros::Motor> &motors);
+        MinesMotorGroup(pros::Motor motors[], int numMotors);
 
-    int move(const int voltage);
+        int move(const int voltage);
+        int moveVelocity(const int velocity);
+        int brake();
+        int tarePosition();
+        int setBrakeMode(pros::motor_brake_mode_e mode);
+        double getActualVelocity();
+        double getPosition();
+
 
     //private functions
     private:

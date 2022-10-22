@@ -1,10 +1,11 @@
 #include "./../include/MinesMotorGroup.h"
+#include "pros/motors.h"
 #include "pros/motors.hpp"
 #include <vector>
 
 using namespace Mines;
 
-void MinesMotorGroup::Initialize(pros::Motor motors[], int numMotors)
+MinesMotorGroup::MinesMotorGroup(pros::Motor motors[], int numMotors)
 {
     if (!initialized)
     {
@@ -18,7 +19,7 @@ void MinesMotorGroup::Initialize(pros::Motor motors[], int numMotors)
     }
 }
 
-void MinesMotorGroup::Initialize(std::vector<pros::Motor> &motors)
+MinesMotorGroup::MinesMotorGroup(std::vector<pros::Motor> &motors)
 {
     if (!initialized)
     {
@@ -42,6 +43,58 @@ int MinesMotorGroup::move(const int voltage)
     return 0;
 }
 
+int MinesMotorGroup::moveVelocity(const int velocity)
+{
+    for(int i = 0; i < motorVector.size(); i++)
+    {
+        motorVector[i].move_velocity(velocity);
+    }
+    return 0;
+}
 
+int MinesMotorGroup::brake()
+{
+    for(int i = 0; i < motorVector.size(); i++)
+    {
+        motorVector[i].brake();
+    }
+    return 0;
+}
 
+int MinesMotorGroup::tarePosition()
+{
+    for(int i = 0; i < motorVector.size(); i++)
+    {
+        motorVector[i].tare_position();
+    }
+    return 0;
+}
 
+int MinesMotorGroup::setBrakeMode(pros::motor_brake_mode_e mode)
+{
+    for(int i = 0; i < motorVector.size(); i++)
+    {
+        motorVector[i].set_brake_mode(mode);
+    }
+    return 0;
+}
+
+double MinesMotorGroup::getActualVelocity()
+{
+    double average = 0;
+    for(int i = 0; i < motorVector.size(); i++)
+    {
+        average += motorVector[i].get_actual_velocity();
+    }
+    return average / motorVector.size();
+}
+
+double MinesMotorGroup::getPosition()
+{
+    double average = 0;
+    for(int i = 0; i < motorVector.size(); i++)
+    {
+        average += motorVector[i].get_position();
+    }
+    return average / motorVector.size();
+}

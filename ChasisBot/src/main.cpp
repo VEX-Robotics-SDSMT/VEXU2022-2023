@@ -111,8 +111,7 @@ void opcontrol() {
 
 	pros::Motor motorList[] = {left_mtr, right_mtr};
 
-	Mines::MinesMotorGroup group;
-	group.Initialize(motorList, 2);
+	Mines::MinesMotorGroup group(motorList, 2);
 
 
 
