@@ -5,6 +5,7 @@
 #include "pros/motors.h"
 #include "pros/rtos.h"
 #include "pros/rtos.hpp"
+#include "MinesMotorGroup.h"
 #include <string>
 
 
@@ -33,6 +34,31 @@ void on_center_button() {
 	}
 }
 
+void testTask(){
+	int loopCount = 0;
+	std::uint32_t startTime = pros::millis();
+	int delta = 5;
+	while(true)
+	{	
+		pros::lcd::set_text(3, "async loops : " + std::to_string(loopCount));
+		pros::Task::delay_until(&startTime, delta);
+		loopCount++;
+	}
+}
+
+void PIDTask(){
+	std::uint32_t startTime = pros::millis();
+	int deltaTime = 20;
+
+	while(true)
+	{
+		//add PID calls
+
+		pros::Task::delay_until(&startTime, deltaTime);
+	}
+
+}
+
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -44,7 +70,6 @@ void initialize() {
 	pros::lcd::set_text(1, "Hello PROS User!");
 
 	pros::lcd::register_btn1_cb(on_center_button);
-
 
 	//set up PIDs
 	//testPID = Mines::PID();	
@@ -124,6 +149,28 @@ void opcontrol() {
 	Mines::PID pid(&in);
 	pid.SetPIDConst(0.1, 0.001, 0);
 	pid.StartTask();
+
+	pros::Motor motorList[] = {left, right_mtr};
+
+	Mines::MinesMotorGroup group(motorList, 2);
+
+
+
+	//LoggerBase logger = Loggerbase();
+
+	/*while (true) {
+		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
+		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
+		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
+		int left = master.get_analog(ANALOG_LEFT_Y);
+		int right = master.get_analog(ANALOG_RIGHT_Y);
+
+		left_mtr = left;
+		right_mtr = right;
+		pros::delay(20);
+	}*/
+
+	pros::Task my_callable_task (testTask, "callable_task");
 
 	int loopCount = 0;
 

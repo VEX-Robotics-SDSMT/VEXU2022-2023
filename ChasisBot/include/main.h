@@ -36,6 +36,7 @@
 
 #include "api.h"
 #include "PID.h"
+#include "./../include/MinesMotorGroup.h"
 
 /**
  * You should add more #includes here
