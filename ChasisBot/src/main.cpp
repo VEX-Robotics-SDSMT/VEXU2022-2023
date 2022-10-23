@@ -1,5 +1,6 @@
 #include "main.h"
 #include "PID.h"
+#include "globals.h"
 #include "pros/llemu.hpp"
 #include "pros/misc.hpp"
 #include "pros/motors.h"
@@ -150,9 +151,8 @@ void opcontrol() {
 	pid.SetPIDConst(0.1, 0.001, 0);
 	pid.StartTask();
 
-	pros::Motor motorList[] = {left, right_mtr};
-
-	Mines::MinesMotorGroup group(motorList, 2);
+	pros::Motor motorList[] = {leftFrontDrive, leftMidDrive, leftBackDrive};
+	Mines::MinesMotorGroup group(motorList, 3);
 
 
 
