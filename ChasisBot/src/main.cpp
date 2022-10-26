@@ -1,4 +1,18 @@
-#include "../include/main.h"
+#include "main.h"
+#include "PID.h"
+#include "pros/llemu.hpp"
+#include "pros/misc.hpp"
+#include "pros/motors.h"
+#include "pros/rtos.h"
+#include "pros/rtos.hpp"
+
+//globals
+
+pros::Motor test_mtr(20);
+int calls = 0;
+
+
+
 
 /**
  * A callback function for LLEMU's center button.
@@ -19,29 +33,19 @@ void on_center_button() {
 	}
 }
 
-
-void testTask(){
-	int loopCount = 0;
-	std::uint32_t startTime = pros::millis();
-	int delta = 5;
-	while(true)
-	{	
-		pros::lcd::clear_line(3);
-		pros::lcd::set_text(3, "async loops : " + std::to_string(loopCount));
-		pros::Task::delay_until(&startTime, delta);
-		loopCount++;
-	}
-}
-
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
  * All other competition modes are blocked by initialize; it is recommended
  * to keep execution time for this mode under a few seconds.
  */
+
+
 void initialize() 
 {
 	redBlue = initAutonSide(MasterController);
+	//set up PIDs
+	//testPID = Mines::PID();	
 }
 
 /**
@@ -103,34 +107,53 @@ void autonomous()
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
-void opcontrol() {
+
+
+MotPID::MotPID()
+{
+
+}
+
+double MotPID::getPositionPID()
+{
+	double pos = test_mtr.get_position();
+	pros::lcd::print(4, "get_position|calls: %d, pos: %f", calls, pos);
+	calls++;
+	return pos;
+}
+
+void MotPID::setVelocityPID(double value)
+{
+	pros::lcd::print(5, "get_position velocity: %f", value);
+	test_mtr.move_velocity(value);
+}
+
+
+void opcontrol() {	
 	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	pros::Motor left_mtr(1);
-	pros::Motor right_mtr(2);
-
-	//LoggerBase logger = Loggerbase();
-
-	/*while (true) {
-		pros::lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);
-		int left = master.get_analog(ANALOG_LEFT_Y);
-		int right = master.get_analog(ANALOG_RIGHT_Y);
-
-		left_mtr = left;
-		right_mtr = right;
-		pros::delay(20);
-	}*/
-
-	pros::Task my_callable_task (testTask, "callable_task");
+	test_mtr.tare_position();
+	MotPID in;
+	Mines::PID pid(&in);
+	pid.SetPIDConst(0.1, 0.001, 0);
+	pid.StartTask();
 
 	int loopCount = 0;
-	std::uint32_t startTime = pros::millis();
-	int delta = 100;
-	while(true)
-	{	
-		pros::lcd::set_text(4, "main loops : " + std::to_string(loopCount));
-		pros::Task::delay_until(&startTime, delta);
+
+	pid.SetTarget(5000);
+
+	while(loopCount < 20)
+	{
+		pros::lcd::print(6, "main loop: %d", loopCount);
 		loopCount++;
+		pros::c::delay(100);
+	}
+
+	pid.SetTarget(-120);
+	
+
+	//DO NOT REMOVE: Main should not exit while there are subtasks going on - it will crash the robot
+	while(true)
+	{
+		pros::c::delay(1000);
 	}
 }

@@ -38,6 +38,7 @@
 #include "api.h"
 #include "globals.h"
 #include "controllerUI.h"
+#include "PID.h"
 
 /**
  * You should add more #includes here
@@ -65,6 +66,16 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+ class MotPID : public Mines::PIDInterface
+ {
+	public:
+		MotPID();
+		double getPositionPID() override;
+		void setVelocityPID(double value) override;
+ };
+
+
 void autonomous(void);
 void initialize(void);
 void disabled(void);
