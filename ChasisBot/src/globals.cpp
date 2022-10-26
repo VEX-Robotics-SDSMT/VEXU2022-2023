@@ -1,3 +1,4 @@
 #include "pros/misc.h"
-#include "../include/pros/globals.h"
-pros::Controller(Master);
+#include "../include/globals.h"
+
+pros::Controller Master (pros::E_CONTROLLER_MASTER);
