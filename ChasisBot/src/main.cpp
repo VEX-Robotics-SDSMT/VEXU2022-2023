@@ -1,7 +1,4 @@
-#include <string>
 #include "../include/main.h"
-#include "globals.cpp"
-#include "../include/globals.h"
 
 /**
  * A callback function for LLEMU's center button.
@@ -10,7 +7,7 @@
  * "I was pressed!" and nothing.
  */
 
-
+int redBlue = 0;
 
 void on_center_button() {
 	static bool pressed = false;
@@ -44,24 +41,7 @@ void testTask(){
  */
 void initialize() 
 {
-	pros::lcd::initialize();
-	pros::lcd::set_text(1, "Hello PROS User!");
-
-	pros::lcd::register_btn1_cb(on_center_button);
-
-	Master.print(0, 0, "A = Red, X = Blue");
-	while(redBlue == 0)
-	{
-		if(Master.get_digital(pros::E_CONTROLLER_DIGITAL_A))
-		{
-			redBlue = 1;
-		}
-		else if(Master.get_digital(pros::E_CONTROLLER_DIGITAL_X))
-		{
-			redBlue = 2;
-		}
-	}
-	pros::delay(50);
+	redBlue = initAutonSide(MasterController);
 }
 
 /**
@@ -99,11 +79,11 @@ void competition_initialize()
  */
 void autonomous() 
 {
-	if(redBlue )
+	if(redBlue == 1)
 	{
 
 	}
-	else if ()
+	else if (redBlue == 2)
 	{
 
 	}

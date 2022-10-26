@@ -34,7 +34,10 @@
  */
 #define PROS_USE_LITERALS
 
+#include <string>
 #include "api.h"
+#include "globals.h"
+#include "controllerUI.h"
 
 /**
  * You should add more #includes here
