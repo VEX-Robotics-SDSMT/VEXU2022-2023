@@ -1,6 +1,6 @@
 #include "../include/controllerUI.h"
 
-int initAutonSide(pros::Controller Master)
+int initAutonSide(pros::Controller& Master)
 {
     Master.print(0, 0, "A = Red, X = Blue");
 	pros::lcd::initialize();

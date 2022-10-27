@@ -1,10 +1,4 @@
 #include "main.h"
-#include "PID.h"
-#include "pros/llemu.hpp"
-#include "pros/misc.hpp"
-#include "pros/motors.h"
-#include "pros/rtos.h"
-#include "pros/rtos.hpp"
 
 //globals
 
@@ -66,8 +60,6 @@ void disabled() {}
  */
 void competition_initialize() 
 {
-	int side = 0;
-	initVariables(side);
 }
 
 /**
@@ -83,11 +75,11 @@ void competition_initialize()
  */
 void autonomous() 
 {
-	if(redBlue == 1)
+	if(redBlue == 1) // red
 	{
 
 	}
-	else if (redBlue == 2)
+	else if (redBlue == 2) // blue
 	{
 
 	}
