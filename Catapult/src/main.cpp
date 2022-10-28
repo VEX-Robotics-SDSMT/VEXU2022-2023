@@ -141,6 +141,8 @@ void opcontrol() {
 	// 	pros::c::delay(100);
 	// }
 
+	for(auto motor : )
+
 	while(true)
 	{
 		for(auto motor : leftDriveMotors)
@@ -169,7 +171,7 @@ void opcontrol() {
 		{
 			for(auto motor : catapultMotors)
 			{
-				motor.move(127);
+				motor.move_velocity(25);
 			}
 		}
 		else

@@ -14,10 +14,10 @@ pros::Motor rightTopRearDrive(R_TOP_REAR, pros::E_MOTOR_GEARSET_06, false);
 pros::Motor rightBotRearDrive(R_BOT_REAR, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor rightFrontDrive(R_FRONT, pros::E_MOTOR_GEARSET_06, false);
 
-pros::Motor leftCatapult(R_CATAPULT, pros::E_MOTOR_GEARSET_36, false);
+pros::Motor leftCatapult(R_CATAPULT, pros::E_MOTOR_GEARSET_36, true);
 pros::Motor rightCatapult(L_CATAPULT, pros::E_MOTOR_GEARSET_36, false);
 
-pros::Motor intake(INTAKE, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor intake(INTAKE, pros::E_MOTOR_GEARSET_06, true);
 
 std::vector<pros::Motor> leftDriveMotors = {leftTopRearDrive, leftBotRearDrive, leftFrontDrive};
 std::vector<pros::Motor> rightDriveMotors = {rightTopRearDrive, rightBotRearDrive, rightFrontDrive};

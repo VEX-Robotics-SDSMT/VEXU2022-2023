@@ -141,6 +141,57 @@ void opcontrol() {
 	// }
 
 	// pid.SetTarget(-120);
+
+	while(1)
+	{
+
+	for(auto motor : leftDriveMotors)
+		{
+			motor.move(((MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X))+(MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y))/2));
+		}
+		for(auto motor : rightDriveMotors)
+		{
+			motor.move(((MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X))-(MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y))/2));
+		}
+
+
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R1))
+		{
+			intake.move(80);
+		}
+		else if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R2))
+		{
+			intake.move(-80);
+		}
+		else
+		{
+			intake.brake();
+		}
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
+		{
+			for(auto motor : catapultMotors)
+			{
+				motor.move(127);
+			}
+		}
+		else
+		{
+			for(auto motor : catapultMotors)
+			{
+				motor.brake();
+			}
+		}
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L2))
+		{
+			topRoller.move(127);
+		}
+		else
+		{
+			topRoller.brake();
+		}
+	}
+
+	}
 	
 
 	//DO NOT REMOVE: Main should not exit while there are subtasks going on - it will crash the robot
