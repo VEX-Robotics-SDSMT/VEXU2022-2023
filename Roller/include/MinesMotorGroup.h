@@ -28,6 +28,7 @@ class MinesMotorGroup
         int tarePosition();
         int setBrakeMode(pros::motor_brake_mode_e mode);
         double getActualVelocity();
+        double getMaxVelocity();
         double getPosition();
 
 
