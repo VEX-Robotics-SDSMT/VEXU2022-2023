@@ -100,33 +100,26 @@ MinesMotorGroup leftDriveMotors(leftDriveVector);
 MinesMotorGroup rightDriveMotors(rightDriveVector);
 
 void opcontrol()
-{	
-	double lefty = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-		double rightx = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X); 
-		leftDriveMotors.moveVelocity(((rightx+lefty) * 600 / 127));
-		rightDriveMotors.moveVelocity(((rightx-lefty) * 600 / 127));
+{
 
-		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L2))
+	//DO NOT REMOVE: Main should not exit while there are subtasks going on - it will crash the robot
+	while(true)
+	{
+		double lefty = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+		double rightx = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X); 
+		leftDriveMotors.moveVelocity(((lefty+rightx) * 600 / 127));
+		rightDriveMotors.moveVelocity(((lefty-rightx) * 600 / 127));
+
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R1))
 		{
-			topRoller.move(127);
+			topRoller.move_velocity(200);
 		}
 		else
 		{
 			topRoller.brake();
 		};
-	
-
-	//pid.SetTarget(-120);
-	
-
-	//DO NOT REMOVE: Main should not exit while there are subtasks going on - it will crash the robot
-	while(true)
-	{
-		pros::c::delay(1000);
+		pros::c::delay(20);
 	}
-
-
-	
 
 	//DO NOT REMOVE: Main should not exit while there are subtasks going on - it will crash the robot
 	while(true)

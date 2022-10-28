@@ -7,12 +7,12 @@ pros::Imu intertialSensor(INERTIAL_SENSOR);
 
 pros::Motor topRoller(TOP_ROLLER, pros::E_MOTOR_GEARSET_36, false);
 
-pros::Motor leftTopFrontDrive(L_TOP_FRONT, pros::E_MOTOR_GEARSET_06, true);
-pros::Motor leftBotFrontDrive(L_BOT_FRONT, pros::E_MOTOR_GEARSET_06, true);
-pros::Motor leftRearDrive(L_REAR, pros::E_MOTOR_GEARSET_06, true);
+pros::Motor leftTopFrontDrive(L_TOP_FRONT, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor leftTopRearDrive(L_TOP_REAR, pros::E_MOTOR_GEARSET_06, true);
+pros::Motor leftBotDrive(L_BOT, pros::E_MOTOR_GEARSET_06, false);
 pros::Motor rightTopFrontDrive(R_TOP_FRONT, pros::E_MOTOR_GEARSET_06, true);
-pros::Motor rightBotFrontDrive(R_BOT_FRONT, pros::E_MOTOR_GEARSET_06, false);
-pros::Motor rightRearDrive(R_REAR, pros::E_MOTOR_GEARSET_06, true);
+pros::Motor rightTopRearDrive(R_TOP_REAR, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor rightBotDrive(R_BOT, pros::E_MOTOR_GEARSET_06, true);
 
-std::vector<pros::Motor> leftDriveVector = {leftTopFrontDrive, leftBotFrontDrive, leftRearDrive};
-std::vector<pros::Motor> rightDriveVector = {rightTopFrontDrive, rightBotFrontDrive, rightRearDrive};
+std::vector<pros::Motor> leftDriveVector = {leftTopFrontDrive, leftTopRearDrive, leftBotDrive};
+std::vector<pros::Motor> rightDriveVector = {rightTopFrontDrive, rightTopRearDrive, rightBotDrive};
