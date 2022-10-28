@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "TestUI",
+    "project_name": "UCTest",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -308,7 +308,7 @@
     },
     "upload_options": {
       "icon": "pros",
-      "slot": 8
+      "slot": 1
     }
   }
 }

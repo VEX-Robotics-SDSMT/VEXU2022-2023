@@ -122,25 +122,25 @@ void MotPID::setVelocityPID(double value)
 
 
 void opcontrol() {	
-	pros::Controller master(pros::E_CONTROLLER_MASTER);
-	test_mtr.tare_position();
-	MotPID in;
-	Mines::PID pid(&in);
-	pid.SetPIDConst(0.1, 0.001, 0);
-	pid.StartTask();
+	// pros::Controller master(pros::E_CONTROLLER_MASTER);
+	// test_mtr.tare_position();
+	// MotPID in;
+	// Mines::PID pid(&in);
+	// pid.SetPIDConst(0.1, 0.001, 0);
+	// pid.StartTask();
 
-	int loopCount = 0;
+	// int loopCount = 0;
 
-	pid.SetTarget(5000);
+	// pid.SetTarget(5000);
 
-	while(loopCount < 20)
-	{
-		pros::lcd::print(6, "main loop: %d", loopCount);
-		loopCount++;
-		pros::c::delay(100);
-	}
+	// while(loopCount < 20)
+	// {
+	// 	pros::lcd::print(6, "main loop: %d", loopCount);
+	// 	loopCount++;
+	// 	pros::c::delay(100);
+	// }
 
-	pid.SetTarget(-120);
+	// pid.SetTarget(-120);
 	
 
 	//DO NOT REMOVE: Main should not exit while there are subtasks going on - it will crash the robot
