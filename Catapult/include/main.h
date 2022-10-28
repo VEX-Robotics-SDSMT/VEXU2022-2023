@@ -39,6 +39,7 @@
 #include "globals.h"
 #include "controllerUI.h"
 #include "PID.h"
+#include "MinesMotorGroup.h"
 
 
 /**

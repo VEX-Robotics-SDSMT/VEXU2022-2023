@@ -19,7 +19,7 @@ pros::Motor rightCatapult(L_CATAPULT, pros::E_MOTOR_GEARSET_36, false);
 
 pros::Motor intake(INTAKE, pros::E_MOTOR_GEARSET_06, true);
 
-std::vector<pros::Motor> leftDriveMotors = {leftTopRearDrive, leftBotRearDrive, leftFrontDrive};
-std::vector<pros::Motor> rightDriveMotors = {rightTopRearDrive, rightBotRearDrive, rightFrontDrive};
+std::vector<pros::Motor> leftDriveVector = {leftTopRearDrive, leftBotRearDrive, leftFrontDrive};
+std::vector<pros::Motor> rightDriveVector = {rightTopRearDrive, rightBotRearDrive, rightFrontDrive};
 
-std::vector<pros::Motor> catapultMotors {leftCatapult, rightCatapult};
+std::vector<pros::Motor> catapultVector = {leftCatapult, rightCatapult};

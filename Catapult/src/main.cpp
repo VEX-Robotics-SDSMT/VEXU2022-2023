@@ -1,13 +1,12 @@
 #include "main.h"
+#include "MinesMotorGroup.h"
+#include "globals.h"
 #include "pros/misc.h"
 
+using namespace Mines;
+
+
 //globals
-
-pros::Motor test_mtr(20);
-int calls = 0;
-
-
-
 
 /**
  * A callback function for LLEMU's center button.
@@ -102,24 +101,24 @@ void autonomous()
  */
 
 
-MotPID::MotPID()
-{
+// MotPID::MotPID()
+// {
 
-}
+// }
 
-double MotPID::getPositionPID()
-{
-	double pos = test_mtr.get_position();
-	pros::lcd::print(4, "get_position|calls: %d, pos: %f", calls, pos);
-	calls++;
-	return pos;
-}
+// double MotPID::getPositionPID()
+// {
+// 	double pos = test_mtr.get_position();
+// 	pros::lcd::print(4, "get_position|calls: %d, pos: %f", calls, pos);
+// 	calls++;
+// 	return pos;
+// }
 
-void MotPID::setVelocityPID(double value)
-{
-	pros::lcd::print(5, "get_position velocity: %f", value);
-	test_mtr.move_velocity(value);
-}
+// void MotPID::setVelocityPID(double value)
+// {
+// 	pros::lcd::print(5, "get_position velocity: %f", value);
+// 	test_mtr.move_velocity(value);
+// }
 
 
 void opcontrol() {	
@@ -141,45 +140,53 @@ void opcontrol() {
 	// 	pros::c::delay(100);
 	// }
 
-	for(auto motor : )
+	MinesMotorGroup leftDriveMotors(leftDriveVector);
+	MinesMotorGroup rightDriveMotors(rightDriveVector);
+	MinesMotorGroup catapultMotors(catapultVector);
+
+	catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+
+	bool toggleIntake = 0;
 
 	while(true)
 	{
-		for(auto motor : leftDriveMotors)
+		double lefty = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+		double rightx = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X); 
+		leftDriveMotors.moveVelocity(((rightx+lefty) * 600 / 127));
+		rightDriveMotors.moveVelocity(((rightx-lefty) * 600 / 127));
+
+		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1))
 		{
-			motor.move(((MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X))+(MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y))/2));
-		}
-		for(auto motor : rightDriveMotors)
-		{
-			motor.move(((MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X))-(MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y))/2));
+			if(toggleIntake == 0)
+			{
+				toggleIntake = 1;
+			}
+			else
+			{
+				toggleIntake = 0;
+			}
 		}
 
-
-		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R1))
+		if(toggleIntake == 1)
 		{
-			intake.move(80);
+			intake.move_velocity(600);
 		}
-		else if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R2))
+		else if (MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R2))
 		{
-			intake.move(-80);
+			intake.move_velocity(-600);
 		}
 		else
 		{
 			intake.brake();
 		}
+		
 		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
 		{
-			for(auto motor : catapultMotors)
-			{
-				motor.move_velocity(25);
-			}
+			catapultMotors.moveVelocity(25);
 		}
 		else
 		{
-			for(auto motor : catapultMotors)
-			{
-				motor.brake();
-			}
+			catapultMotors.brake();
 		}
 		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L2))
 		{
@@ -188,7 +195,7 @@ void opcontrol() {
 		else
 		{
 			topRoller.brake();
-		}
+		};
 	}
 
 	//pid.SetTarget(-120);
