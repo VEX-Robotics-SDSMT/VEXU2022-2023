@@ -1,5 +1,5 @@
-#ifndef GLOBALS
-#define GLOBALS
+#ifndef GLOBALS_H
+#define GLOBALS_H
 
 #include "api.h"
 
@@ -13,6 +13,6 @@ extern pros::Motor leftBackDrive;
 
 extern pros::IMU inertial;
 
-
+extern pros::Controller MasterController;
 
 #endif
