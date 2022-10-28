@@ -38,9 +38,9 @@ extern pros::Motor rightCatapult;
 
 extern pros::Motor intake;
 
-extern std::vector<pros::Motor> leftDriveMotors;
-extern std::vector<pros::Motor> rightDriveMotors;
+extern std::vector<pros::Motor> leftDriveVector;
+extern std::vector<pros::Motor> rightDriveVector;
 
-extern std::vector<pros::Motor> catapultMotors;
+extern std::vector<pros::Motor> catapultVector;
 
 #endif
