@@ -107,7 +107,7 @@ void opcontrol()
 
 	DiffDrive drive(leftDriveMotors, rightDriveMotors);
 
-	drive.driveTiles(2);
+	drive.driveTiles(3000);
 
 	pros::lcd::set_text(2, "Drive succeeded");
 

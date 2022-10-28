@@ -2,6 +2,7 @@
 #include "MinesMotorGroup.h"
 #include "pros/llemu.hpp"
 #include "pros/motors.hpp"
+#include "pros/rtos.h"
 
 using namespace Mines;
 
@@ -11,6 +12,8 @@ DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right) :
     driveInterface(this), turnInterface(this),
     drivePID(&driveInterface), turnPID(&turnInterface)
 {
+    drivePID.SetPIDConst(1, 0, 0);
+
     drivePID.StartTask();
     turnPID.StartTask();
 }
@@ -18,6 +21,13 @@ DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right) :
 void DiffDrive::driveTiles(double target, bool waitForCompletion)
 {
     drivePID.SetTarget(target);
+    if(waitForCompletion)
+    {
+        while(drivePID.GetTimeSinceTargetReached() < 1)
+        {
+            pros::c::delay(20);
+        }
+    }
 }
 
 void DiffDrive::turnDegreesAbsolute(double target, bool waitForCompletion)
@@ -30,9 +40,9 @@ void DiffDrive::turnDegreesRelative(double target, bool waitForCompletion)
 
 }
 
-void DiffDrive::setBrakeMode()
+void DiffDrive::setBrakeMode(pros::motor_brake_mode_e mode)
 {
-
+    leftMotors.setBrakeMode(mode);
 }
 
 double DiffDrive::getDrivePosition()

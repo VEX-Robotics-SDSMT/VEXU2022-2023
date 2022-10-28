@@ -44,7 +44,7 @@ class DiffDrive
         void driveTiles(double target, bool waitForCompletion=true);
         void turnDegreesAbsolute(double target, bool waitForCompletion);
         void turnDegreesRelative(double target, bool waitForCompletion);
-        void setBrakeMode();
+        void setBrakeMode(pros::motor_brake_mode_e mode);
 
     private:
         double getDrivePosition();
