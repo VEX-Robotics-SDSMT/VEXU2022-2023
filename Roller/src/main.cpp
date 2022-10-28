@@ -2,18 +2,14 @@
 
 //globals
 
-pros::Motor test_mtr(20);
-int calls = 0;
-
-
-
-
 /**
  * A callback function for LLEMU's center button.
  *
  * When this callback is fired, it will toggle line 2 of the LCD text between
  * "I was pressed!" and nothing.
  */
+
+using namespace Mines;
 
 int redBlue = 0;
 
@@ -100,87 +96,16 @@ void autonomous()
  * task, not resume it from where it left off.
  */
 
+MinesMotorGroup leftDriveMotors(leftDriveVector);
+MinesMotorGroup rightDriveMotors(rightDriveVector);
 
-MotPID::MotPID()
-{
+void opcontrol()
+{	
+	double lefty = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+		double rightx = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X); 
+		leftDriveMotors.moveVelocity(((rightx+lefty) * 600 / 127));
+		rightDriveMotors.moveVelocity(((rightx-lefty) * 600 / 127));
 
-}
-
-double MotPID::getPositionPID()
-{
-	double pos = test_mtr.get_position();
-	pros::lcd::print(4, "get_position|calls: %d, pos: %f", calls, pos);
-	calls++;
-	return pos;
-}
-
-void MotPID::setVelocityPID(double value)
-{
-	pros::lcd::print(5, "get_position velocity: %f", value);
-	test_mtr.move_velocity(value);
-}
-
-
-void opcontrol() {	
-	// pros::Controller master(pros::E_CONTROLLER_MASTER);
-	// test_mtr.tare_position();
-	// MotPID in;
-	// Mines::PID pid(&in);
-	// pid.SetPIDConst(0.1, 0.001, 0);
-	// pid.StartTask();
-
-	// int loopCount = 0;
-
-	// pid.SetTarget(5000);
-
-	// while(loopCount < 20)
-	// {
-	// 	pros::lcd::print(6, "main loop: %d", loopCount);
-	// 	loopCount++;
-	// 	pros::c::delay(100);
-	// }
-
-	// pid.SetTarget(-120);
-
-	while(1)
-	{
-
-	for(auto motor : leftDriveMotors)
-		{
-			motor.move(((MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X))+(MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y))/2));
-		}
-		for(auto motor : rightDriveMotors)
-		{
-			motor.move(((MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X))-(MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y))/2));
-		}
-
-
-		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R1))
-		{
-			intake.move(80);
-		}
-		else if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R2))
-		{
-			intake.move(-80);
-		}
-		else
-		{
-			intake.brake();
-		}
-		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
-		{
-			for(auto motor : catapultMotors)
-			{
-				motor.move(127);
-			}
-		}
-		else
-		{
-			for(auto motor : catapultMotors)
-			{
-				motor.brake();
-			}
-		}
 		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L2))
 		{
 			topRoller.move(127);
@@ -188,10 +113,19 @@ void opcontrol() {
 		else
 		{
 			topRoller.brake();
-		}
+		};
+	
+
+	//pid.SetTarget(-120);
+	
+
+	//DO NOT REMOVE: Main should not exit while there are subtasks going on - it will crash the robot
+	while(true)
+	{
+		pros::c::delay(1000);
 	}
 
-	}
+
 	
 
 	//DO NOT REMOVE: Main should not exit while there are subtasks going on - it will crash the robot
