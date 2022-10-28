@@ -1,4 +1,6 @@
 #include "main.h"
+#include "DiffDrive.h"
+#include "globals.h"
 
 //globals
 
@@ -101,6 +103,20 @@ MinesMotorGroup rightDriveMotors(rightDriveVector);
 
 void opcontrol()
 {	
+	//ATTENTION REMOVE:
+
+	DiffDrive drive(leftDriveMotors, rightDriveMotors);
+
+	drive.driveTiles(2);
+
+	pros::lcd::set_text(2, "Drive succeeded");
+
+	while(true)
+	{
+		pros::delay(1000);
+	}
+
+
 	double lefty = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
 		double rightx = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X); 
 		leftDriveMotors.moveVelocity(((rightx+lefty) * 600 / 127));
