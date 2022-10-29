@@ -125,11 +125,11 @@ void opcontrol()
 
 		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN))
 		{
-			string.move_velocity(200);
+			string.move_velocity(100);
 		}
 		else if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
 		{
-			string.move_velocity(-200);
+			string.move_velocity(-100);
 		}
 		else
 		{
