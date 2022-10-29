@@ -23,3 +23,11 @@ std::vector<pros::Motor> leftDriveVector = {leftTopRearDrive, leftBotRearDrive, 
 std::vector<pros::Motor> rightDriveVector = {rightTopRearDrive, rightBotRearDrive, rightFrontDrive};
 
 std::vector<pros::Motor> catapultVector = {leftCatapult, rightCatapult};
+
+double axisPercentBlue = 600.0 / 127;
+double axisPercentGreen = 200.0 / 127;
+double axisPercentRed = 100.0 / 127;
+int blue = 600;
+int green = 200;
+int red = 100;
+

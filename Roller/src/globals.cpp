@@ -1,4 +1,3 @@
-#include "api.h"
 #include "../include/globals.h"
 
 pros::Controller MasterController (pros::E_CONTROLLER_MASTER);
@@ -14,8 +13,16 @@ pros::Motor rightTopFrontDrive(R_TOP_FRONT, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor rightTopRearDrive(R_TOP_REAR, pros::E_MOTOR_GEARSET_06, false);
 pros::Motor rightBotDrive(R_BOT, pros::E_MOTOR_GEARSET_06, true);
 
+pros::Motor string(STRING, pros::E_MOTOR_GEARSET_36, true);
+
 std::vector<pros::Motor> leftDriveVector = {leftTopFrontDrive, leftTopRearDrive, leftBotDrive};
 std::vector<pros::Motor> rightDriveVector = {rightTopFrontDrive, rightTopRearDrive, rightBotDrive};
+Mines::MinesMotorGroup leftDriveMotors(leftDriveVector);
+Mines::MinesMotorGroup rightDriveMotors(rightDriveVector);
 
-
-int testCounter = 0;
+double axisPercentBlue = 600.0 / 127;
+double axisPercentGreen = 200.0 / 127;
+double axisPercentRed = 100.0 / 127;
+int blue = 600;
+int green = 200;
+int red = 100;
