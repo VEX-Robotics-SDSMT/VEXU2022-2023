@@ -1,6 +1,7 @@
 #include "main.h"
 #include "DiffDrive.h"
 #include "globals.h"
+#include "pros/rtos.h"
 
 //globals
 
@@ -35,6 +36,7 @@ void on_center_button() {
 
 void initialize() 
 {
+	intertialSensor.reset();
 	redBlue = initAutonSide(MasterController);
 	//set up PIDs
 	//testPID = Mines::PID();	
@@ -104,15 +106,25 @@ MinesMotorGroup rightDriveMotors(rightDriveVector);
 void opcontrol()
 {	
 	//ATTENTION REMOVE:
+	//pros::lcd::print(7, "heading: %f", intertialSensor.get_heading());
 
-	DiffDrive drive(leftDriveMotors, rightDriveMotors);
+	DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
+	drive.setDrivePIDVals(0.6, 0, 0);
+	drive.setDrivePIDTol(100);
+	drive.setTurnPIDVals(3, 0, 0);
+	drive.setTurnPIDTol(2);
 
 	drive.driveTiles(3000);
+	pros::lcd::set_text(7, "Drive succeeded");
+	pros::delay(2000);
 
-	pros::lcd::set_text(2, "Drive succeeded");
+	drive.turnDegreesAbsolute(270);
+
+	pros::lcd::set_text(7, "Turn succeeded");
 
 	while(true)
 	{
+		//pros::lcd::print(7, "heading: %f", intertialSensor.get_heading());
 		pros::delay(1000);
 	}
 

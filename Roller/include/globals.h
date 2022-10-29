@@ -30,4 +30,6 @@ extern pros::Motor rightBot;
 extern std::vector<pros::Motor> leftDriveVector;
 extern std::vector<pros::Motor> rightDriveVector;
 
+extern int testCounter;
+
 #endif

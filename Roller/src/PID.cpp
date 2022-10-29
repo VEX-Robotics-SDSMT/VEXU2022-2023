@@ -3,6 +3,8 @@
 #include "pros/rtos.h"
 #include "pros/rtos.hpp"
 
+using namespace std;
+
 namespace Mines
 {
     PID::PID(PIDInterface *inputInterface)
@@ -20,8 +22,21 @@ namespace Mines
         double controlVariable = positional + integral + derivative;
 
         //setting loop variables
-        lastError = error;
-        lastIntergral = integral; 
+        if (error != NAN)
+        {
+            lastError = error;
+        }
+        if (integral == NAN)
+        {
+            lastIntergral = 0; 
+        }
+
+        //updating times
+        timeSinceTargetSet += deltaT;
+        if(fabs(target - currentPosition) < tolerance)
+        {
+            timeSinceTargetReached += deltaT;
+        }
 
         //setting output variables
         setOutput(controlVariable);
@@ -111,6 +126,11 @@ namespace Mines
     bool PID::GetStopped()
     {
         return stopped;
+    }
+
+    double PID::GetTarget()
+    {
+        return target;
     }
 }
 

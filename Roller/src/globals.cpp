@@ -16,3 +16,6 @@ pros::Motor rightBotDrive(R_BOT, pros::E_MOTOR_GEARSET_06, true);
 
 std::vector<pros::Motor> leftDriveVector = {leftTopFrontDrive, leftTopRearDrive, leftBotDrive};
 std::vector<pros::Motor> rightDriveVector = {rightTopFrontDrive, rightTopRearDrive, rightBotDrive};
+
+
+int testCounter = 0;
