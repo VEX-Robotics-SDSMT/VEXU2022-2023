@@ -40,6 +40,7 @@
 #include "controllerUI.h"
 #include "PID.h"
 #include "MinesMotorGroup.h"
+#include "botFunctions.h"
 
 
 /**

@@ -121,7 +121,8 @@ void autonomous()
 // }
 
 
-void opcontrol() {	
+void opcontrol() 
+{	
 	//pros::Controller master(pros::E_CONTROLLER_MASTER);
 	// test_mtr.tare_position();
 	// MotPID in;
@@ -146,60 +147,25 @@ void opcontrol() {
 
 	catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 
-	bool toggleIntake = 0;
-
 	while(true)
 	{
-		double lefty = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-		double rightx = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X); 
-		leftDriveMotors.moveVelocity(((rightx+lefty) * 600 / 127));
-		rightDriveMotors.moveVelocity(((rightx-lefty) * 600 / 127));
+		double leftAxisY = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+		double rightAxisX = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+		double leftVelocity = ((rightAxisX + leftAxisY) * axisPercentBlue);
+		double rightVelocity = ((rightAxisX - leftAxisY) * axisPercentBlue);
 
-		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1))
+		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1))
 		{
-			if(toggleIntake == 0)
-			{
-				toggleIntake = 1;
-			}
-			else
-			{
-				toggleIntake = 0;
-			}
+			toggleIntake();
 		}
 
-		if(toggleIntake == 1)
-		{
-			intake.move_velocity(600);
-		}
-		else if (MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R2))
-		{
-			intake.move_velocity(-600);
-		}
-		else
-		{
-			intake.brake();
-		}
-		
-		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1))
-		{
-			catapultMotors.moveVelocity(25);
-		}
-		else
-		{
-			catapultMotors.brake();
-		}
-		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L2))
-		{
-			topRoller.move(127);
-		}
-		else
-		{
-			topRoller.brake();
-		};
+		intakeLoop(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L2));
+		driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
+		catapultLoop(catapultMotors, 20, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
+		rollerLoop(topRoller, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X));
 	}
 
-	//pid.SetTarget(-120);
-	
+	//pid.SetTarget(-120);	
 
 	//DO NOT REMOVE: Main should not exit while there are subtasks going on - it will crash the robot
 	while(true)

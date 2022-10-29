@@ -19,7 +19,6 @@
 
 #define INTAKE 15
 
-
 extern pros::Controller MasterController;
 
 extern pros::Imu intertialSensor;
@@ -42,5 +41,12 @@ extern std::vector<pros::Motor> leftDriveVector;
 extern std::vector<pros::Motor> rightDriveVector;
 
 extern std::vector<pros::Motor> catapultVector;
+
+extern double axisPercentBlue;
+extern double axisPercentGreen;
+extern double axisPercentRed;
+extern int blue;
+extern int green;
+extern int red;
 
 #endif

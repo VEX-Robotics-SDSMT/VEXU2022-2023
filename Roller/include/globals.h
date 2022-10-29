@@ -13,6 +13,7 @@
 #define R_TOP_FRONT 5
 #define R_TOP_REAR 6
 #define R_BOT 12
+#define STRING 16
 
 extern pros::Controller MasterController;
 
@@ -29,5 +30,14 @@ extern pros::Motor rightBot;
 
 extern std::vector<pros::Motor> leftDriveVector;
 extern std::vector<pros::Motor> rightDriveVector;
+
+extern pros::Motor string;
+
+extern double axisPercentBlue;
+extern double axisPercentGreen;
+extern double axisPercentRed;
+extern int blue;
+extern int green;
+extern int red;
 
 #endif

@@ -103,47 +103,27 @@ MinesMotorGroup rightDriveMotors(rightDriveVector);
 
 void opcontrol()
 {	
-	//ATTENTION REMOVE:
-
-	DiffDrive drive(leftDriveMotors, rightDriveMotors);
-
-	drive.driveTiles(3000);
-
-	pros::lcd::set_text(2, "Drive succeeded");
-
 	while(true)
 	{
-		pros::delay(1000);
-	}
+		double leftAxisY = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+		double rightAxisX = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+		double leftVelocity = ((rightAxisX + leftAxisY) * axisPercentBlue);
+		double rightVelocity = ((-rightAxisX + leftAxisY) * axisPercentBlue);
 
+		driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
+		rollerLoop(topRoller, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X));
 
-	double lefty = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-	double rightx = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X); 
-	leftDriveMotors.moveVelocity(((rightx+lefty) * 600 / 127));
-	rightDriveMotors.moveVelocity(((rightx-lefty) * 600 / 127));
-
-	//DO NOT REMOVE: Main should not exit while there are subtasks going on - it will crash the robot
-	while(true)
-	{
-		double lefty = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-		double rightx = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X); 
-		leftDriveMotors.moveVelocity(((lefty+rightx) * 600 / 127));
-		rightDriveMotors.moveVelocity(((lefty-rightx) * 600 / 127));
-
-		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R1))
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN))
 		{
-			topRoller.move_velocity(200);
+			string.move_velocity(200);
+		}
+		else if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
+		{
+			string.move_velocity(-200);
 		}
 		else
 		{
-			topRoller.brake();
-		};
-		pros::c::delay(20);
-	}
-
-	//DO NOT REMOVE: Main should not exit while there are subtasks going on - it will crash the robot
-	while(true)
-	{
-		pros::c::delay(1000);
+			string.brake();
+		}
 	}
 }

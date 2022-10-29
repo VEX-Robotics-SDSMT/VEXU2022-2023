@@ -15,7 +15,7 @@ pros::Motor rightBotRearDrive(R_BOT_REAR, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor rightFrontDrive(R_FRONT, pros::E_MOTOR_GEARSET_06, false);
 
 pros::Motor leftCatapult(R_CATAPULT, pros::E_MOTOR_GEARSET_36, true);
-pros::Motor rightCatapult(L_CATAPULT, pros::E_MOTOR_GEARSET_36, true);
+pros::Motor rightCatapult(L_CATAPULT, pros::E_MOTOR_GEARSET_36, false);
 
 pros::Motor intake(INTAKE, pros::E_MOTOR_GEARSET_06, true);
 
@@ -23,3 +23,11 @@ std::vector<pros::Motor> leftDriveVector = {leftTopRearDrive, leftBotRearDrive, 
 std::vector<pros::Motor> rightDriveVector = {rightTopRearDrive, rightBotRearDrive, rightFrontDrive};
 
 std::vector<pros::Motor> catapultVector = {leftCatapult, rightCatapult};
+
+double axisPercentBlue = 600.0 / 127;
+double axisPercentGreen = 200.0 / 127;
+double axisPercentRed = 100.0 / 127;
+int blue = 600;
+int green = 200;
+int red = 100;
+
