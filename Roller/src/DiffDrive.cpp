@@ -177,7 +177,6 @@ double DiffDrive::TurnInterface::getPositionPID()
 
 void DiffDrive::TurnInterface::setVelocityPID(double value)
 {
-    pros::lcd::print(5, "turn vel PID: %f  %d", value, testCounter);
     parent->setTurnVelocity(value);
 }
 
