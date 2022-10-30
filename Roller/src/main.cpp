@@ -89,11 +89,12 @@ void autonomous()
 
 	pros::lcd::set_text(7, "Turn succeeded");
 
+
+	//Attention! do not remove, bot will crash
 	while(true)
 	{
 		pros::delay(1000);
 	}
-
 }
 
 /**
