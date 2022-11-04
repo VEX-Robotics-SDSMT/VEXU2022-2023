@@ -1,4 +1,5 @@
 #include "main.h"
+#include "DiffDrive.h"
 #include "MinesMotorGroup.h"
 #include "globals.h"
 #include "pros/misc.h"
@@ -75,14 +76,18 @@ void competition_initialize()
  */
 void autonomous() 
 {
-	if(redBlue == 1) // red
-	{
+	pros::lcd::print(0,"Start");
+	MinesMotorGroup cat(catapultVector);
+	//fire(cat);
 
-	}
-	else if (redBlue == 2) // blue
-	{
-
-	}
+	DiffDrive drive(leftDriveVector, rightDriveVector, intertialSensor);
+	pros::lcd::print(1,"Build Drive");
+	drive.setDrivePIDVals(1, 0, 0);
+	pros::lcd::print(2,"Set PID");
+	drive.turnDegreesAbsolute(180);
+	pros::lcd::print(3,"Turn");
+	drive.driveTiles(1000);
+	pros::lcd::print(4,"Drive");
 
 }
 

@@ -54,6 +54,16 @@ void catapultLoop(Mines::MinesMotorGroup catapultMotorGroup, double velocity, bo
 	}
 }
 
+void fire(Mines::MinesMotorGroup catapultMotorGroup)
+{
+    catapultMotorGroup.tarePosition();
+    while(catapultMotorGroup.getPosition() < 100)
+    {
+        catapultMotorGroup.moveVelocity(30);
+    }
+    catapultMotorGroup.brake();
+}
+
 void rollerLoop(pros::Motor roller, double velocity, bool run, bool rev)
 {
     if(run)

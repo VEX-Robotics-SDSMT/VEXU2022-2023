@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include "api.h"
+#include <math.h>
 
 namespace Mines
 {
@@ -28,8 +29,8 @@ namespace Mines
         bool stopped = false;
 
         //Transients - change programatically every loop
-        double lastError;
-        double lastIntergral;
+        double lastError = 0;
+        double lastIntergral = 0;
         
         //Output variables - the values kept track out for output only
         double timeSinceTargetReached;
@@ -60,6 +61,7 @@ namespace Mines
             double GetTimeSinceTargetReached();
             double GetTimeSinceTargetSet();
             bool GetStopped();
+            double GetTarget();
     };
 }
 

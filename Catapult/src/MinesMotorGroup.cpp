@@ -98,3 +98,20 @@ double MinesMotorGroup::getPosition()
     }
     return average / motorVector.size();
 }
+
+double MinesMotorGroup::getMaxVelocity()
+{
+    if(motorVector[0].get_gearing()== pros::E_MOTOR_GEARSET_36)
+    {
+        return 100;
+    }
+    if(motorVector[0].get_gearing() == pros::E_MOTOR_GEARSET_18)
+    {
+        return 200;
+    }
+    if(motorVector[0].get_gearing() == pros::E_MOTOR_GEARSET_06)
+    {
+        return 600;
+    }
+    return 0;
+}

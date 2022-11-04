@@ -100,11 +100,12 @@ void autonomous()
 	// pros::delay(1000);
 	// drive.driveTiles(-500);
 
+
+	//Attention! do not remove, bot will crash
 	while(true)
 	{
 		pros::delay(1000);
 	}
-
 }
 
 /**
