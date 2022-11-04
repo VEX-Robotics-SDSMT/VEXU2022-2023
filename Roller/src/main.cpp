@@ -37,7 +37,7 @@ void on_center_button() {
 void initialize() 
 {
 	intertialSensor.reset();
-	redBlue = initAutonSide(MasterController);
+	//redBlue = initAutonSide(MasterController);
 	//set up PIDs
 	//testPID = Mines::PID();	
 }
@@ -75,19 +75,30 @@ void competition_initialize()
  */
 void autonomous() 
 {
-	DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
-	drive.setDrivePIDVals(0.6, 0, 0);
-	drive.setDrivePIDTol(100);
-	drive.setTurnPIDVals(3, 0, 0);
-	drive.setTurnPIDTol(2);
+	// DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
+	// drive.setDrivePIDVals(0.6, 0, 0);
+	// drive.setDrivePIDTol(100);
+	// drive.setTurnPIDVals(3, 0, 0);
+	// drive.setTurnPIDTol(2);
 
-	drive.driveTiles(3000);
-	pros::lcd::set_text(7, "Drive succeeded");
-	pros::delay(2000);
+	// // drive.driveTiles(3000);
+	// // pros::lcd::set_text(7, "Drive succeeded");
+	// // pros::delay(2000);
 
-	drive.turnDegreesAbsolute(270);
+	// // drive.turnDegreesAbsolute(270);
 
-	pros::lcd::set_text(7, "Turn succeeded");
+	// // pros::lcd::set_text(7, "Turn succeeded");
+
+	// drive.driveTiles(50);
+	// topRoller.move_velocity(200);
+	// pros::delay(1000);
+	// topRoller.brake();
+	// drive.driveTiles(-1500);
+	// drive.turnDegreesAbsolute(90);
+	// drive.driveTiles(1500);
+	// topRoller.move_velocity(200);
+	// pros::delay(1000);
+	// drive.driveTiles(-500);
 
 	while(true)
 	{
@@ -117,8 +128,11 @@ void opcontrol()
 	{
 		double leftAxisY = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
 		double rightAxisX = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
-		double leftVelocity = ((rightAxisX + leftAxisY) * axisPercentBlue);
-		double rightVelocity = ((-rightAxisX + leftAxisY) * axisPercentBlue);
+		double rightAxisY = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
+		double leftVelocity = (leftAxisY*axisPercentBlue);
+		double rightVelocity = (rightAxisY*axisPercentBlue);
+		//double leftVelocity = ((leftAxisY) * axisPercentBlue);
+		//double rightVelocity = ((-rightAxisX + leftAxisY) * axisPercentBlue);
 
 		driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
 		rollerLoop(topRoller, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X));
