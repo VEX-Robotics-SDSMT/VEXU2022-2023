@@ -15,14 +15,14 @@ void toggleIntake()
     }
 }
 
-void intakeLoop(bool rev)
+void intakeLoop(bool run, bool rev)
 {
     if(rev == 1)
     {
         intakeToggle = 0;
         intake.move_velocity(-1000);
     }
-    else if(intakeToggle == 1)
+    else if(run == 1)
     {
         intake.move_velocity(1000);
     }
@@ -38,12 +38,16 @@ void driveLoop(Mines::MinesMotorGroup leftMotorGroup, Mines::MinesMotorGroup rig
     rightMotorGroup.moveVelocity(rightVelocity);
 }
 
-void catapultLoop(Mines::MinesMotorGroup catapultMotorGroup, double velocity, bool run)
+void catapultLoop(Mines::MinesMotorGroup catapultMotorGroup, double velocity, bool run, bool rev)
 {
     if(run)
 	{
 		catapultMotorGroup.moveVelocity(velocity);
 	}
+    else if(rev)
+    {
+        catapultMotorGroup.moveVelocity(-velocity);
+    }
     else
 	{
 		catapultMotorGroup.brake();
@@ -60,9 +64,13 @@ void fire(Mines::MinesMotorGroup catapultMotorGroup)
     catapultMotorGroup.brake();
 }
 
-void rollerLoop(pros::Motor roller, double velocity, bool run)
+void rollerLoop(pros::Motor roller, double velocity, bool run, bool rev)
 {
     if(run)
+    {
+        roller.move_velocity(velocity);
+    }
+    else if(rev)
     {
         roller.move_velocity(velocity);
     }

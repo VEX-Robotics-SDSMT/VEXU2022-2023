@@ -84,6 +84,25 @@ void autonomous()
 	drive.turnDegreesAbsolute(270, 3000);
 	//drive.driveTiles(1500);
 
+	// // drive.driveTiles(3000);
+	// // pros::lcd::set_text(7, "Drive succeeded");
+	// // pros::delay(2000);
+
+	// // drive.turnDegreesAbsolute(270);
+
+	// // pros::lcd::set_text(7, "Turn succeeded");
+
+	// drive.driveTiles(50);
+	// topRoller.move_velocity(200);
+	// pros::delay(1000);
+	// topRoller.brake();
+	// drive.driveTiles(-1500);
+	// drive.turnDegreesAbsolute(90);
+	// drive.driveTiles(1500);
+	// topRoller.move_velocity(200);
+	// pros::delay(1000);
+	// drive.driveTiles(-500);
+
 
 	//Attention! do not remove, bot will crash
 	while(true)
@@ -113,8 +132,11 @@ void opcontrol()
 	{
 		double leftAxisY = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
 		double rightAxisX = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
-		double leftVelocity = ((rightAxisX + leftAxisY) * axisPercentBlue);
-		double rightVelocity = ((-rightAxisX + leftAxisY) * axisPercentBlue);
+		double rightAxisY = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
+		double leftVelocity = (leftAxisY*axisPercentBlue);
+		double rightVelocity = (rightAxisY*axisPercentBlue);
+		//double leftVelocity = ((leftAxisY) * axisPercentBlue);
+		//double rightVelocity = ((-rightAxisX + leftAxisY) * axisPercentBlue);
 
 		driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
 		rollerLoop(topRoller, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X));

@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "UCTest",
+    "project_name": "compCataTank",
     "target": "v5",
     "templates": {
       "kernel": {

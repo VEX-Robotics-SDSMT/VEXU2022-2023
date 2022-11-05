@@ -156,18 +156,21 @@ void opcontrol()
 	{
 		double leftAxisY = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
 		double rightAxisX = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
-		double leftVelocity = ((rightAxisX + leftAxisY) * axisPercentBlue);
-		double rightVelocity = ((rightAxisX - leftAxisY) * axisPercentBlue);
+		double rightAxisY = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
+		//double leftVelocity = ((rightAxisX + leftAxisY) * axisPercentBlue);
+		//double rightVelocity = ((rightAxisX - leftAxisY) * axisPercentBlue);
+		double leftVelocity = ((leftAxisY) * axisPercentBlue);
+		double rightVelocity = ((-rightAxisY) * axisPercentBlue);
 
-		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1))
+		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1))
 		{
 			toggleIntake();
 		}
 
-		intakeLoop(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L2));
+		intakeLoop(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R2), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
 		driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
-		catapultLoop(catapultMotors, 20, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
-		rollerLoop(topRoller, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X));
+		catapultLoop(catapultMotors, 20, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L2), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN));
+		rollerLoop(topRoller, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT));
 	}
 
 	//pid.SetTarget(-120);	
