@@ -37,7 +37,7 @@ void on_center_button() {
 void initialize() 
 {
 	intertialSensor.reset();
-	redBlue = initAutonSide(MasterController);
+	//redBlue = initAutonSide(MasterController);
 	//set up PIDs
 	//testPID = Mines::PID();	
 }
@@ -81,13 +81,8 @@ void autonomous()
 	drive.setTurnPIDVals(3, 0, 0);
 	drive.setTurnPIDTol(2);
 
-	drive.driveTiles(3000);
-	pros::lcd::set_text(7, "Drive succeeded");
-	pros::delay(2000);
-
-	drive.turnDegreesAbsolute(270);
-
-	pros::lcd::set_text(7, "Turn succeeded");
+	drive.turnDegreesAbsolute(270, 3000);
+	//drive.driveTiles(1500);
 
 
 	//Attention! do not remove, bot will crash

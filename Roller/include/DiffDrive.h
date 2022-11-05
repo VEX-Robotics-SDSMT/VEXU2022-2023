@@ -53,9 +53,9 @@ class DiffDrive
         DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::Imu Imu);
 
         void driveTiles(double target, bool waitForCompletion=true);
-        void driveTiles(double target, double timeOut);
+        void driveTiles(double target, int timeOut);
         void turnDegreesAbsolute(double target, bool waitForCompletion=true);
-        void turnDegreesAbsolute(double target, double timeOut);
+        void turnDegreesAbsolute(double target, int timeOut);
 
         //configuration functions
         void setBrakeMode(pros::motor_brake_mode_e mode);
