@@ -14,7 +14,7 @@
 #define R_TOP_FRONT 5
 #define R_TOP_REAR 6
 #define R_BOT 12
-#define STRING 16
+#define STRING 13
 
 extern pros::Controller MasterController;
 
