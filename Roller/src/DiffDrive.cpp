@@ -115,6 +115,7 @@ void DiffDrive::setDriveVelocity(double value)
 double DiffDrive::getTurnPosition()
 {
     double current = intertial.get_heading();
+
     double target = turnPID.GetTarget();
 
     if (current - target > 180)
