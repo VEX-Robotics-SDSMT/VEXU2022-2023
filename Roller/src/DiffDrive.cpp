@@ -38,7 +38,7 @@ void DiffDrive::driveTiles(double target, bool waitForCompletion)
     }
 }
 
-void DiffDrive::driveTiles(double target, double timeOut)
+void DiffDrive::driveTiles(double target, int timeOut)
 {
     leftMotors.tarePosition();
     rightMotors.tarePosition();
@@ -49,6 +49,8 @@ void DiffDrive::driveTiles(double target, double timeOut)
     {
         pros::c::delay(20);
     }
+
+    drivePID.SetTarget(getDrivePosition());
 }
 
 void DiffDrive::turnDegreesAbsolute(double target, bool waitForCompletion)
@@ -56,20 +58,22 @@ void DiffDrive::turnDegreesAbsolute(double target, bool waitForCompletion)
     turnPID.SetTarget(target);
     if(waitForCompletion)
     {
-        while(drivePID.GetTimeSinceTargetReached() < 1)
+        while(turnPID.GetTimeSinceTargetReached() < 1)
         {
             pros::c::delay(20);
         }
     }
 }
 
-void DiffDrive::turnDegreesAbsolute(double target, double timeOut)
+void DiffDrive::turnDegreesAbsolute(double target, int timeOut)
 {
     turnPID.SetTarget(target);
-    while(drivePID.GetTimeSinceTargetReached() < 1 && drivePID.GetTimeSinceTargetSet() < timeOut)
+    while(turnPID.GetTimeSinceTargetReached() < 1 && turnPID.GetTimeSinceTargetSet() < timeOut)
     {
         pros::c::delay(20);
     }
+
+    turnPID.SetTarget(getTurnPosition());
 }
 
 void DiffDrive::setBrakeMode(pros::motor_brake_mode_e mode)
@@ -111,6 +115,7 @@ void DiffDrive::setDriveVelocity(double value)
 double DiffDrive::getTurnPosition()
 {
     double current = intertial.get_heading();
+
     double target = turnPID.GetTarget();
 
     if (current - target > 180)
@@ -179,4 +184,5 @@ void DiffDrive::TurnInterface::setVelocityPID(double value)
 {
     parent->setTurnVelocity(value);
 }
+
 

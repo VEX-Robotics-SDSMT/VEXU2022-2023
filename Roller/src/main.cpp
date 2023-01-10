@@ -75,11 +75,14 @@ void competition_initialize()
  */
 void autonomous() 
 {
-	// DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
-	// drive.setDrivePIDVals(0.6, 0, 0);
-	// drive.setDrivePIDTol(100);
-	// drive.setTurnPIDVals(3, 0, 0);
-	// drive.setTurnPIDTol(2);
+	DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
+	drive.setDrivePIDVals(0.6, 0, 0);
+	drive.setDrivePIDTol(100);
+	drive.setTurnPIDVals(3, 0, 0);
+	drive.setTurnPIDTol(2);
+
+	drive.turnDegreesAbsolute(270, 3000);
+	//drive.driveTiles(1500);
 
 	// // drive.driveTiles(3000);
 	// // pros::lcd::set_text(7, "Drive succeeded");
