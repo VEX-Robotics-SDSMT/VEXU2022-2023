@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "compCataTank",
+    "project_name": "test",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -308,7 +308,7 @@
     },
     "upload_options": {
       "icon": "pros",
-      "slot": 1
+      "slot": 2
     }
   }
 }

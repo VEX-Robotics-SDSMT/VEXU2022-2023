@@ -15,16 +15,33 @@ void toggleIntake()
     }
 }
 
-void intakeLoop(bool run, bool rev)
+void intakeLoopToggle(bool rev, int pct)
 {
     if(rev == 1)
     {
         intakeToggle = 0;
-        intake.move_velocity(-1000);
+        intake.move_velocity((-0.01)*pct * INTAKE_MOTOR_GEARSET);
+    }
+    else if(intakeToggle == 1)
+    {
+        intake.move_velocity((0.01)*pct * INTAKE_MOTOR_GEARSET);
+    }
+    else
+    {
+        intake.brake();
+    }
+}
+
+void intakeLoopHold(bool run, bool rev, double pct)
+{
+    if(rev == 1)
+    {
+        intakeToggle = 0;
+        intake.move_velocity(-(0.01)*pct * INTAKE_MOTOR_GEARSET);
     }
     else if(run == 1)
     {
-        intake.move_velocity(1000);
+        intake.move_velocity((0.01)*pct * INTAKE_MOTOR_GEARSET);
     }
     else
     {

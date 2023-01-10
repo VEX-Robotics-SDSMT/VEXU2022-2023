@@ -154,20 +154,26 @@ void opcontrol()
 
 	while(true)
 	{
-		double leftAxisY = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-		double rightAxisX = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
-		double rightAxisY = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
-		//double leftVelocity = ((rightAxisX + leftAxisY) * axisPercentBlue);
-		//double rightVelocity = ((rightAxisX - leftAxisY) * axisPercentBlue);
-		double leftVelocity = ((leftAxisY) * axisPercentBlue);
-		double rightVelocity = ((-rightAxisY) * axisPercentBlue);
+		// 2 stick arcade
+		double leftAxisY = MasterController.get_analog(axisLeftY);
+		double rightAxisX = MasterController.get_analog(axisRightX);
+		double leftVelocity = ((rightAxisX + leftAxisY) * axisPercentBlue);
+		double rightVelocity = ((rightAxisX - leftAxisY) * axisPercentBlue);
 
-		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1))
+		// Tank
+		// double leftAxisY = MasterController.get_analog(axisLeftY);
+	    // double rightAxisY = MasterController.get_analog(axisRightY);
+		// double leftVelocity = ((leftAxisY) * axisPercentBlue);
+		// double rightVelocity = ((-rightAxisY) * axisPercentBlue);
+
+
+		if(MasterController.get_digital_new_press(buttonR1))
 		{
 			toggleIntake();
 		}
 
-		intakeLoop(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R2), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
+		intakeLoopToggle(MasterController.get_digital(buttonR2), 1);
+		//intakeLoopHold(MasterController.get_digital(R1), MasterController.get_digital(R2));
 		driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
 		catapultLoop(catapultMotors, 20, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L2), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN));
 		rollerLoop(topRoller, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT));
