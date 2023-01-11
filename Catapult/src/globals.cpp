@@ -19,6 +19,8 @@ pros::Motor rightCatapult(L_CATAPULT, RED_GEARSET, true);
 
 pros::Motor intake(INTAKE, BLUE_GEARSET, true);
 
+pros::ADIDigitalIn limitSwitch (LIMIT_SWITCH);
+
 std::vector<pros::Motor> leftDriveVector = {leftTopRearDrive, leftBotRearDrive, leftFrontDrive};
 std::vector<pros::Motor> rightDriveVector = {rightTopRearDrive, rightBotRearDrive, rightFrontDrive};
 
@@ -30,3 +32,4 @@ double axisPercentRed = 100.0 / 127;
 int blue = 600;
 int green = 200;
 int red = 100;
+int test = 1;

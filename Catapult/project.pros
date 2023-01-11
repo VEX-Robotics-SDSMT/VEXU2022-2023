@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "test",
+    "project_name": "Catapult",
     "target": "v5",
     "templates": {
       "kernel": {
@@ -308,7 +308,7 @@
     },
     "upload_options": {
       "icon": "pros",
-      "slot": 2
+      "slot": 1
     }
   }
 }

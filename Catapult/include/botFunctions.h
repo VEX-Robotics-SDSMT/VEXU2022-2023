@@ -11,5 +11,6 @@ void driveLoop(Mines::MinesMotorGroup leftMotorGroup, Mines::MinesMotorGroup rig
 void catapultLoop(Mines::MinesMotorGroup catapultMotorGroup, double velocity, bool run, bool rev);
 void rollerLoop(pros::Motor roller, double velocity, bool run, bool rev);
 void fire(Mines::MinesMotorGroup motorGroup);
+void loadAndFire(Mines::MinesMotorGroup catapultMotorGroup, pros::ADIDigitalIn limitSwitch);
 
 #endif

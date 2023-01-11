@@ -8,12 +8,12 @@
 
 #define TOP_ROLLER 1
 
-#define L_TOP_FRONT 2
-#define L_TOP_REAR 10
-#define L_BOT 11
-#define R_TOP_FRONT 5
-#define R_TOP_REAR 6
-#define R_BOT 12
+#define L_FRONT 17
+#define L_REAR 16
+#define L_MID 14
+#define R_FRONT 9
+#define R_REAR 13
+#define R_MID 8
 #define STRING 13
 
 extern pros::Controller MasterController;

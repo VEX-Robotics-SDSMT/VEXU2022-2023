@@ -166,16 +166,20 @@ void opcontrol()
 		// double leftVelocity = ((leftAxisY) * axisPercentBlue);
 		// double rightVelocity = ((-rightAxisY) * axisPercentBlue);
 
-
 		if(MasterController.get_digital_new_press(buttonR1))
 		{
 			toggleIntake();
 		}
 
+		if(MasterController.get_digital_new_press(buttonL2))
+		{
+			loadAndFire(catapultMotors, limitSwitch);
+		}
+
 		intakeLoopToggle(MasterController.get_digital(buttonR2), 1);
 		//intakeLoopHold(MasterController.get_digital(R1), MasterController.get_digital(R2));
 		driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
-		catapultLoop(catapultMotors, 20, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L2), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN));
+		//catapultLoop(catapultMotors, 20, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L2), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN));
 		rollerLoop(topRoller, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT));
 	}
 

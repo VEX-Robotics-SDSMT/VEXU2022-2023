@@ -30,6 +30,8 @@
 #define INTAKE 15
 #define INTAKE_MOTOR_GEARSET blue
 
+#define LIMIT_SWITCH 2
+
 extern pros::Controller MasterController;
 
 extern pros::Imu intertialSensor;
@@ -47,6 +49,8 @@ extern pros::Motor leftCatapult;
 extern pros::Motor rightCatapult;
 
 extern pros::Motor intake;
+
+extern pros::ADIDigitalIn limitSwitch;
 
 extern std::vector<pros::Motor> leftDriveVector;
 extern std::vector<pros::Motor> rightDriveVector;

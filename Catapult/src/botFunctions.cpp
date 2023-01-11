@@ -20,11 +20,11 @@ void intakeLoopToggle(bool rev, int pct)
     if(rev == 1)
     {
         intakeToggle = 0;
-        intake.move_velocity((-0.01)*pct * INTAKE_MOTOR_GEARSET);
+        intake.move_velocity((100)*pct * INTAKE_MOTOR_GEARSET*-1);
     }
     else if(intakeToggle == 1)
     {
-        intake.move_velocity((0.01)*pct * INTAKE_MOTOR_GEARSET);
+        intake.move_velocity((100)*pct * INTAKE_MOTOR_GEARSET);
     }
     else
     {
@@ -37,11 +37,11 @@ void intakeLoopHold(bool run, bool rev, double pct)
     if(rev == 1)
     {
         intakeToggle = 0;
-        intake.move_velocity(-(0.01)*pct * INTAKE_MOTOR_GEARSET);
+        intake.move_velocity(-(100)*pct * INTAKE_MOTOR_GEARSET);
     }
     else if(run == 1)
     {
-        intake.move_velocity((0.01)*pct * INTAKE_MOTOR_GEARSET);
+        intake.move_velocity((100)*pct * INTAKE_MOTOR_GEARSET);
     }
     else
     {
@@ -79,6 +79,30 @@ void fire(Mines::MinesMotorGroup catapultMotorGroup)
         catapultMotorGroup.moveVelocity(30);
     }
     catapultMotorGroup.brake();
+}
+
+void loadAndFire(Mines::MinesMotorGroup catapultMotorGroup, pros::ADIDigitalIn limitSwitch)
+{
+    bool loaded = 0;
+
+    if(limitSwitch.get_value() == 1)
+    {
+        while(limitSwitch.get_value() == 1)
+        {
+            catapultMotorGroup.moveVelocity(10);
+        }
+        loaded = 0;
+    }
+    else
+    {
+        while(limitSwitch.get_value() == 0)
+        {
+            catapultMotorGroup.moveVelocity(10);
+        }
+        catapultMotorGroup.brake();
+        loaded = 1;
+    }
+    
 }
 
 void rollerLoop(pros::Motor roller, double velocity, bool run, bool rev)
