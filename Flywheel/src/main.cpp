@@ -127,31 +127,77 @@ void autonomous()
 
 void opcontrol()
 {	
+	int flywheelPct = 100;
 
 	while(true)
-	{
-		double leftAxisY = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-		double rightAxisX = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
-		double rightAxisY = MasterController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
-		double leftVelocity = (leftAxisY*axisPercentBlue);
-		double rightVelocity = (rightAxisY*axisPercentBlue);
-		//double leftVelocity = ((leftAxisY) * axisPercentBlue);
-		//double rightVelocity = ((-rightAxisX + leftAxisY) * axisPercentBlue);
+	{		
+		// 2 stick arcade
+		// double leftAxisY = MasterController.get_analog(axisLeftY);
+		// double rightAxisX = MasterController.get_analog(axisRightX);
+		// double leftVelocity = ((rightAxisX + leftAxisY) * axisPercentBlue);
+		// double rightVelocity = ((rightAxisX - leftAxisY) * axisPercentBlue);
+
+		// 1 stick arcade
+		double leftAxisY = MasterController.get_analog(axisLeftY);
+		double leftAxisX = MasterController.get_analog(axisLeftX);
+		double leftVelocity = ((leftAxisY + leftAxisX) * axisPercentBlue);
+		double rightVelocity = ((leftAxisY - leftAxisX) * axisPercentBlue);
+
+		// Tank
+		// double leftAxisY = MasterController.get_analog(axisLeftY);
+	    // double rightAxisY = MasterController.get_analog(axisRightY);
+		// double leftVelocity = ((leftAxisY) * axisPercentBlue);
+		// double rightVelocity = ((-rightAxisY) * axisPercentBlue);
+
+		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1))
+		{
+			toggleFlywheels();
+		}
+		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1))
+		{
+			toggleIntake();
+		}
+
+		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT))
+		{
+			flywheelPct = 100;
+		}
+		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN))
+		{
+			flywheelPct = 75;
+		}
+		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT))
+		{
+			flywheelPct = 50;
+		}
 
 		driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
 		rollerLoop(topRoller, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X));
+		intakeLoopToggle(MasterController.get_digital(buttonR2), 1);
+		//intakeLoopHold(MasterController.get_digital(R1), MasterController.get_digital(R2));
+		flywheelLoopToggle(flywheelsGroup, flywheelPct);
 
-		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN))
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
 		{
-			string.move_velocity(100);
-		}
-		else if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
-		{
-			string.move_velocity(-100);
+			launch.set_value(true);
 		}
 		else
 		{
-			string.brake();
+			launch.set_value(false);
 		}
+
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_A))
+		{
+			push.set_value(true);
+		}
+		else
+		{
+			push.set_value(false);
+		}
+
+		
+		//shoot
+		//endgame
+
 	}
 }

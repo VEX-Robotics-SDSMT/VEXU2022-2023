@@ -146,6 +146,8 @@ void opcontrol()
 	// 	pros::c::delay(100);
 	// }
 
+	bool catapultGoal = 1;
+
 	MinesMotorGroup leftDriveMotors(leftDriveVector);
 	MinesMotorGroup rightDriveMotors(rightDriveVector);
 	MinesMotorGroup catapultMotors(catapultVector);
@@ -173,13 +175,26 @@ void opcontrol()
 
 		if(MasterController.get_digital_new_press(buttonL2))
 		{
-			loadAndFire(catapultMotors, limitSwitch);
+			if(catapultGoal == 0)
+				catapultGoal = 1;
+			else
+				catapultGoal = 0;
 		}
 
 		intakeLoopToggle(MasterController.get_digital(buttonR2), 1);
 		//intakeLoopHold(MasterController.get_digital(R1), MasterController.get_digital(R2));
+
 		driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
-		//catapultLoop(catapultMotors, 20, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L2), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN));
+
+		if(limitSwitch.get_value() != catapultGoal)
+		{
+			catapultLoop(catapultMotors, 100);
+		}
+		else
+		{
+			catapultMotors.brake();
+		}
+
 		rollerLoop(topRoller, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT));
 	}
 

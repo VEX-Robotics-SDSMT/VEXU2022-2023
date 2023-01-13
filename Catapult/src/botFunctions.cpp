@@ -55,20 +55,9 @@ void driveLoop(Mines::MinesMotorGroup leftMotorGroup, Mines::MinesMotorGroup rig
     rightMotorGroup.moveVelocity(rightVelocity);
 }
 
-void catapultLoop(Mines::MinesMotorGroup catapultMotorGroup, double velocity, bool run, bool rev)
+void catapultLoop(Mines::MinesMotorGroup catapultMotorGroup, int pct)
 {
-    if(run)
-	{
-		catapultMotorGroup.moveVelocity(velocity);
-	}
-    else if(rev)
-    {
-        catapultMotorGroup.moveVelocity(-velocity);
-    }
-    else
-	{
-		catapultMotorGroup.brake();
-	}
+    catapultMotorGroup.moveVelocity(R_CATAPULT_MOTOR_GEARSET * (pct*0.01));
 }
 
 void fire(Mines::MinesMotorGroup catapultMotorGroup)
