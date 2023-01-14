@@ -140,8 +140,11 @@ void opcontrol()
 		// 1 stick arcade
 		double leftAxisY = MasterController.get_analog(axisLeftY);
 		double leftAxisX = MasterController.get_analog(axisLeftX);
-		double leftVelocity = ((leftAxisY + leftAxisX) * axisPercentBlue);
-		double rightVelocity = ((leftAxisY - leftAxisX) * axisPercentBlue);
+		double rightAxisX = MasterController.get_analog(axisRightX);
+		double aimVelocityLeft = (rightAxisX) * 0.06;
+		double aimVelocityRight = -rightAxisX * 0.06;
+		double leftVelocity = ((leftAxisY + leftAxisX + aimVelocityLeft) * axisPercentBlue);
+		double rightVelocity = ((leftAxisY - leftAxisX + aimVelocityRight) * axisPercentBlue);
 
 		// Tank
 		// double leftAxisY = MasterController.get_analog(axisLeftY);
@@ -149,7 +152,7 @@ void opcontrol()
 		// double leftVelocity = ((leftAxisY) * axisPercentBlue);
 		// double rightVelocity = ((-rightAxisY) * axisPercentBlue);
 
-		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1))
+		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2))
 		{
 			toggleFlywheels();
 		}
@@ -172,9 +175,10 @@ void opcontrol()
 		}
 
 		driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
-		rollerLoop(topRoller, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X));
-		intakeLoopToggle(MasterController.get_digital(buttonR2), 1);
-		//intakeLoopHold(MasterController.get_digital(R1), MasterController.get_digital(R2));
+		rollerLoop(topRoller, green, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_Y));
+		//intakeLoopToggle(MasterController.get_digital(buttonR2), 1);
+		flywheelsGroup.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
+		intakeLoopHold(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R2), 100);
 		flywheelLoopToggle(flywheelsGroup, flywheelPct);
 
 		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
@@ -194,10 +198,5 @@ void opcontrol()
 		{
 			push.set_value(false);
 		}
-
-		
-		//shoot
-		//endgame
-
 	}
 }

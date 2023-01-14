@@ -16,8 +16,8 @@ pros::Motor rightFrontDrive(R_FRONT, pros::E_MOTOR_GEARSET_18, false);
 pros::Motor rightRearDrive(R_REAR, pros::E_MOTOR_GEARSET_18, false);
 pros::Motor rightMidDrive(R_MID, pros::E_MOTOR_GEARSET_18, false);
 
-pros::Motor fly1(FLY1, pros::E_MOTOR_GEARSET_06, false);
-pros::Motor fly2(FLY2, pros::E_MOTOR_GEARSET_06, true);
+pros::Motor fly1(FLY1, pros::E_MOTOR_GEARSET_06, true);
+pros::Motor fly2(FLY2, pros::E_MOTOR_GEARSET_06, false);
 
 pros::ADIDigitalOut launch(LAUNCH);
 pros::ADIDigitalOut push(PUSH);

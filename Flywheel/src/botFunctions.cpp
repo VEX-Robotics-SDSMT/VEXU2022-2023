@@ -1,5 +1,6 @@
 #include "../include/botFunctions.h"
 #include "../include/MinesMotorGroup.h"
+#include "pros/motors.h"
 
 bool intakeToggle = 0;
 bool flywheelToggle = 0;
@@ -34,11 +35,15 @@ void driveLoop(Mines::MinesMotorGroup leftMotorGroup, Mines::MinesMotorGroup rig
     rightMotorGroup.moveVelocity(rightVelocity);
 }
 
-void rollerLoop(pros::Motor roller, double velocity, bool run)
+void rollerLoop(pros::Motor roller, double velocity, bool run, bool rev)
 {
     if(run)
     {
         roller.move_velocity(velocity);
+    }
+    else if(rev)
+    {
+        roller.move_velocity(-velocity);
     }
     else
     {
@@ -79,12 +84,11 @@ void intakeLoopHold(bool run, bool rev, double pct)
         intake.brake();
     }
 }
-
 void flywheelLoopToggle(Mines::MinesMotorGroup flywheels, int pct)
 {
     if(flywheelToggle == 1)
     {
-        flywheels.moveVelocity((100)*pct * FLYWHEELS_MOTOR_GEARSET);
+        flywheels.moveVelocity(((0.01)* (pct) * (FLYWHEELS_MOTOR_GEARSET)));
     }
     else
     {
