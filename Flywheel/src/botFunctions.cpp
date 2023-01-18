@@ -31,8 +31,8 @@ void toggleFlywheels()
 
 void driveLoop(Mines::MinesMotorGroup leftMotorGroup, Mines::MinesMotorGroup rightMotorGroup, double leftVelocity, double rightVelocity)
 {
-    leftMotorGroup.moveVelocity(leftVelocity);
-    rightMotorGroup.moveVelocity(rightVelocity);
+    leftMotorGroup.move(leftVelocity);
+    rightMotorGroup.move(rightVelocity);
 }
 
 void rollerLoop(pros::Motor roller, double velocity, bool run, bool rev)
@@ -88,7 +88,7 @@ void flywheelLoopToggle(Mines::MinesMotorGroup flywheels, int pct)
 {
     if(flywheelToggle == 1)
     {
-        flywheels.moveVelocity(((0.01)* (pct) * (FLYWHEELS_MOTOR_GEARSET)));
+        flywheels.move(((0.01)* (pct) * 127));
     }
     else
     {

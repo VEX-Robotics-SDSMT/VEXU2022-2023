@@ -51,8 +51,8 @@ void intakeLoopHold(bool run, bool rev, double pct)
 
 void driveLoop(Mines::MinesMotorGroup leftMotorGroup, Mines::MinesMotorGroup rightMotorGroup, double leftVelocity, double rightVelocity)
 {
-    leftMotorGroup.moveVelocity(leftVelocity);
-    rightMotorGroup.moveVelocity(rightVelocity);
+    leftMotorGroup.move(leftVelocity);
+    rightMotorGroup.move(rightVelocity);
 }
 
 void catapultLoop(Mines::MinesMotorGroup catapultMotorGroup, int pct)
