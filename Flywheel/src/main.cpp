@@ -76,12 +76,12 @@ void competition_initialize()
 void autonomous() 
 {
 	DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
-	drive.setDrivePIDVals(0.6, 0, 0);
-	drive.setDrivePIDTol(100);
-	drive.setTurnPIDVals(3, 0, 0);
+	drive.setDrivePIDVals(15, 0, 0);
+	drive.setDrivePIDTol(0);
+	drive.setTurnPIDVals(0.01, 0, 0);
 	drive.setTurnPIDTol(2);
 
-	drive.turnDegreesAbsolute(270, 3000);
+	drive.driveTiles(1000);
 	//drive.driveTiles(1500);
 
 	// // drive.driveTiles(3000);
@@ -143,8 +143,8 @@ void opcontrol()
 		double rightAxisX = MasterController.get_analog(axisRightX);
 		double aimVelocityLeft = (rightAxisX) * 0.06;
 		double aimVelocityRight = -rightAxisX * 0.06;
-		double leftVelocity = ((leftAxisY + leftAxisX + aimVelocityLeft) * axisPercentBlue);
-		double rightVelocity = ((leftAxisY - leftAxisX + aimVelocityRight) * axisPercentBlue);
+		double leftVelocity = ((leftAxisY + leftAxisX + aimVelocityLeft));
+		double rightVelocity = ((leftAxisY - leftAxisX + aimVelocityRight));
 
 		// Tank
 		// double leftAxisY = MasterController.get_analog(axisLeftY);

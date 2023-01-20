@@ -156,11 +156,12 @@ void opcontrol()
 
 	while(true)
 	{
+		// ***** DRIVE *****
 		// 2 stick arcade
 		double leftAxisY = MasterController.get_analog(axisLeftY);
 		double rightAxisX = MasterController.get_analog(axisRightX);
-		double leftVelocity = ((rightAxisX + leftAxisY) * axisPercentBlue);
-		double rightVelocity = ((rightAxisX - leftAxisY) * axisPercentBlue);
+		double leftVelocity = ((rightAxisX + leftAxisY));
+		double rightVelocity = ((rightAxisX - leftAxisY));
 
 		// Tank
 		// double leftAxisY = MasterController.get_analog(axisLeftY);
@@ -168,11 +169,24 @@ void opcontrol()
 		// double leftVelocity = ((leftAxisY) * axisPercentBlue);
 		// double rightVelocity = ((-rightAxisY) * axisPercentBlue);
 
+		driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
+		// ***** END DRIVE *****
+
+
+
+		// ***** INTAKE *****
 		if(MasterController.get_digital_new_press(buttonR1))
 		{
 			toggleIntake();
 		}
 
+		intakeLoopToggle(MasterController.get_digital(buttonR2), 1);
+		//intakeLoopHold(MasterController.get_digital(R1), MasterController.get_digital(R2));
+		// ***** END INTAKE *****
+
+
+
+		// ***** CATAPULT *****
 		if(MasterController.get_digital_new_press(buttonL2))
 		{
 			if(catapultGoal == 0)
@@ -180,11 +194,6 @@ void opcontrol()
 			else
 				catapultGoal = 0;
 		}
-
-		intakeLoopToggle(MasterController.get_digital(buttonR2), 1);
-		//intakeLoopHold(MasterController.get_digital(R1), MasterController.get_digital(R2));
-
-		driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
 
 		if(limitSwitch.get_value() != catapultGoal)
 		{
@@ -194,8 +203,13 @@ void opcontrol()
 		{
 			catapultMotors.brake();
 		}
+		// **** END CATAPULT *****
 
+
+
+		// ***** ROLLER *****
 		rollerLoop(topRoller, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT));
+		// ***** END ROLLER *****		
 	}
 
 	//pid.SetTarget(-120);	
