@@ -68,8 +68,6 @@ class DiffDrive
         void setDrivePIDTol(double tolerance);
         void setTurnPIDTol(double tolerance);
 
-
-
     private:
         double getDrivePosition();
         void setDriveVelocity(double value);
