@@ -6,7 +6,9 @@
 
 using namespace Mines;
 
-
+MinesMotorGroup leftDriveMotors(leftDriveVector);
+MinesMotorGroup rightDriveMotors(rightDriveVector);
+MinesMotorGroup catapultMotors(catapultVector);
 
 //globals
 
@@ -78,6 +80,7 @@ void competition_initialize()
  */
 void autonomous() 
 {
+
 	pros::lcd::print(0,"Start");
 	MinesMotorGroup cat(catapultVector);
 	//fire(cat);
@@ -86,7 +89,65 @@ void autonomous()
 	pros::lcd::print(1,"Build Drive");
 	drive.setDrivePIDVals(1, 0, 0);
 	drive.setTurnPIDVals(0,0,0);
-	
+
+	if(skills)
+	{
+		/*shoots out the back, forward intake, forward rollers*/
+
+		//shoot pre load & the 7 intake
+
+		for(int i = 0; i < 7; i ++)
+		{
+			while(limitSwitch.get_value() != 0)
+			{
+				catapultMotors.move(127);
+			}
+			pros::delay(100);
+		}
+
+		//turn 345
+		drive.turnDegreesAbsolute(345);
+
+		//drive 1.6? tiles
+		drive.driveTiles(1.6);
+
+		//turn 90
+		drive.turnDegreesAbsolute(90);
+
+		//drive forward 0.5 tile
+		drive.driveTiles(0.5);
+
+		//both rollers
+		
+
+		//turn 0
+		//start intake
+		//forward 0.5 tile until bump against wall SLOW
+		//back 0.5 tile
+		//turn 225
+		//forward 0.5 tile SLOW
+		//stop intake
+		//turn 0
+		//forward 0.75 tile
+		//both rollers
+		//back 0.2 tiles (enough to turn)
+		//turn 90
+		//backward 2.75 tiles
+		//shoot
+		//forward 2.75 tiles
+		//turn 225
+		//start intake
+		//slow forward 2.25
+		//stop intake
+		//turn 135
+		//shoot
+
+	}
+	else
+	{
+
+	}
+
 
 }
 
