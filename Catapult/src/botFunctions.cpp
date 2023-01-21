@@ -37,11 +37,11 @@ void intakeLoopHold(bool run, bool rev, double pct)
     if(rev == 1)
     {
         intakeToggle = 0;
-        intake.move_velocity(-(100)*pct * INTAKE_MOTOR_GEARSET);
+        intake.move_velocity(-(10000)*pct * INTAKE_MOTOR_GEARSET);
     }
     else if(run == 1)
     {
-        intake.move_velocity((100)*pct * INTAKE_MOTOR_GEARSET);
+        intake.move_velocity((10000)*pct * INTAKE_MOTOR_GEARSET);
     }
     else
     {

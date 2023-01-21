@@ -211,13 +211,12 @@ void opcontrol()
 		}
 
 		if(limitSwitch.get_value() != catapultGoal)
-		{
-			
+		{			
 			catapultLoop(catapultMotors, 100);
 		}
 		else
 		{	
-			if(catapultGoal == 0)
+			if(catapultGoal == 1)
 			{
 			    shield.set_value(0);
 			}
