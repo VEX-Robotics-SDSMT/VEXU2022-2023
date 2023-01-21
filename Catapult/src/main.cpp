@@ -152,6 +152,8 @@ void opcontrol()
 	MinesMotorGroup catapultMotors(catapultVector);
 
 	catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+	shield.set_value(1);
+	pros::delay(500);
 
 	while(true)
 	{
@@ -189,19 +191,31 @@ void opcontrol()
 		if(MasterController.get_digital_new_press(buttonL2))
 		{
 			if(catapultGoal == 0)
+			{
+				shield.set_value(1);
+				pros::delay(750);
 				catapultGoal = 1;
+			}
+				
 			else
+			{
+				shield.set_value(1);
+				pros::delay(750);
 				catapultGoal = 0;
+			}
 		}
 
 		if(limitSwitch.get_value() != catapultGoal)
 		{
-			shield.set_value(1);
+			
 			catapultLoop(catapultMotors, 100);
 		}
 		else
-		{
-			shield.set_value(0);
+		{	
+			if(catapultGoal == 0)
+			{
+			    shield.set_value(0);
+			}
 			catapultMotors.brake();
 		}
 		// **** END CATAPULT *****

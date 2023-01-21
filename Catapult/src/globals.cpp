@@ -6,7 +6,7 @@ pros::Controller MasterController (pros::E_CONTROLLER_MASTER);
 pros::Imu intertialSensor(INERTIAL_SENSOR);
 
 pros::Motor topRoller(TOP_ROLLER, RED_GEARSET, true);
-pros::Motor topRollerFront(TOP_ROLLER, RED_GEARSET, true);
+pros::Motor topRollerFront(TOP_ROLLER_FRONT, RED_GEARSET, false);
 
 
 pros::Motor leftTopRearDrive(L_TOP_REAR, BLUE_GEARSET, false);

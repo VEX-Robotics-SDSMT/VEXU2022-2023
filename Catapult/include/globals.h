@@ -32,8 +32,8 @@
 #define INTAKE_MOTOR_GEARSET blue
 
 #define LIMIT_SWITCH 2
-#define SHIELD 1
-#define ENDGAME 8
+#define SHIELD 8
+#define ENDGAME 1
 
 extern pros::Controller MasterController;
 

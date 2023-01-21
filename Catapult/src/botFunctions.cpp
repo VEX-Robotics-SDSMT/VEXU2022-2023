@@ -108,5 +108,6 @@ void rollerLoop(pros::Motor roller, pros::Motor rollerFront, double velocity, bo
     else
     {
         roller.brake();
+        rollerFront.brake();
     }
 }
