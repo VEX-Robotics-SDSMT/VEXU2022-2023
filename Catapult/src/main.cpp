@@ -85,9 +85,14 @@ void autonomous()
 	DiffDrive drive(leftDriveVector, rightDriveVector, intertialSensor);
 	pros::lcd::print(1,"Build Drive");
 	drive.setDrivePIDVals(1, 0, 0);
-	drive.setTurnPIDVals(0,0,0);
-	
+	drive.setTurnPIDVals(0.1,0,0);
 
+	drive.driveTiles(3);
+	drive.turnDegreesAbsolute(180);
+	while(true)
+	{
+		pros::delay(1000);
+	}
 }
 
 /**
