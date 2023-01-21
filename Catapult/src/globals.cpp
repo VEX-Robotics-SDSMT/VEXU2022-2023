@@ -6,6 +6,8 @@ pros::Controller MasterController (pros::E_CONTROLLER_MASTER);
 pros::Imu intertialSensor(INERTIAL_SENSOR);
 
 pros::Motor topRoller(TOP_ROLLER, RED_GEARSET, true);
+pros::Motor topRollerFront(TOP_ROLLER, RED_GEARSET, true);
+
 
 pros::Motor leftTopRearDrive(L_TOP_REAR, BLUE_GEARSET, false);
 pros::Motor leftBotRearDrive(L_TOP_REAR, BLUE_GEARSET, false);
@@ -20,6 +22,8 @@ pros::Motor rightCatapult(L_CATAPULT, RED_GEARSET, true);
 pros::Motor intake(INTAKE, BLUE_GEARSET, true);
 
 pros::ADIDigitalIn limitSwitch (LIMIT_SWITCH);
+pros::ADIDigitalOut shield (SHIELD);
+pros::ADIDigitalOut endgame (ENDGAME);
 
 std::vector<pros::Motor> leftDriveVector = {leftTopRearDrive, leftBotRearDrive, leftFrontDrive};
 std::vector<pros::Motor> rightDriveVector = {rightTopRearDrive, rightBotRearDrive, rightFrontDrive};

@@ -14,6 +14,7 @@
 
 using namespace Mines;
 
+bool skills = 0;
 int redBlue = 0;
 
 void on_center_button() {
@@ -81,28 +82,42 @@ void autonomous()
 	drive.setTurnPIDVals(0.01, 0, 0);
 	drive.setTurnPIDTol(2);
 
-	drive.driveTiles(1000);
-	//drive.driveTiles(1500);
-
-	// // drive.driveTiles(3000);
-	// // pros::lcd::set_text(7, "Drive succeeded");
-	// // pros::delay(2000);
-
-	// // drive.turnDegreesAbsolute(270);
-
-	// // pros::lcd::set_text(7, "Turn succeeded");
-
-	// drive.driveTiles(50);
-	// topRoller.move_velocity(200);
-	// pros::delay(1000);
-	// topRoller.brake();
-	// drive.driveTiles(-1500);
-	// drive.turnDegreesAbsolute(90);
-	// drive.driveTiles(1500);
-	// topRoller.move_velocity(200);
-	// pros::delay(1000);
-	// drive.driveTiles(-500);
-
+	if(skills) // Skills route
+	{
+		//small back
+		//roller
+		//swing turn with intakes
+		//roller
+		//turn
+		//shoot
+		//turn towards match load funnel
+		//turn towards wall
+		//intakes on, move in and out x7
+		//turn and shoot
+		//turn towards other match load
+		//cross field
+		//intakes on, in and out x7
+		// turn and shoot
+		//turn towards wall and face towards field for endgame
+	}
+	else // Match auton route
+	{
+		// small move back
+		//roller
+		//small move forward
+		//aim
+		//shoot
+		//turn
+		//drive w/ intakes
+		// pick up 3
+		// turn
+		//shoot
+		//turn
+		//drive w/ intakes
+		//pick up 3
+		// turn
+		//shoot
+	}
 
 	//Attention! do not remove, bot will crash
 	while(true)

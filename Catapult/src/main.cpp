@@ -7,6 +7,7 @@
 using namespace Mines;
 
 
+
 //globals
 
 /**
@@ -16,6 +17,7 @@ using namespace Mines;
  * "I was pressed!" and nothing.
  */
 
+bool skills = 0;
 int redBlue = 0;
 
 void on_center_button() {
@@ -83,11 +85,8 @@ void autonomous()
 	DiffDrive drive(leftDriveVector, rightDriveVector, intertialSensor);
 	pros::lcd::print(1,"Build Drive");
 	drive.setDrivePIDVals(1, 0, 0);
-	pros::lcd::print(2,"Set PID");
-	drive.turnDegreesAbsolute(180);
-	pros::lcd::print(3,"Turn");
-	drive.driveTiles(1000);
-	pros::lcd::print(4,"Drive");
+	drive.setTurnPIDVals(0,0,0);
+	
 
 }
 
@@ -197,18 +196,27 @@ void opcontrol()
 
 		if(limitSwitch.get_value() != catapultGoal)
 		{
+			shield.set_value(1);
 			catapultLoop(catapultMotors, 100);
 		}
 		else
 		{
+			shield.set_value(0);
 			catapultMotors.brake();
 		}
 		// **** END CATAPULT *****
 
-
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
+		{
+			endgame.set_value(true);
+		}
+		else
+		{
+			endgame.set_value(false);
+		}
 
 		// ***** ROLLER *****
-		rollerLoop(topRoller, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT));
+		rollerLoop(topRoller, topRollerFront, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT));
 		// ***** END ROLLER *****		
 	}
 

@@ -6,6 +6,7 @@
 #define INERTIAL_SENSOR 17
 
 #define TOP_ROLLER 11
+#define TOP_ROLLER_FRONT 21
 #define ROLLER_MOTOR_GEARSET red
 
 #define L_TOP_REAR 19
@@ -31,12 +32,15 @@
 #define INTAKE_MOTOR_GEARSET blue
 
 #define LIMIT_SWITCH 2
+#define SHIELD 1
+#define ENDGAME 8
 
 extern pros::Controller MasterController;
 
 extern pros::Imu intertialSensor;
 
 extern pros::Motor topRoller;
+extern pros::Motor topRollerFront;
 
 extern pros::Motor leftTopRearDrive;
 extern pros::Motor leftBotRearDrive;
@@ -51,6 +55,8 @@ extern pros::Motor rightCatapult;
 extern pros::Motor intake;
 
 extern pros::ADIDigitalIn limitSwitch;
+extern pros::ADIDigitalOut shield;
+extern pros::ADIDigitalOut endgame;
 
 extern std::vector<pros::Motor> leftDriveVector;
 extern std::vector<pros::Motor> rightDriveVector;
