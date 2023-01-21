@@ -41,6 +41,7 @@
 #include "PID.h"
 #include "MinesMotorGroup.h"
 #include "botFunctions.h"
+#include "Logger.h"
 
 /**
  * You should add more #includes here
