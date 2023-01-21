@@ -148,7 +148,12 @@ void autonomous()
 
 	}
 
-
+	drive.driveTiles(3);
+	drive.turnDegreesAbsolute(180);
+	while(true)
+	{
+		pros::delay(1000);
+	}
 }
 
 /**
