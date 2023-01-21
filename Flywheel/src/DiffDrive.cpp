@@ -15,12 +15,16 @@ using namespace std;
 DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::IMU imu) : 
     leftMotors(left), rightMotors(right), intertial(imu),
     driveInterface(this), turnInterface(this),
-    drivePID(&driveInterface), turnPID(&turnInterface)
+    drivePID(&driveInterface, LoggerSettings::none), turnPID(&turnInterface, LoggerSettings::none),
+    logger(LoggerSettings::none)
 {
     MAX_SPEED = rightMotors.getMaxVelocity();
 
+    logger.Log("status: constructor called", 10, LoggerSettings::verbose);
     drivePID.StartTask();
+    logger.Log("status: drivePID started", 10, LoggerSettings::verbose);
     turnPID.StartTask();
+    logger.Log("status: turnPID started", 10, LoggerSettings::verbose);
 }
 
 void DiffDrive::driveTiles(double target, bool waitForCompletion)

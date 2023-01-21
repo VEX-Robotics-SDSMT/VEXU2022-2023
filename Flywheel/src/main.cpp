@@ -78,12 +78,14 @@ void autonomous()
 {
 	DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
 	drive.setDrivePIDVals(15, 0, 0);
-	drive.setDrivePIDTol(0);
+	drive.setDrivePIDTol(10);
 	drive.setTurnPIDVals(0.01, 0, 0);
 	drive.setTurnPIDTol(2);
 
+	drive.driveTiles(1, true);
 	//drive.driveTiles(1000);
 	drive.turnDegreesAbsolute(720);
+	
 	if(skills) // Skills route
 	{
 		//small back

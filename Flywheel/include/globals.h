@@ -4,7 +4,7 @@
 #include "api.h"
 #include "MinesMotorGroup.h"
 
-#define INERTIAL_SENSOR 20
+#define INERTIAL_SENSOR 10
 
 #define TOP_ROLLER 11
 

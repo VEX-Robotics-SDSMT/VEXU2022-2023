@@ -5,6 +5,7 @@
 #include <iostream>
 #include "api.h"
 #include <math.h>
+#include "Logger.h"
 
 namespace Mines
 {
@@ -18,6 +19,9 @@ namespace Mines
 
     class PID
     {        
+        //Logger
+        ScreenLogger logger;
+
         //Constants - technically changable, but if so, no often
         double KP = 0.005;
         double KI = 0;
@@ -48,7 +52,7 @@ namespace Mines
             PIDInterface *interface;
 
             PID(double (*positionFunction)());
-            PID(PIDInterface *inputInterface);
+            PID(PIDInterface *inputInterface, LoggerSettings settings);
 
             void StartTask();
             void updateTask();

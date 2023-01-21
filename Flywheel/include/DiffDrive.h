@@ -5,6 +5,7 @@
 #include "PID.h"
 #include "pros/imu.hpp"
 #include <math.h>
+#include "Logger.h"
 
 namespace Mines {
 
@@ -41,6 +42,8 @@ class DiffDrive
     TurnInterface turnInterface;
     PID drivePID;
     PID turnPID;
+
+    ScreenLogger logger;
 
     //configuration variables
     double MAX_SPEED;
