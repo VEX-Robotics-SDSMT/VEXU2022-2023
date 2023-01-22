@@ -157,6 +157,8 @@ catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 		pros::delay(5300);
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
+		shield.set_value(1);
+		pros::delay(1000);
 		while(limitSwitch.get_value() == 1)
 		{
 			catapultMotors.move(127);
@@ -178,6 +180,12 @@ catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 		rightDriveMotors.brake();
 		
 		endgame.set_value(1);
+		pros::delay(1000);
+		leftDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(100);
+		pros::delay(475);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
 
 		// leftDriveMotors.moveVelocity(-100);
 		// rightDriveMotors.moveVelocity(90);
