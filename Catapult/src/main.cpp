@@ -40,11 +40,11 @@ void on_center_button() {
  */
 
 
-void initialize() 
+void initialize()
 {
 	redBlue = initAutonSide(MasterController);
 	//set up PIDs
-	//testPID = Mines::PID();	
+	//testPID = Mines::PID();
 }
 
 /**
@@ -63,7 +63,7 @@ void disabled() {}
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-void competition_initialize() 
+void competition_initialize()
 {
 }
 
@@ -78,7 +78,7 @@ void competition_initialize()
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() 
+void autonomous()
 {
 
 	pros::lcd::print(0,"Start");
@@ -96,29 +96,58 @@ void autonomous()
 
 		//shoot pre load & the 7 intake
 
-		for(int i = 0; i < 7; i ++)
-		{
-			while(limitSwitch.get_value() != 0)
-			{
-				catapultMotors.move(127);
-			}
-			pros::delay(100);
-		}
+		// for(int i = 0; i < 7; i ++)
+		// {
+		// 	while(limitSwitch.get_value() != 0)
+		// 	{
+		// 		catapultMotors.move(127);
+		// 	}
+		// 	pros::delay(100);
+		// }
+
+	drive.driveTiles(0.5);
+	drive.turnDegreesAbsolute(270);
+	drive.driveTiles(0.25);
+	topRoller.move(127);
+	pros::delay(100);
+	topRoller.brake();
+	intake.move(127);
+	drive.driveTiles(1.5);
+	drive.turnDegreesAbsolute(0);
+	drive.driveTiles(1.5);
+	topRoller.move(127);
+	pros::delay(100);
+	topRoller.brake();
+	intake.brake();
+	drive.turnDegreesAbsolute(270);
+	drive.driveTiles(2.5);
+	shield.set_value(1);
+	pros::delay(250);
+	while(limitSwitch.get_value() == 1)
+	{
+		catapultMotors.move(127);
+	}
+	while(limitSwitch.get_value() == 0)
+	{
+		catapultMotors.move(127);
+	}
+	}
+
 
 		//turn 345
-		drive.turnDegreesAbsolute(345);
+		// drive.turnDegreesAbsolute(345);
 
-		//drive 1.6? tiles
-		drive.driveTiles(1.6);
+		// //drive 1.6? tiles
+		// drive.driveTiles(1.6);
 
-		//turn 90
-		drive.turnDegreesAbsolute(90);
+		// //turn 90
+		// drive.turnDegreesAbsolute(90);
 
-		//drive forward 0.5 tile
-		drive.driveTiles(0.5);
+		// //drive forward 0.5 tile
+		// drive.driveTiles(0.5);
 
 		//both rollers
-		
+
 
 		//turn 0
 		//start intake
@@ -191,8 +220,8 @@ void autonomous()
 // }
 
 
-void opcontrol() 
-{	
+void opcontrol()
+{
 	//pros::Controller master(pros::E_CONTROLLER_MASTER);
 	// test_mtr.tare_position();
 	// MotPID in;
@@ -262,7 +291,7 @@ void opcontrol()
 				pros::delay(750);
 				catapultGoal = 1;
 			}
-				
+
 			else
 			{
 				shield.set_value(1);
@@ -272,11 +301,11 @@ void opcontrol()
 		}
 
 		if(limitSwitch.get_value() != catapultGoal)
-		{			
+		{
 			catapultLoop(catapultMotors, 100);
 		}
 		else
-		{	
+		{
 			if(catapultGoal == 1)
 			{
 			    shield.set_value(0);
@@ -296,10 +325,10 @@ void opcontrol()
 
 		// ***** ROLLER *****
 		rollerLoop(topRoller, topRollerFront, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT));
-		// ***** END ROLLER *****		
+		// ***** END ROLLER *****
 	}
 
-	//pid.SetTarget(-120);	
+	//pid.SetTarget(-120);
 
 	//DO NOT REMOVE: Main should not exit while there are subtasks going on - it will crash the robot
 	while(true)
