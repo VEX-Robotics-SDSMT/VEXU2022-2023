@@ -172,9 +172,9 @@ void autonomous()
 
 		leftDriveMotors.moveVelocity(-30); //move backward to roller
 		rightDriveMotors.moveVelocity(-30);
-		pros::delay(500);
+		pros::delay(1200);
  		topRoller.move(127); //move roller while applying pressure
-		pros::delay(900);
+		pros::delay(200);
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 		topRoller.brake();
@@ -197,8 +197,20 @@ void autonomous()
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 
-		//launch();
-
+		launch.set_value(1);
+		pros::delay(1000);
+		leftDriveMotors.moveVelocity(-50); //LEFT slight turn
+		rightDriveMotors.moveVelocity(50);
+		pros::delay(530);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+		
+		flywheelsGroup.move(113); //shoot preloads
+		pros::delay(2500);
+			push.set_value(1);
+			pros::delay(100);
+			push.set_value(0);
+		flywheelsGroup.brake();
 
 
 
