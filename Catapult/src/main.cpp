@@ -19,7 +19,7 @@ MinesMotorGroup catapultMotors(catapultVector);
  * "I was pressed!" and nothing.
  */
 
-bool skills = 0;
+bool skills = 1;
 int redBlue = 0;
 
 void on_center_button() {
@@ -42,7 +42,8 @@ void on_center_button() {
 
 void initialize()
 {
-	redBlue = initAutonSide(MasterController);
+	endgame.set_value(0);
+	//redBlue = initAutonSide(MasterController);
 	//set up PIDs
 	//testPID = Mines::PID();
 }
@@ -80,105 +81,137 @@ void competition_initialize()
  */
 void autonomous()
 {
-
-	pros::lcd::print(0,"Start");
-	MinesMotorGroup cat(catapultVector);
+catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+	//pros::lcd::print(0,"Start");
 	//fire(cat);
 
-	DiffDrive drive(leftDriveVector, rightDriveVector, intertialSensor);
-	pros::lcd::print(1,"Build Drive");
-	drive.setDrivePIDVals(1, 0, 0);
-	drive.setTurnPIDVals(0,0,0);
+	//DiffDrive drive(leftDriveVector, rightDriveVector, intertialSensor);
+	//pros::lcd::print(1,"Build Drive");
+	// drive.setDrivePIDVals(1, 0, 0);
+	// drive.setTurnPIDVals(0,0,0);
 
 	if(skills)
 	{
-		/*shoots out the back, forward intake, forward rollers*/
+		shield.set_value(1);
+		pros::delay(200);
+		while(!limitSwitch.get_new_press())
+		{
+			catapultMotors.move(127);
+		}
+		catapultMotors.brake();
+		shield.set_value(0);
 
-		//shoot pre load & the 7 intake
+		leftDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);//straight
+		pros::delay(1000);
+		leftDriveMotors.moveVelocity(100);//turn
+		rightDriveMotors.moveVelocity(100);
+		pros::delay(950);
+		leftDriveMotors.moveVelocity(100);//rev
+		rightDriveMotors.moveVelocity(-100);
+		intake.move(127);
+		pros::delay(3000);
+		leftDriveMotors.moveVelocity(-100);//rev
+		rightDriveMotors.moveVelocity(100);
+		intake.brake();
+		pros::delay(500);
+		leftDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(100);
+		pros::delay(950);
+		leftDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
+		pros::delay(1400);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+		topRollerFront.move(127);
+		pros::delay(275);
+		topRollerFront.brake();
+		leftDriveMotors.moveVelocity(-100);
+		rightDriveMotors.moveVelocity(100);
+		pros::delay(1000);
+		leftDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(100);
+		pros::delay(475);
+		leftDriveMotors.moveVelocity(-100);
+		rightDriveMotors.moveVelocity(100);
+		pros::delay(1300);
+		leftDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(100);
+		pros::delay(475);
+		leftDriveMotors.moveVelocity(-100);
+		rightDriveMotors.moveVelocity(100);
+		pros::delay(1100);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+		topRoller.move(127);
+		pros::delay(275);
+		topRoller.brake();
+		leftDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
+		pros::delay(500);
+		leftDriveMotors.moveVelocity(-100);
+		rightDriveMotors.moveVelocity(-100);
+		pros::delay(950);
+		leftDriveMotors.moveVelocity(-100);
+		rightDriveMotors.moveVelocity(100);
+		pros::delay(5300);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+		while(limitSwitch.get_value() == 1)
+		{
+			catapultMotors.move(127);
+		}
+		catapultMotors.brake();
+		leftDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
+		pros::delay(6000);
+		leftDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(100);
+		pros::delay(950);
+		leftDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
+		pros::delay(750);
+		leftDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(100);
+		pros::delay(2375);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+		
+		endgame.set_value(1);
 
-		// for(int i = 0; i < 7; i ++)
+		// leftDriveMotors.moveVelocity(-100);
+		// rightDriveMotors.moveVelocity(90);
+		// pros::delay(1000);
+		// leftDriveMotors.brake();
+		// rightDriveMotors.brake();
+		// for(int i = 0; i < 3; i++)
 		// {
-		// 	while(limitSwitch.get_value() != 0)
+		// 	pros::delay(8000);
+		// 	leftDriveMotors.moveVelocity(100);
+		// 	rightDriveMotors.moveVelocity(-100);
+		// 	pros::delay(1000);
+		// 	leftDriveMotors.brake();
+		// 	rightDriveMotors.brake();
+		// 	while(limitSwitch.get_value() == 1)
 		// 	{
 		// 		catapultMotors.move(127);
 		// 	}
-		// 	pros::delay(100);
+		// 	leftDriveMotors.moveVelocity(-100);
+		// 	rightDriveMotors.moveVelocity(90);
+		// 	pros::delay(1000);
+		// 	leftDriveMotors.brake();
+		// 	rightDriveMotors.brake();
+		// 	while(limitSwitch.get_value() == 0)
+		// 	{
+		// 		catapultMotors.move(127);
 		// }
-
-	drive.driveTiles(0.5);
-	drive.turnDegreesAbsolute(270);
-	drive.driveTiles(0.25);
-	topRoller.move(127);
-	pros::delay(100);
-	topRoller.brake();
-	intake.move(127);
-	drive.driveTiles(1.5);
-	drive.turnDegreesAbsolute(0);
-	drive.driveTiles(1.5);
-	topRoller.move(127);
-	pros::delay(100);
-	topRoller.brake();
-	intake.brake();
-	drive.turnDegreesAbsolute(270);
-	drive.driveTiles(2.5);
-	shield.set_value(1);
-	pros::delay(250);
-	while(limitSwitch.get_value() == 1)
-	{
-		catapultMotors.move(127);
-	}
-	while(limitSwitch.get_value() == 0)
-	{
-		catapultMotors.move(127);
-	}
-	}
-
-
-		//turn 345
-		// drive.turnDegreesAbsolute(345);
-
-		// //drive 1.6? tiles
-		// drive.driveTiles(1.6);
-
-		// //turn 90
-		// drive.turnDegreesAbsolute(90);
-
-		// //drive forward 0.5 tile
-		// drive.driveTiles(0.5);
-
-		//both rollers
-
-
-		//turn 0
-		//start intake
-		//forward 0.5 tile until bump against wall SLOW
-		//back 0.5 tile
-		//turn 225
-		//forward 0.5 tile SLOW
-		//stop intake
-		//turn 0
-		//forward 0.75 tile
-		//both rollers
-		//back 0.2 tiles (enough to turn)
-		//turn 90
-		//backward 2.75 tiles
-		//shoot
-		//forward 2.75 tiles
-		//turn 225
-		//start intake
-		//slow forward 2.25
-		//stop intake
-		//turn 135
-		//shoot
-
-	}
+		}
+		
+	//}
 	else
 	{
 
 	}
-
-	drive.driveTiles(3);
-	drive.turnDegreesAbsolute(180);
 	while(true)
 	{
 		pros::delay(1000);
