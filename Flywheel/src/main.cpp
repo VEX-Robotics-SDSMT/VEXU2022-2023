@@ -116,20 +116,20 @@ void autonomous()
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();		
  
-		leftDriveMotors.moveVelocity(80); //RIGHT turn towards goal
-		rightDriveMotors.moveVelocity(-80);
-		pros::delay(400);
+		leftDriveMotors.moveVelocity(40); //RIGHT turn towards goal
+		rightDriveMotors.moveVelocity(-40);
+		pros::delay(850);
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 
-		flywheelsGroup.move(115); //shoot preloads
-		pros::delay(2000);
+		flywheelsGroup.move(110); //shoot preloads
+		pros::delay(2500);
  		for( int i = 0; i < 2; i++)
 		{
 			push.set_value(1);
 			pros::delay(100);
 			push.set_value(0);
-			pros::delay(750);
+			pros::delay(1000);
 		}
 		flywheelsGroup.brake();
 
@@ -147,9 +147,59 @@ void autonomous()
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();		
 
-		leftDriveMotors.moveVelocity(80); //RIGHT towards next disc
-		rightDriveMotors.moveVelocity(-80);
+		// leftDriveMotors.moveVelocity(80); //RIGHT towards next disc
+		// rightDriveMotors.moveVelocity(-80);
+		// pros::delay(500);
+
+		leftDriveMotors.moveVelocity(50); //LEFT slight turn
+		rightDriveMotors.moveVelocity(-50);
+		pros::delay(632);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+
+		leftDriveMotors.moveVelocity(-50); //move forward to corner disc
+		rightDriveMotors.moveVelocity(-50);
+		pros::delay(1200);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+		intake.brake();
+
+		leftDriveMotors.moveVelocity(-50); //LEFT slight turn
+		rightDriveMotors.moveVelocity(50);
+		pros::delay(632);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+
+		leftDriveMotors.moveVelocity(-30); //move backward to roller
+		rightDriveMotors.moveVelocity(-30);
 		pros::delay(500);
+ 		topRoller.move(127); //move roller while applying pressure
+		pros::delay(900);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+		topRoller.brake();
+
+		leftDriveMotors.moveVelocity(50); //move forward to corner disc
+		rightDriveMotors.moveVelocity(50);
+		pros::delay(1500);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+
+		leftDriveMotors.moveVelocity(-50); //LEFT slight turn
+		rightDriveMotors.moveVelocity(50);
+		pros::delay(316);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+
+		leftDriveMotors.moveVelocity(-50); //move forward to corner disc
+		rightDriveMotors.moveVelocity(-50);
+		pros::delay(700);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+
+		//launch();
+
+
 
 
 /* 		leftDriveMotors.moveVelocity(-200); //move forward to next disc
