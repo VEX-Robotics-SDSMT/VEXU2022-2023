@@ -76,68 +76,83 @@ void competition_initialize()
  */
 void autonomous() 
 {
-	DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
-	drive.setDrivePIDVals(0.81, 0, 0.004242);
-	drive.setDrivePIDTol(10);
-	drive.setTurnPIDVals(0.01, 0, 0);
-	drive.setTurnPIDTol(2);
+	//DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
+	//drive.setDrivePIDVals(0.81, 0, 0.004242);
+	//drive.setDrivePIDTol(10);
+	//drive.setTurnPIDVals(0.01, 0, 0);
+	//drive.setTurnPIDTol(2);
 
 	//drive.driveTiles(1000);
 	//drive.turnDegreesAbsolute(720);
 	
 	if(skills) // Skills route
 	{
-		drive.driveTiles(1000); //Tuning PID
+		//drive.driveTiles(1000); //Tuning PID
 
 		//drive.driveTiles(100);
-		leftDriveMotors.moveVelocity(200);
-		rightDriveMotors.move(200);
-		pros::delay(150);
-		//drive.turnDegreesAbsolute(90);
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.move(-100);
+		// leftDriveMotors.moveVelocity(100);
+		// rightDriveMotors.move(100);
+		// pros::delay(1500);
+		// //drive.turnDegreesAbsolute(90);
+		// leftDriveMotors.moveVelocity(100);
+		// rightDriveMotors.move(-100);
 
 		//bot moving forward is intake
 		//shooting is back of bot
 
-		
 
-		leftDriveMotors.moveVelocity(200); //move forward to roller
-		rightDriveMotors.moveVelocity(200);
-		pros::delay(150);
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
+		leftDriveMotors.moveVelocity(-30); //move backward to roller
+		rightDriveMotors.moveVelocity(-30);
 
-		topRoller.move(127); //roller		
-		pros::delay(100); 
-		topRoller.brake(); //roller stop      //STEP 1
-
-
-		leftDriveMotors.moveVelocity(100); //turn towards goal
-		rightDriveMotors.moveVelocity(-100);
+ 		topRoller.move(127); //move roller while applying pressure
 		pros::delay(500);
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
+		topRoller.brake();
 
-		flywheelsGroup.move(127); //shoot preloads
-		pros::delay(1500);
-		for( int i = 0; i < 3; i++)
+		leftDriveMotors.moveVelocity(80); //move forward IN LINE
+		rightDriveMotors.moveVelocity(80);
+		pros::delay(180);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();		
+ 
+		leftDriveMotors.moveVelocity(80); //RIGHT turn towards goal
+		rightDriveMotors.moveVelocity(-80);
+		pros::delay(400);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+
+		flywheelsGroup.move(115); //shoot preloads
+		pros::delay(2000);
+ 		for( int i = 0; i < 2; i++)
 		{
 			push.set_value(1);
+			pros::delay(100);
 			push.set_value(0);
-			pros::delay(500);
+			pros::delay(750);
 		}
-		flywheelsGroup.brake(); //flywheel stop //STEP 2
+		flywheelsGroup.brake();
 
-		
-		intake.move(127);
-		leftDriveMotors.moveVelocity(-200); //move forward to corner disc
-		rightDriveMotors.moveVelocity(-200);
-		pros::delay(1000);
-		leftDriveMotors.moveVelocity(100); //turn towards next disc
-		rightDriveMotors.moveVelocity(-100);
-		pros::delay(750);
-		leftDriveMotors.moveVelocity(-200); //move forward to next disc
+ 		leftDriveMotors.moveVelocity(50); //LEFT slight turn
+		rightDriveMotors.moveVelocity(-50);
+		pros::delay(120);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+
+		intake.move(-127);
+
+		leftDriveMotors.moveVelocity(-30); //move forward to corner disc
+		rightDriveMotors.moveVelocity(-30);
+		pros::delay(1600);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();		
+
+		leftDriveMotors.moveVelocity(80); //RIGHT towards next disc
+		rightDriveMotors.moveVelocity(-80);
+		pros::delay(500);
+
+
+/* 		leftDriveMotors.moveVelocity(-200); //move forward to next disc
 		rightDriveMotors.moveVelocity(-200);
 		pros::delay(1000);
 		leftDriveMotors.moveVelocity(-100); //turn towards next disc
@@ -194,8 +209,7 @@ void autonomous()
 		leftDriveMotors.moveVelocity(100); 
 		rightDriveMotors.moveVelocity(-100);
 		pros::delay(200);
-		launch.set_value(1);
-
+		launch.set_value(1);  */
 
 		//endgame launch      //STEP 6
 		//*/
