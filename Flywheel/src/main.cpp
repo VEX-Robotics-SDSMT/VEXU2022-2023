@@ -14,7 +14,7 @@
 
 using namespace Mines;
 
-bool skills = 0;
+bool skills = 1;
 int redBlue = 0;
 
 void on_center_button() {
@@ -77,7 +77,7 @@ void competition_initialize()
 void autonomous() 
 {
 	DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
-	drive.setDrivePIDVals(15, 0, 0);
+	drive.setDrivePIDVals(2.46725, 0, 0.135);
 	drive.setDrivePIDTol(10);
 	drive.setTurnPIDVals(0.01, 0, 0);
 	drive.setTurnPIDTol(2);
@@ -88,21 +88,94 @@ void autonomous()
 	
 	if(skills) // Skills route
 	{
+		drive.driveTiles(2000); //Tuning PID
+
+		//drive.driveTiles(100);
+		//drive.turnDegreesAbsolute(90);
+
+		//bot moving forward is intake
+		//shooting is back of bot
+
+		/*
+
+		drive.driveTiles(0.07); //small back
+		topRoller.move(127); //roller
+		pros::delay(100); 
+		topRoller.brake(); //roller stop      //STEP 1
+		drive.turnDegreesAbsolute(-90); //turn
+		flywheelsGroup.move(127); //shoot preloads
+		pros::delay(1500);
+		for( int i = 0; i < 3; i++)
+		{
+			push.set_value(1);
+			push.set_value(0);
+			pros::delay(500);
+		}
+		flywheelsGroup.brake(); //flywheel stop //STEP 2
+
+		/*
+		intake.move(127);
+		pros::delay(1000);
+		drive.turnDegreesAbsolute(-135); //turn
+		drive.driveTiles(0.3); //pick up 1 disc
+		pros::delay(1000);
+		drive.turnDegreesAbsolute(315); //turn down the line
+		drive.driveTiles(0.7); //pick up other disc
+		pros::delay(1000);
+		intake.brake(); //stop intake
+		drive.driveTiles(-1);
+		drive.turnDegreesAbsolute(-90); //turn toward roller
+		drive.driveTiles(1.5); //drive to roller
+		roller.move(127); //roller on
+		pros::delay(100);
+		roller.brake(); //roller brake   //STEP 3
+		drive.driveTiles(0.1);
+		drive.turnDegreesAbsolute(-95);
+		flywheels.move(127); //flywheel on
+		pros::delay(1500);
+		for(int i = 0;, i < 3; i++)
+		{
+			push.set_value(1);
+			push.set_value(0);
+			pros::delay(500);
+		}
+		flywheels.brake(); //stop flywheel     //STEP 4
+		drive.turnDegreesAbsolute(-135);
+		intake.move(127);
+		pros::delay(1000);
+		drive.driveTiles(3);
+		pros::delay(1000);
+		intake.brake();
+		drive.turnDegreesAbsolute(255);
+		pros::delay(1000);
+		flywheels.move(127);
+		pros::delay(1500);
+		for(int i = 0; i < 3; i++)
+		{
+			push.set_value(1);
+			push.set_value(0);
+			pros::delay(500);
+		}
+		flywheels.brake();    //STEP 5
+		drive.turnDegreesAbsolute(135);
+		drive.driveTiles(4);
+
+		//endgame launch      //STEP 6
+		//*/
+
+
 		//small back
 		//roller
-		//swing turn with intakes
-		//roller
 		//turn
-		//shoot
-		//turn towards match load funnel
-		//turn towards wall
-		//intakes on, move in and out x7
-		//turn and shoot
-		//turn towards other match load
-		//cross field
-		//intakes on, in and out x7
-		// turn and shoot
-		//turn towards wall and face towards field for endgame
+		//shoot preloads goal 1
+		//pick up two along diagnol
+		//move to roller
+		//roller
+		//turn toward goal 2
+		//shoot goal 2
+		//turn and pick up three
+		//turn and shoot goal 2
+		
 	}
 	else // Match auton route
 	{
