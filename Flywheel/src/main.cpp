@@ -197,6 +197,7 @@ void autonomous()
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 
+		pros::delay(17277);
 		launch.set_value(1);
 		pros::delay(1000);
 		leftDriveMotors.moveVelocity(-50); //LEFT slight turn

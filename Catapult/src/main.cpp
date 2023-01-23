@@ -81,6 +81,7 @@ void competition_initialize()
  */
 void autonomous()
 {
+	endgame.set_value(0);
 catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 	//pros::lcd::print(0,"Start");
 	//fire(cat);
