@@ -94,8 +94,6 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
 	 drive.setTurnPIDVals(4 ,0,0);
 	 drive.setDrivePIDTol(10);
 
-	drive.turnDegreesAbsolute(90);	 
-
 	if(skills)
 	{
 		shield.set_value(1);
@@ -108,29 +106,29 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
 		shield.set_value(0);
 
 		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(-100);//straight
+		rightDriveMotors.moveVelocity(100);//straight
 		pros::delay(1000);
 
 		leftDriveMotors.moveVelocity(100);//turn
-		rightDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
 		pros::delay(950);
 
 		leftDriveMotors.moveVelocity(100);//rev
-		rightDriveMotors.moveVelocity(-100);
+		rightDriveMotors.moveVelocity(100);
 		intake.move(127);
 		pros::delay(3000);
 
 		leftDriveMotors.moveVelocity(-100);//rev
-		rightDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
 		intake.brake();
 		pros::delay(500);
 
 		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
 		pros::delay(950);
 
 		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(-100);
+		rightDriveMotors.moveVelocity(100);
 		pros::delay(1400);
 
 		leftDriveMotors.brake();
@@ -140,23 +138,23 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
 
 		topRollerFront.brake();
 		leftDriveMotors.moveVelocity(-100);
-		rightDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
 		pros::delay(1000);
 
 		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
 		pros::delay(475);
 
 		leftDriveMotors.moveVelocity(-100);
-		rightDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
 		pros::delay(1300);
 
 		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
 		pros::delay(475);
 
 		leftDriveMotors.moveVelocity(-100);
-		rightDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
 		pros::delay(1100);
 
 		leftDriveMotors.brake();
@@ -166,15 +164,15 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
 
 		topRoller.brake();
 		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(-100);
+		rightDriveMotors.moveVelocity(100);
 		pros::delay(500);
 
 		leftDriveMotors.moveVelocity(-100);
-		rightDriveMotors.moveVelocity(-100);
+		rightDriveMotors.moveVelocity(100);
 		pros::delay(950);
 
 		leftDriveMotors.moveVelocity(-100);
-		rightDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
 		pros::delay(5300);
 
 		leftDriveMotors.brake();
@@ -189,19 +187,19 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
 		catapultMotors.brake();
 
 		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(-100);
+		rightDriveMotors.moveVelocity(100);
 		pros::delay(6000);
 
 		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
 		pros::delay(950);
 
 		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(-100);
+		rightDriveMotors.moveVelocity(100);
 		pros::delay(750);
 
 		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
 		pros::delay(2375);
 
 		leftDriveMotors.brake();
@@ -211,7 +209,7 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
 		pros::delay(1000);
 
 		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
 		pros::delay(475);
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
@@ -247,7 +245,40 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
 	//}
 	else
 	{
+		shield.set_value(1);
+		pros::delay(200);
+		while(!limitSwitch.get_new_press())
+		{
+			catapultMotors.move(127);
+		}
+		catapultMotors.brake();
+		shield.set_value(0);
 
+		leftDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(100);//straight
+		pros::delay(1000);
+
+		leftDriveMotors.moveVelocity(100);//turn
+		rightDriveMotors.moveVelocity(-100);
+		pros::delay(950);
+
+		leftDriveMotors.moveVelocity(100);//rev
+		rightDriveMotors.moveVelocity(100);
+		intake.move(127);
+		pros::delay(1500);
+
+		leftDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(-100);
+		pros::delay(950);
+
+		leftDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(100);
+		pros::delay(1400);
+
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+		topRollerFront.move(127);
+		pros::delay(275);
 	}
 	while(true)
 	{
