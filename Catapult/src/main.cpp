@@ -19,7 +19,7 @@ MinesMotorGroup catapultMotors(catapultVector);
  * "I was pressed!" and nothing.
  */
 
-bool skills = 1;
+bool skills = 0;
 int redBlue = 0;
 
 void on_center_button() {
@@ -81,17 +81,20 @@ void competition_initialize()
  */
 void autonomous()
 {
-	endgame.set_value(0);
+	//endgame.set_value(0);
 catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 leftDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
 rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
 	//pros::lcd::print(0,"Start");
 	//fire(cat);
 
-	//DiffDrive drive(leftDriveVector, rightDriveVector, intertialSensor);
+	DiffDrive drive(leftDriveVector, rightDriveVector, intertialSensor);
 	//pros::lcd::print(1,"Build Drive");
-	// drive.setDrivePIDVals(1, 0, 0);
-	// drive.setTurnPIDVals(0,0,0);
+	 drive.setDrivePIDVals(0.75, 0, 0.002);
+	 drive.setTurnPIDVals(4 ,0,0);
+	 drive.setDrivePIDTol(10);
+
+	drive.turnDegreesAbsolute(90);	 
 
 	if(skills)
 	{
@@ -313,6 +316,8 @@ void opcontrol()
 	MinesMotorGroup rightDriveMotors(rightDriveVector);
 	MinesMotorGroup catapultMotors(catapultVector);
 
+	leftDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
+	rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
 	catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 	shield.set_value(1);
 	pros::delay(500);
@@ -323,8 +328,8 @@ void opcontrol()
 		// 2 stick arcade
 		double leftAxisY = MasterController.get_analog(axisLeftY);
 		double rightAxisX = MasterController.get_analog(axisRightX);
-		double leftVelocity = ((rightAxisX + leftAxisY));
-		double rightVelocity = ((rightAxisX - leftAxisY));
+		double leftVelocity = ((leftAxisY + rightAxisX));
+		double rightVelocity = ((leftAxisY - rightAxisX));
 
 		// Tank
 		// double leftAxisY = MasterController.get_analog(axisLeftY);
