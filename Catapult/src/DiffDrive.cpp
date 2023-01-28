@@ -27,6 +27,7 @@ void DiffDrive::driveTiles(double target, bool waitForCompletion)
 {
     leftMotors.tarePosition();
     rightMotors.tarePosition();
+    setDriveVelocity(.000075);
 
     drivePID.SetTarget(target);
     if(waitForCompletion)
@@ -75,6 +76,7 @@ void DiffDrive::turnDegreesAbsolute(double target, double timeOut)
 void DiffDrive::setBrakeMode(pros::motor_brake_mode_e mode)
 {
     leftMotors.setBrakeMode(mode);
+    rightMotors.setBrakeMode(mode);
 }
 
 void DiffDrive::setDrivePIDVals(double kp, double ki, double kd)
@@ -137,7 +139,7 @@ void DiffDrive::setMotorVelocities()
 {
     double targetLeftSpeed = driveVelocity + turnVelocity;
     double targetRightSpeed = driveVelocity - turnVelocity;
-    double scaleFactor = min(MAX_SPEED / max(fabs(targetLeftSpeed), fabs(targetRightSpeed)), 1.0);
+    double scaleFactor = min(MAX_SPEED / max(fabs(targetLeftSpeed), fabs(targetRightSpeed)), 0.75);
 
     leftMotors.moveVelocity(targetLeftSpeed * scaleFactor);
     rightMotors.moveVelocity(targetRightSpeed* scaleFactor);
