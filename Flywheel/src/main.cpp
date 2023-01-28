@@ -485,7 +485,6 @@ void opcontrol()
 		{
 			driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
 		}
-		driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
 		rollerLoop(topRoller, green, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_Y));
 		//intakeLoopToggle(MasterController.get_digital(buttonR2), 1);
 		flywheelsGroup.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
