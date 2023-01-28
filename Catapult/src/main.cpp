@@ -90,9 +90,20 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
 
 	DiffDrive drive(leftDriveVector, rightDriveVector, intertialSensor);
 	//pros::lcd::print(1,"Build Drive");
-	 drive.setDrivePIDVals(0.75, 0, 0.002);
+	 drive.setDrivePIDVals(0.35, 0, 0);
 	 drive.setTurnPIDVals(4 ,0,0);
 	 drive.setDrivePIDTol(10);
+	 drive.setTurnPIDTol(0.1);
+
+	drive.turnDegreesAbsolute(90);
+	//drive.driveTiles(1000);
+
+	 while(true)
+	 {
+		pros::delay(1000);
+	 }
+
+	pros::screen::print(pros::text_format_e_t::E_TEXT_SMALL, 5, "hello");
 
 	if(skills)
 	{
@@ -254,31 +265,14 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
 		catapultMotors.brake();
 		shield.set_value(0);
 
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(100);//straight
-		pros::delay(1000);
-
-		leftDriveMotors.moveVelocity(100);//turn
-		rightDriveMotors.moveVelocity(-100);
-		pros::delay(950);
-
-		leftDriveMotors.moveVelocity(100);//rev
-		rightDriveMotors.moveVelocity(100);
-		intake.move(127);
-		pros::delay(1500);
-
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(-100);
-		pros::delay(950);
-
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(100);
-		pros::delay(1400);
-
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
+		drive.driveTiles(500);
+		drive.turnDegreesAbsolute(90);
+		drive.driveTiles(1000);
+		drive.turnDegreesAbsolute(180);
+		drive.driveTiles(500);
 		topRollerFront.move(127);
-		pros::delay(275);
+		pros::delay(500);
+		topRoller.brake();
 	}
 	while(true)
 	{

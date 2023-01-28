@@ -139,7 +139,7 @@ void DiffDrive::setMotorVelocities()
 {
     double targetLeftSpeed = driveVelocity + turnVelocity;
     double targetRightSpeed = driveVelocity - turnVelocity;
-    double scaleFactor = min(MAX_SPEED / max(fabs(targetLeftSpeed), fabs(targetRightSpeed)), 0.75);
+    double scaleFactor = min(MAX_SPEED / max(fabs(targetLeftSpeed), fabs(targetRightSpeed)), 1.0);
 
     leftMotors.moveVelocity(targetLeftSpeed * scaleFactor);
     rightMotors.moveVelocity(targetRightSpeed* scaleFactor);
