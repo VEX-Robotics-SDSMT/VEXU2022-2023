@@ -14,7 +14,7 @@
 
 using namespace Mines;
 
-bool skills = 1;
+bool skills = 0;
 int redBlue = 0;
 
 void on_center_button() {
@@ -84,6 +84,103 @@ void autonomous()
 
 	//drive.driveTiles(1000);
 	//drive.turnDegreesAbsolute(720);
+
+	leftDriveMotors.moveVelocity(-30);
+	rightDriveMotors.moveVelocity(-30); //back to roller
+
+	topRoller.move(127);
+	pros::delay(400);
+	leftDriveMotors.brake(); //roller
+	rightDriveMotors.brake();
+	topRoller.brake();
+
+	rightDriveMotors.moveVelocity(50);
+	leftDriveMotors.moveVelocity(50);
+	pros::delay(500); //forward slightly
+	rightDriveMotors.brake();
+	leftDriveMotors.brake();
+	pros::delay(500); //slight turn
+	rightDriveMotors.moveVelocity(40);
+	pros::delay(500);
+	rightDriveMotors.brake();
+	//pros::delay(4600); //only when not spinning wheels
+///*
+	flywheelsGroup.move(115);
+	pros::delay(5500);
+	for( int i = 0; i < 2; i++)
+	{
+		push.set_value(1);
+		pros::delay(100); //shoot two preloads accross field
+		push.set_value(0);
+		pros::delay(2500);
+	}
+	//flywheelsGroup.brake(); //keep flywheels running
+	pros::delay(500);
+	//*/
+
+	rightDriveMotors.moveVelocity(30);
+	leftDriveMotors.moveVelocity(-30);
+	pros::delay(1475); //second turn stack of three
+	rightDriveMotors.brake();
+	leftDriveMotors.brake();
+	pros::delay(500);
+	rightDriveMotors.moveVelocity(-30);
+	leftDriveMotors.moveVelocity(-30);
+	intake.move(-100); //pick up three
+	pros::delay(4700);
+	rightDriveMotors.brake();
+	leftDriveMotors.brake();
+	pros::delay(2500);
+	//intake.brake();
+	pros::delay(500);
+	leftDriveMotors.moveVelocity(40); //third turn
+	rightDriveMotors.moveVelocity(-40);
+	pros::delay(950);
+	leftDriveMotors.brake(); 
+	rightDriveMotors.brake();
+
+	flywheelsGroup.move(115);
+	pros::delay(3000);
+	for( int i = 0; i < 3; i++)
+	{
+		push.set_value(1);
+		pros::delay(100); //shoot three accross field
+		push.set_value(0);
+		pros::delay(2000);
+	}
+
+	intake.brake();
+	pros::delay(500);
+	leftDriveMotors.moveVelocity(-40);
+	rightDriveMotors.moveVelocity(40);
+	pros::delay(950); //turn back down the line
+
+	leftDriveMotors.moveVelocity(40);
+	rightDriveMotors.moveVelocity(40);
+	intake.move(120); //drive and pick up next three
+	pros::delay(6000); //**this value is not tuned**
+	leftDriveMotors.brake();
+	rightDriveMotors.brake();
+	pros::delay(2000);
+
+	leftDriveMotors.moveVelocity(40);
+	rightDriveMotors.moveVelocity(-40); //turn toward goal
+	pros::delay(1500); //**this value is not tuned**
+	rightDriveMotors.brake();
+	leftDriveMotors.brake();
+	intake.brake();
+
+	flywheelsGroup.move(115);
+	pros::delay(3000);
+	for( int i = 0; i < 3; i++)
+	{
+		push.set_value(1);
+		pros::delay(100); //shoot three accross field
+		push.set_value(0);
+		pros::delay(2000);
+	}
+	flywheelsGroup.brake(); //so far the end
+
 	
 	if(skills) // Skills route
 	{
