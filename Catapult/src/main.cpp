@@ -83,18 +83,34 @@ void autonomous()
 {
 	//endgame.set_value(0);
 catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-leftDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
-rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
+leftDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
+rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 	//pros::lcd::print(0,"Start");
 	//fire(cat);
 
-	DiffDrive drive(leftDriveVector, rightDriveVector, intertialSensor);
-	//pros::lcd::print(1,"Build Drive");
-	 drive.setDrivePIDVals(0.75, 0, 0.002);
-	 drive.setTurnPIDVals(4 ,0,0);
-	 drive.setDrivePIDTol(10);
+	DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
+	drive.setDrivePIDVals(1, 0, 0);
+	drive.setDrivePIDTol(5);
+	drive.setTurnPIDVals(2.5, 0, 0);//1.2
+	drive.setTurnPIDTol(2);
+	drive.setMaxDriveSpeed(0.3);
+	drive.setMaxTurnSpeed(1);
 
-	drive.turnDegreesAbsolute(90);	 
+
+
+	drive.turnDegreesAbsolute(90);
+	drive.driveTiles(1000);
+	drive.turnDegreesAbsolute(0);
+	drive.driveTiles(1000);
+	drive.turnDegreesAbsolute(45);
+	drive.driveTiles(-1410);
+	drive.turnDegreesAbsolute(0);
+
+
+	while(true)
+	{
+		pros::delay(1000);
+	}
 
 	if(skills)
 	{

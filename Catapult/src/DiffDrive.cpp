@@ -15,68 +15,86 @@ using namespace std;
 DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::IMU imu) : 
     leftMotors(left), rightMotors(right), intertial(imu),
     driveInterface(this), turnInterface(this),
-    drivePID(&driveInterface), turnPID(&turnInterface)
+    drivePID(&driveInterface, LoggerSettings::verbose), turnPID(&turnInterface, LoggerSettings::none),
+    logger(LoggerSettings::verbose)
 {
     MAX_SPEED = rightMotors.getMaxVelocity();
 
+    logger.Log("status: constructor called", 10, LoggerSettings::verbose);
     drivePID.StartTask();
+    logger.Log("status: drivePID started", 10, LoggerSettings::verbose);
     turnPID.StartTask();
+    logger.Log("status: turnPID started", 10, LoggerSettings::verbose);
+
+    leftMotors.tarePosition();
+    rightMotors.tarePosition();
 }
 
 void DiffDrive::driveTiles(double target, bool waitForCompletion)
 {
+    drivePID.SetStopped(false);
     leftMotors.tarePosition();
     rightMotors.tarePosition();
-    setDriveVelocity(.000075);
 
     drivePID.SetTarget(target);
     if(waitForCompletion)
     {
-        while(drivePID.GetTimeSinceTargetReached() < 1)
+        while(drivePID.GetTimeSinceTargetReached() < GOAL_TIME)
         {
             pros::c::delay(20);
         }
     }
+
+    drivePID.SetStopped(true);
 }
 
-void DiffDrive::driveTiles(double target, double timeOut)
+void DiffDrive::driveTiles(double target, int timeOut)
 {
+    drivePID.SetStopped(false);
     leftMotors.tarePosition();
     rightMotors.tarePosition();
 
     drivePID.SetTarget(target);
 
-    while(drivePID.GetTimeSinceTargetReached() < 1 && drivePID.GetTimeSinceTargetSet() < timeOut)
+    while(drivePID.GetTimeSinceTargetReached() < GOAL_TIME && drivePID.GetTimeSinceTargetSet() < timeOut)
     {
         pros::c::delay(20);
     }
+
+    drivePID.SetTarget(getDrivePosition());
+    drivePID.SetStopped(true);
 }
 
 void DiffDrive::turnDegreesAbsolute(double target, bool waitForCompletion)
 {
+    turnPID.SetStopped(false);
     turnPID.SetTarget(target);
     if(waitForCompletion)
     {
-        while(drivePID.GetTimeSinceTargetReached() < 1)
+        while(turnPID.GetTimeSinceTargetReached() < GOAL_TIME)
         {
             pros::c::delay(20);
         }
     }
+    turnPID.SetStopped(true);
 }
 
-void DiffDrive::turnDegreesAbsolute(double target, double timeOut)
+void DiffDrive::turnDegreesAbsolute(double target, int timeOut)
 {
+    turnPID.SetStopped(false);
     turnPID.SetTarget(target);
-    while(drivePID.GetTimeSinceTargetReached() < 1 && drivePID.GetTimeSinceTargetSet() < timeOut)
+    while(turnPID.GetTimeSinceTargetReached() < GOAL_TIME && turnPID.GetTimeSinceTargetSet() < timeOut)
     {
         pros::c::delay(20);
     }
+
+    turnPID.SetTarget(getTurnPosition());
+    turnPID.SetStopped(true);
 }
 
 void DiffDrive::setBrakeMode(pros::motor_brake_mode_e mode)
 {
     leftMotors.setBrakeMode(mode);
-    rightMotors.setBrakeMode(mode);
 }
 
 void DiffDrive::setDrivePIDVals(double kp, double ki, double kd)
@@ -99,6 +117,16 @@ void DiffDrive::setTurnPIDTol(double tolerance)
     turnPID.SetTolerance(tolerance);
 }
 
+void DiffDrive::setMaxDriveSpeed(double percent)
+{
+    MAX_DRIVE_PERCENT = percent;
+}
+
+void DiffDrive::setMaxTurnSpeed(double percent)
+{
+    MAX_TURN_PERCENT = percent;
+}
+
 double DiffDrive::getDrivePosition()
 {
     return (leftMotors.getPosition() + rightMotors.getPosition()) / 2;
@@ -113,6 +141,7 @@ void DiffDrive::setDriveVelocity(double value)
 double DiffDrive::getTurnPosition()
 {
     double current = intertial.get_heading();
+
     double target = turnPID.GetTarget();
 
     if (current - target > 180)
@@ -137,9 +166,14 @@ void DiffDrive::setTurnVelocity(double value)
 
 void DiffDrive::setMotorVelocities()
 {
-    double targetLeftSpeed = driveVelocity + turnVelocity;
-    double targetRightSpeed = driveVelocity - turnVelocity;
-    double scaleFactor = min(MAX_SPEED / max(fabs(targetLeftSpeed), fabs(targetRightSpeed)), 0.75);
+    double adjustedDriveMax = MAX_DRIVE_PERCENT * MAX_SPEED;
+    double adjustedTurnMax = MAX_TURN_PERCENT * MAX_SPEED;
+    double adjustedDriveVelocity = clamp(driveVelocity, -adjustedDriveMax, adjustedDriveMax);
+    double adjustedTurnVelocity = clamp(turnVelocity, -adjustedTurnMax, adjustedTurnMax);
+
+    double targetLeftSpeed = adjustedDriveVelocity + adjustedTurnVelocity;
+    double targetRightSpeed = adjustedDriveVelocity - adjustedTurnVelocity;
+    double scaleFactor = min(MAX_SPEED / max(fabs(targetLeftSpeed), fabs(targetRightSpeed)), 1.0);
 
     leftMotors.moveVelocity(targetLeftSpeed * scaleFactor);
     rightMotors.moveVelocity(targetRightSpeed* scaleFactor);
@@ -181,4 +215,5 @@ void DiffDrive::TurnInterface::setVelocityPID(double value)
 {
     parent->setTurnVelocity(value);
 }
+
 

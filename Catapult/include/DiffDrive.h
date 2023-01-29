@@ -5,6 +5,7 @@
 #include "PID.h"
 #include "pros/imu.hpp"
 #include <math.h>
+#include "Logger.h"
 
 namespace Mines {
 
@@ -36,13 +37,19 @@ class DiffDrive
     MinesMotorGroup leftMotors;
     MinesMotorGroup rightMotors;
     pros::Imu intertial;
+
     DriveInterface driveInterface;
     TurnInterface turnInterface;
     PID drivePID;
     PID turnPID;
 
+    ScreenLogger logger;
+
     //configuration variables
     double MAX_SPEED;
+    int GOAL_TIME = 500;
+    double MAX_DRIVE_PERCENT = 1;
+    double MAX_TURN_PERCENT = 1;
 
 
     //updateable variables
@@ -53,9 +60,9 @@ class DiffDrive
         DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::Imu Imu);
 
         void driveTiles(double target, bool waitForCompletion=true);
-        void driveTiles(double target, double timeOut);
+        void driveTiles(double target, int timeOut);
         void turnDegreesAbsolute(double target, bool waitForCompletion=true);
-        void turnDegreesAbsolute(double target, double timeOut);
+        void turnDegreesAbsolute(double target, int timeOut);
 
         //configuration functions
         void setBrakeMode(pros::motor_brake_mode_e mode);
@@ -63,8 +70,8 @@ class DiffDrive
         void setTurnPIDVals(double kp, double ki, double kd);
         void setDrivePIDTol(double tolerance);
         void setTurnPIDTol(double tolerance);
-
-
+        void setMaxDriveSpeed(double percent);
+        void setMaxTurnSpeed(double percent);
 
     private:
         double getDrivePosition();

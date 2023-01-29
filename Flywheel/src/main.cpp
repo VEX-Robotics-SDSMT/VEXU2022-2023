@@ -76,15 +76,30 @@ void competition_initialize()
  */
 void autonomous() 
 {
-	//DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
-	//drive.setDrivePIDVals(0.81, 0, 0.004242);
-	//drive.setDrivePIDTol(10);
-	//drive.setTurnPIDVals(0.01, 0, 0);
-	//drive.setTurnPIDTol(2);
+	DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
+	drive.setDrivePIDVals(0.2, 0, 0);
+	drive.setDrivePIDTol(5);
+	drive.setTurnPIDVals(1.2, 0, 0);//1.2
+	drive.setTurnPIDTol(1);
+	drive.setMaxDriveSpeed(0.3);
+	drive.setMaxTurnSpeed(0.7);
 
-	//drive.driveTiles(1000);
-	//drive.turnDegreesAbsolute(720);
-	
+
+
+	drive.turnDegreesAbsolute(90);
+	drive.driveTiles(1000);
+	drive.turnDegreesAbsolute(0);
+	drive.driveTiles(1000);
+	drive.turnDegreesAbsolute(45);
+	drive.driveTiles(-1410);
+	drive.turnDegreesAbsolute(0);
+
+
+	while(true)
+	{
+		pros::delay(1000);
+	}
+	/*
 	if(skills) // Skills route
 	{
 		//drive.driveTiles(1000); //Tuning PID
@@ -290,7 +305,7 @@ void autonomous()
 		//turn and pick up three
 		//turn and shoot goal 2
 		
-	}
+	/*}
 	else // Match auton route
 	{
 		// small move back
@@ -308,7 +323,7 @@ void autonomous()
 		//pick up 3
 		// turn
 		//shoot
-	}
+	}*/
 
 	//Attention! do not remove, bot will crash
 	while(true)

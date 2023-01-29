@@ -7,7 +7,7 @@ using namespace std;
 
 namespace Mines
 {
-    PID::PID(PIDInterface *inputInterface)
+    PID::PID(PIDInterface *inputInterface, LoggerSettings settings) : logger(settings)
     {
         interface = inputInterface;
     }
@@ -15,19 +15,35 @@ namespace Mines
     void PID::update(double deltaT)
     {
         double currentPosition = getPosition();
+        logger.Log(("current position: " + std::to_string(currentPosition)).c_str(), 0, LoggerSettings::verbose);
         double error = target - currentPosition;
+        logger.Log(("current error value: " + std::to_string(error)).c_str(), 1, LoggerSettings::verbose);
+
         double positional = KP * error;
         double integral = KI * ( lastIntergral + (error * deltaT));
         double derivative = KD * ((error - lastError) / deltaT);
+        logger.Log(("positional: " + std::to_string(positional)).c_str(), 2, LoggerSettings::verbose);
+        logger.Log(("integral: " + std::to_string(integral)).c_str(), 3, LoggerSettings::verbose);
+        logger.Log(("derivative: " + std::to_string(derivative)).c_str(), 4, LoggerSettings::verbose);
+
         double controlVariable = positional + integral + derivative;
+        logger.Log(("controlVariable: " + std::to_string(controlVariable)).c_str(), 6, LoggerSettings::verbose);
+
 
         //setting loop variables
         if (error != NAN)
         {
+            logger.Log(("error: " + std::to_string(error)).c_str(), 8, LoggerSettings::verbose); 
             lastError = error;
         }
+        else
+        {
+            logger.Log("ERROR: error is Nan", 8, LoggerSettings::error);
+        }
+        
         if (integral == NAN)
         {
+            logger.Log("ERROR: integral is Nan", 9, LoggerSettings::error);
             lastIntergral = 0; 
         }
 
@@ -51,7 +67,10 @@ namespace Mines
         while(true)
         {
             count++;
-            update(deltaTime);
+            if(!stopped)
+            {
+                update(deltaTime);
+            }
             
             pros::Task::delay(deltaTime);
         }
@@ -106,6 +125,7 @@ namespace Mines
     void PID::SetStopped(bool stopped)
     {
         this->stopped = stopped;
+        setOutput(0);
     }
 
     double PID::GetVelocity()
