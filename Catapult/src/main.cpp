@@ -88,29 +88,13 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 	//pros::lcd::print(0,"Start");
 	//fire(cat);
 
-	DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
+	DiffDrive drive(leftDriveMotors, rightDriveMotors, inertialSensor);
 	drive.setDrivePIDVals(1, 0, 0);
 	drive.setDrivePIDTol(5);
 	drive.setTurnPIDVals(2.5, 0, 0);//1.2
 	drive.setTurnPIDTol(2);
 	drive.setMaxDriveSpeed(0.3);
 	drive.setMaxTurnSpeed(1);
-
-
-
-	drive.turnDegreesAbsolute(90);
-	drive.driveTiles(1000);
-	drive.turnDegreesAbsolute(0);
-	drive.driveTiles(1000);
-	drive.turnDegreesAbsolute(45);
-	drive.driveTiles(-1410);
-	drive.turnDegreesAbsolute(0);
-
-
-	while(true)
-	{
-		pros::delay(1000);
-	}
 
 	if(skills)
 	{
@@ -275,11 +259,62 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 		drive.driveTiles(500);
 		drive.turnDegreesAbsolute(90);
 		drive.driveTiles(1000);
-		drive.turnDegreesAbsolute(180);
-		drive.driveTiles(500);
-		topRollerFront.move(127);
-		pros::delay(500);
+		drive.turnDegreesAbsolute(0);
+		drive.driveTiles(-450);
+		topRoller.move(127);
+		pros::delay(625);
 		topRoller.brake();
+		pros::delay(50);
+
+		drive.driveTiles(350);
+		drive.turnDegreesAbsolute(-46);
+		drive.driveTiles(850);
+		drive.turnDegreesAbsolute(200);
+		shield.set_value(1);
+		drive.driveTiles(500);
+		 pros::delay(250);
+		 while(limitSwitch.get_value() == 1)
+		 {
+		 	catapultMotors.move(127);
+		 }
+		 pros::delay(200);
+		 while(limitSwitch.get_value() == 0)
+		 {
+		 	catapultMotors.move(127);
+		 }
+		catapultMotors.brake();
+		shield.set_value(0);
+		pros::delay(200);
+		drive.driveTiles(-325);
+
+		drive.turnDegreesAbsolute(-46);
+		intake.move(127);
+		drive.driveTiles(1250);
+		drive.turnDegreesAbsolute(-142);
+
+		shield.set_value(1);
+		drive.driveTiles(500);
+		pros::delay(500);
+		 while(limitSwitch.get_value() == 1)
+		 {
+		 	catapultMotors.move(127);
+		 }
+		 pros::delay(200);
+		 while(limitSwitch.get_value() == 0)
+		 {
+		 	catapultMotors.move(127);
+		 }
+		catapultMotors.brake();
+		shield.set_value(0);
+		pros::delay(200);
+		drive.driveTiles(-500);		
+
+		drive.turnDegreesAbsolute(-75);
+		drive.driveTiles(800);
+		drive.turnDegreesAbsolute(180);
+		drive.driveTiles(2000);
+		drive.driveTiles(-2500);
+
 	}
 	while(true)
 	{

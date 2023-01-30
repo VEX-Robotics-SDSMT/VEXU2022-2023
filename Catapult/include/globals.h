@@ -37,7 +37,7 @@
 
 extern pros::Controller MasterController;
 
-extern pros::Imu intertialSensor;
+extern pros::Imu inertialSensor;
 
 extern pros::Motor topRoller;
 extern pros::Motor topRollerFront;
@@ -69,6 +69,7 @@ extern double axisPercentRed;
 extern int blue;
 extern int green;
 extern int red;
+extern int absoluteRot;
 #define RED_GEARSET pros::E_MOTOR_GEARSET_36
 #define GREEN_GEARSET pros::E_MOTOR_GEARSET_18
 #define BLUE_GEARSET pros::E_MOTOR_GEARSET_06

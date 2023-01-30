@@ -67,6 +67,11 @@ void DiffDrive::driveTiles(double target, int timeOut)
 
 void DiffDrive::turnDegreesAbsolute(double target, bool waitForCompletion)
 {
+    if(inertialSensor.get_rotation() != absoluteRot)
+    {
+        inertialSensor.set_rotation(absoluteRot);
+    }
+    absoluteRot = target;
     turnPID.SetStopped(false);
     turnPID.SetTarget(target);
     if(waitForCompletion)
@@ -81,6 +86,11 @@ void DiffDrive::turnDegreesAbsolute(double target, bool waitForCompletion)
 
 void DiffDrive::turnDegreesAbsolute(double target, int timeOut)
 {
+    if(inertialSensor.get_rotation() != absoluteRot)
+    {
+        inertialSensor.set_rotation(absoluteRot);
+    }
+    absoluteRot = target;
     turnPID.SetStopped(false);
     turnPID.SetTarget(target);
     while(turnPID.GetTimeSinceTargetReached() < GOAL_TIME && turnPID.GetTimeSinceTargetSet() < timeOut)

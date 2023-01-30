@@ -3,7 +3,7 @@
 
 pros::Controller MasterController (pros::E_CONTROLLER_MASTER);
 
-pros::Imu intertialSensor(INERTIAL_SENSOR);
+pros::Imu inertialSensor(INERTIAL_SENSOR);
 
 pros::Motor topRoller(TOP_ROLLER, RED_GEARSET, true);
 pros::Motor topRollerFront(TOP_ROLLER_FRONT, RED_GEARSET, false);
@@ -36,4 +36,4 @@ double axisPercentRed = 100.0 / 127;
 int blue = 600;
 int green = 200;
 int red = 100;
-int test = 1;
+int absoluteRot = 0;
