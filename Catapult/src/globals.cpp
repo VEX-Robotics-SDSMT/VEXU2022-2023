@@ -36,4 +36,4 @@ double axisPercentRed = 100.0 / 127;
 int blue = 600;
 int green = 200;
 int red = 100;
-int absoluteRot = 0;
+double absoluteRot = 0;

@@ -69,7 +69,7 @@ extern double axisPercentRed;
 extern int blue;
 extern int green;
 extern int red;
-extern int absoluteRot;
+extern double absoluteRot;
 #define RED_GEARSET pros::E_MOTOR_GEARSET_36
 #define GREEN_GEARSET pros::E_MOTOR_GEARSET_18
 #define BLUE_GEARSET pros::E_MOTOR_GEARSET_06

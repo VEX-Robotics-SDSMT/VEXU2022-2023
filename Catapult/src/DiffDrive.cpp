@@ -67,7 +67,7 @@ void DiffDrive::driveTiles(double target, int timeOut)
 
 void DiffDrive::turnDegreesAbsolute(double target, bool waitForCompletion)
 {
-    if(inertialSensor.get_rotation() != absoluteRot)
+    if(fabs(inertialSensor.get_rotation() - absoluteRot) > 0.01)
     {
         inertialSensor.set_rotation(absoluteRot);
     }
@@ -86,7 +86,7 @@ void DiffDrive::turnDegreesAbsolute(double target, bool waitForCompletion)
 
 void DiffDrive::turnDegreesAbsolute(double target, int timeOut)
 {
-    if(inertialSensor.get_rotation() != absoluteRot)
+    if(fabs(inertialSensor.get_rotation() - absoluteRot) > 0.01)
     {
         inertialSensor.set_rotation(absoluteRot);
     }
