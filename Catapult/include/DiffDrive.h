@@ -50,6 +50,8 @@ class DiffDrive
     int GOAL_TIME = 500;
     double MAX_DRIVE_PERCENT = 1;
     double MAX_TURN_PERCENT = 1;
+    
+    bool ACTIVE = true;
 
 
     //updateable variables
@@ -72,6 +74,8 @@ class DiffDrive
         void setTurnPIDTol(double tolerance);
         void setMaxDriveSpeed(double percent);
         void setMaxTurnSpeed(double percent);
+        void setActive(bool active);
+
 
     private:
         double getDrivePosition();
