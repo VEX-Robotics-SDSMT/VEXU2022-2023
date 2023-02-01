@@ -111,3 +111,33 @@ void rollerLoop(pros::Motor roller, pros::Motor rollerFront, double velocity, bo
         rollerFront.brake();
     }
 }
+
+void catInit(Mines::MinesMotorGroup catapultMotorGroup, pros::ADIDigitalIn limitSwitch, pros::ADIDigitalOut shield)
+{
+    shield.set_value(1);
+		pros::delay(200);
+		while(!limitSwitch.get_new_press())
+		{
+			catapultMotorGroup.move(127);
+		}
+		catapultMotorGroup.brake();
+		shield.set_value(0);
+}
+
+void catFire(Mines::MinesMotorGroup catapultMotorGroup, pros::ADIDigitalIn limitSwitch, pros::ADIDigitalOut shield)
+{
+    shield.set_value(1);
+		 pros::delay(250);
+		 while(limitSwitch.get_value() == 1)
+		 {
+		 	catapultMotorGroup.move(127);
+		 }
+		 pros::delay(200);
+		 while(limitSwitch.get_value() == 0)
+		 {
+		 	catapultMotorGroup.move(127);
+		 }
+		catapultMotorGroup.brake();
+		shield.set_value(0);
+		pros::delay(200);
+}

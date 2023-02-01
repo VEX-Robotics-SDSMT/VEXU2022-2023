@@ -98,14 +98,7 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 
 	if(skills)
 	{
-		shield.set_value(1);
-		pros::delay(200);
-		while(!limitSwitch.get_new_press())
-		{
-			catapultMotors.move(127);
-		}
-		catapultMotors.brake();
-		shield.set_value(0);
+		catInit(catapultMotors, limitSwitch, shield);
 
 		leftDriveMotors.moveVelocity(100);
 		rightDriveMotors.moveVelocity(100);//straight
@@ -220,29 +213,12 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 	//}
 	else
 	{
-		shield.set_value(1);
-		pros::delay(200);
-		while(!limitSwitch.get_new_press())
-		{
-			catapultMotors.move(127);
-		}
-		catapultMotors.brake();
-		shield.set_value(0);
+		catInit(catapultMotors, limitSwitch, shield);
 
 		drive.driveTiles(500);
 		drive.turnDegreesAbsolute(90);
-		//leftDriveMotors.moveVelocity(100);//turn
-		//rightDriveMotors.moveVelocity(-100);
-		//pros::delay(950);
 		drive.driveTiles(1000);
-		//leftDriveMotors.brake();
-		//rightDriveMotors.brake();
 		drive.turnDegreesAbsolute(0);
-		//leftDriveMotors.moveVelocity(-100);//turn
-		//rightDriveMotors.moveVelocity(100);
-		//pros::delay(950);
-		//leftDriveMotors.brake();
-		//rightDriveMotors.brake();
 		drive.driveTiles(-450);
 		topRoller.move(127);
 		pros::delay(125);
@@ -251,80 +227,24 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 
 		drive.driveTiles(350);
 		drive.turnDegreesAbsolute(-45);
-		//leftDriveMotors.moveVelocity(-100);//turn
-		//rightDriveMotors.moveVelocity(100);
-		//pros::delay(475);
-		//leftDriveMotors.brake();
-		//rightDriveMotors.brake();
 		drive.driveTiles(850);
 		drive.turnDegreesAbsolute(200);
-		//leftDriveMotors.moveVelocity(-100);//turn
-		//rightDriveMotors.moveVelocity(100);
-		//pros::delay(1300);
-		//leftDriveMotors.brake();
-		//rightDriveMotors.brake();
-		shield.set_value(1);
 		drive.driveTiles(450);
-		 pros::delay(250);
-		 while(limitSwitch.get_value() == 1)
-		 {
-		 	catapultMotors.move(127);
-		 }
-		 pros::delay(200);
-		 while(limitSwitch.get_value() == 0)
-		 {
-		 	catapultMotors.move(127);
-		 }
-		catapultMotors.brake();
-		shield.set_value(0);
-		pros::delay(200);
+		catFire(catapultMotors, limitSwitch, shield);
 		drive.driveTiles(-275);
 
 		drive.turnDegreesAbsolute(-46);
-		//leftDriveMotors.moveVelocity(100);//turn
-		//rightDriveMotors.moveVelocity(-100);
-		//pros::delay(1300);
-		//leftDriveMotors.brake();
-		//rightDriveMotors.brake();
 		intake.move(127);
 		drive.driveTiles(1250);
 		drive.turnDegreesAbsolute(-142);
-		//leftDriveMotors.moveVelocity(-100);//turn
-		//rightDriveMotors.moveVelocity(100);
-		//pros::delay(1100);
-		//leftDriveMotors.brake();
-		//rightDriveMotors.brake();
 
-		//shield.set_value(1);
 		drive.driveTiles(500);
-		//pros::delay(500);
-		// while(limitSwitch.get_value() == 1)
-		// {
-		// 	catapultMotors.move(127);
-		// }
-		// pros::delay(200);
-		// while(limitSwitch.get_value() == 0)
-		// {
-		// 	catapultMotors.move(127);
-		// }
-		//catapultMotors.brake();
-		//shield.set_value(0);
-		//pros::delay(200);
+		catFire(catapultMotors, limitSwitch, shield);
 		drive.driveTiles(-500);		
 
 		drive.turnDegreesAbsolute(-75);
-		//leftDriveMotors.moveVelocity(-100);//turn
-		//rightDriveMotors.moveVelocity(100);
-		//pros::delay(792);
-		//leftDriveMotors.brake();
-		//rightDriveMotors.brake();
 		drive.driveTiles(800);
 		drive.turnDegreesAbsolute(180);
-		//leftDriveMotors.moveVelocity(-100);//turn
-		//rightDriveMotors.moveVelocity(100);
-		//pros::delay(1900);
-		//leftDriveMotors.brake();
-		//rightDriveMotors.brake();
 		drive.driveTiles(2000);
 		drive.driveTiles(-2500);
 
