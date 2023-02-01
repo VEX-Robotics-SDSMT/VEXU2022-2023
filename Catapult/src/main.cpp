@@ -236,7 +236,7 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 		drive.setActive(false);
 		leftDriveMotors.move(100);
 		rightDriveMotors.move(-100);
-		pros::delay(475);
+		pros::delay(625);
 		drive.setActive(true);
 		intake.move(127);
 		drive.driveTiles(1250);
