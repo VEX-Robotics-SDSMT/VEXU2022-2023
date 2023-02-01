@@ -233,7 +233,11 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 		catFire(catapultMotors, limitSwitch, shield);
 		drive.driveTiles(-275);
 
-		drive.turnDegreesAbsolute(-46);
+		drive.setActive(false);
+		leftDriveMotors.move(100);
+		rightDriveMotors.move(-100);
+		pros::delay(475);
+		drive.setActive(true);
 		intake.move(127);
 		drive.driveTiles(1250);
 		drive.turnDegreesAbsolute(-142);
