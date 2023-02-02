@@ -336,11 +336,11 @@ void autonomous()
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 
-		flywheelsGroup.move(105);
+		flywheelsGroup.move(107);
 
 		drive.driveTiles(300); //turn and shoot two preloads
 		drive.turnDegreesAbsolute(-15); //15
-		pros::delay(1500);
+		pros::delay(1450);
 
 		push.set_value(1);
 		pros::delay(100);
@@ -383,7 +383,7 @@ void autonomous()
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
-		pros::delay(500);
+		pros::delay(700);
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
@@ -396,26 +396,25 @@ void autonomous()
 		drive.turnDegreesAbsolute(-7);
 		drive.driveTiles(-210);
 		pros::delay(200);
-		drive.setMaxDriveSpeed(0.4);
+		drive.turnDegreesAbsolute(0);
+		drive.setMaxDriveSpeed(0.25);
 		drive.driveTiles(-500); //turn along low goal
-		pros::delay(200);
-		drive.driveTiles(-1200);
 		//pros::delay(200);
-		//drive.driveTiles(-400);
-		flywheelsGroup.move(105);
-		drive.driveTiles(200);
+		drive.driveTiles(-1200);
+		flywheelsGroup.move(112);
+		drive.driveTiles(-1000, 1500);
 
-		drive.turnDegreesAbsolute(-40); //perfect
+		drive.turnDegreesAbsolute(-40);
 		
 
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
-		pros::delay(1800);
+		pros::delay(2000);
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
-		pros::delay(1800);
+		pros::delay(2000);
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
