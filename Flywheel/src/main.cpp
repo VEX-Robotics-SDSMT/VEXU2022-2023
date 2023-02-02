@@ -14,7 +14,7 @@
 
 using namespace Mines;
 
-bool skills = 1;
+bool skills = 0;
 int redBlue = 0;
 
 void on_center_button() {
@@ -187,25 +187,24 @@ void autonomous()
 		intake.move(-127);
 
 		drive.driveTiles(-500); //move forward to corner disc
-		pros::delay(500);		//sometimes catches on tape
+		pros::delay(500);		//pick up one along center
 
 		drive.turnDegreesAbsolute(45); //LEFT slight turn
 		pros::delay(500);
-		drive.driveTiles(-900); //to corner
+		drive.driveTiles(-900); //to corner along center
 		pros::delay(500);
 		intake.brake();
 
-		//drive.turnDegreesAbsolute(0);
 		drive.driveTiles(1600); //out of corner
 		drive.turnDegreesAbsolute(90);
-		drive.driveTiles(-1200);
+		drive.driveTiles(-1200); //back up to roller
 		pros::delay(500);
 
 		drive.driveTiles(-100, false);
 		topRoller.move(127); //move roller while applying pressure
 		pros::delay(500);
 		topRoller.brake();
-		drive.driveTiles(200);
+		drive.driveTiles(200); //pull forward slightly
 		drive.turnDegreesAbsolute(85);
 
 		flywheelsGroup.move(103); //shoot loads
@@ -218,6 +217,46 @@ void autonomous()
 			pros::delay(1500);
 		}
 		flywheelsGroup.brake();
+
+		drive.turnDegreesAbsolute(-45); //turn back down line
+		intake.move(-127);
+		drive.driveTiles(-3500); //drive and pick up three
+		pros::delay(500);
+		drive.turnDegreesAbsolute(-135); //turn toward far goal
+		
+		flywheelsGroup.move(103); //shoot loads
+		pros::delay(2500);
+ 		for( int i = 0; i < 3; i++)
+		{
+			push.set_value(1);
+			pros::delay(100);
+			push.set_value(0);
+			pros::delay(1500);
+		}
+
+		drive.turnDegreesAbsolute(-45); //turn back down line
+		drive.driveTiles(-3000);
+		pros::delay(500);
+		drive.turnDegreesAbsolute(165); //turn toward goal
+
+		flywheelsGroup.move(103); //shoot loads
+		pros::delay(2500);
+ 		for( int i = 0; i < 3; i++)
+		{
+			push.set_value(1);
+			pros::delay(100);
+			push.set_value(0);
+			pros::delay(1500);
+		}
+
+		flywheelsGroup.brake();
+
+		drive.turnDegreesAbsolute(135);
+		drive.driveTiles(-1500);
+		launch.set_value(1);
+		
+
+
 		//up to this point, shoot 4 discs and both rollers
 		//will need to speed up eventually
 		//still tuning angles and shots
@@ -297,11 +336,11 @@ void autonomous()
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 
-		flywheelsGroup.move(105);
+		flywheelsGroup.move(107);
 
 		drive.driveTiles(300); //turn and shoot two preloads
-		drive.turnDegreesAbsolute(-15);
-		pros::delay(1000);
+		drive.turnDegreesAbsolute(-15); //15
+		pros::delay(1450);
 
 		push.set_value(1);
 		pros::delay(100);
@@ -334,7 +373,7 @@ void autonomous()
 		push.set_value(0);
 		pros::delay(500);
 		
-		drive.turnDegreesAbsolute(-130);
+		drive.turnDegreesAbsolute(-135);
 		intake.move(-90);
 		drive.driveTiles(-1100);
 
@@ -344,8 +383,12 @@ void autonomous()
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
-		pros::delay(500);
+		pros::delay(700);
 		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(500);
+		push.set_value(1); //three just in case
 		pros::delay(100);
 		push.set_value(0);
 		pros::delay(300); //shoot one
@@ -353,11 +396,13 @@ void autonomous()
 		drive.turnDegreesAbsolute(-7);
 		drive.driveTiles(-210);
 		pros::delay(200);
-		drive.driveTiles(-700); //turn along low goal
-		pros::delay(200);
-		drive.driveTiles(-800);
-		flywheelsGroup.move(105);
-		drive.driveTiles(200);
+		drive.turnDegreesAbsolute(0);
+		drive.setMaxDriveSpeed(0.25);
+		drive.driveTiles(-500); //turn along low goal
+		//pros::delay(200);
+		drive.driveTiles(-1200);
+		flywheelsGroup.move(112);
+		drive.driveTiles(-1000, 1500);
 
 		drive.turnDegreesAbsolute(-40);
 		
@@ -365,11 +410,11 @@ void autonomous()
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
-		pros::delay(1800);
+		pros::delay(2000);
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
-		pros::delay(1800);
+		pros::delay(2000);
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
