@@ -89,7 +89,7 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 	//fire(cat);
 
 	DiffDrive drive(leftDriveMotors, rightDriveMotors, inertialSensor);
-	drive.setDrivePIDVals(0.95, 0, 0);
+	drive.setDrivePIDVals(0.90, 0, 0); //0.95
 	drive.setDrivePIDTol(5);
 	drive.setTurnPIDVals(2.95, 0, 0);//1.2
 	drive.setTurnPIDTol(0.5);
@@ -216,39 +216,51 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 		catInit(catapultMotors, limitSwitch, shield);
 
 		drive.driveTiles(500);
-		drive.turnDegreesAbsolute(90);
+		drive.turnDegreesAbsolute(90, 1500);
 		drive.driveTiles(1000);
-		drive.turnDegreesAbsolute(0);
-		drive.driveTiles(-450);
+		drive.turnDegreesAbsolute(0, 1500);
+		drive.driveTiles(-525, 750);
 		topRoller.move(127);
-		pros::delay(125);
+		pros::delay(150);
 		topRoller.brake();
-		pros::delay(50);
+		pros::delay(50); 
 
 		drive.driveTiles(350);
-		drive.turnDegreesAbsolute(-45);
+		drive.turnDegreesAbsolute(-45, 2000);
 		drive.driveTiles(850);
-		drive.turnDegreesAbsolute(200);
+		drive.turnDegreesAbsolute(200, 1500);
 		drive.driveTiles(450);
 		catFire(catapultMotors, limitSwitch, shield);
-		drive.driveTiles(-275);
+		//drive.driveTiles(-150); // PID is fine to here, retune or possible switch to encoder-based
+
+		drive.setActive(false);
+		leftDriveMotors.move(100);
+		rightDriveMotors.move(-100);
+		pros::delay(725);
+		drive.setActive(true);
+		intake.move(127);
+		drive.driveTiles(1250);
+		drive.setActive(false);
+		leftDriveMotors.move(-100);
+		rightDriveMotors.move(100);
+		pros::delay(1200);
+		drive.setActive(true);
+
+		drive.driveTiles(500);
+		catFire(catapultMotors, limitSwitch, shield);
+		drive.driveTiles(-500);		
 
 		drive.setActive(false);
 		leftDriveMotors.move(100);
 		rightDriveMotors.move(-100);
 		pros::delay(475);
 		drive.setActive(true);
-		intake.move(127);
-		drive.driveTiles(1250);
-		drive.turnDegreesAbsolute(-142);
-
-		drive.driveTiles(500);
-		catFire(catapultMotors, limitSwitch, shield);
-		drive.driveTiles(-500);		
-
-		drive.turnDegreesAbsolute(-75);
 		drive.driveTiles(800);
-		drive.turnDegreesAbsolute(180);
+		drive.setActive(false);
+		leftDriveMotors.move(100);
+		rightDriveMotors.move(-100);
+		pros::delay(475);
+		drive.setActive(true);
 		drive.driveTiles(2000);
 		drive.driveTiles(-2500);
 
