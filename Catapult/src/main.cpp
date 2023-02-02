@@ -220,7 +220,7 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 		drive.driveTiles(1000);
 		drive.turnDegreesAbsolute(0, 1500);
 		drive.driveTiles(-525, 750);
-		topRoller.move(127);
+		topRoller.move(-127);
 		pros::delay(150);
 		topRoller.brake();
 		pros::delay(50); 
@@ -229,40 +229,57 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 		drive.turnDegreesAbsolute(-45, 2000);
 		drive.driveTiles(850);
 		drive.turnDegreesAbsolute(200, 1500);
-		drive.driveTiles(450);
+		drive.driveTiles(175);
 		catFire(catapultMotors, limitSwitch, shield);
-		//drive.driveTiles(-150); // PID is fine to here, retune or possible switch to encoder-based
+		drive.driveTiles(275); // PID is fine to here, retune or possible switch to encoder-based
 
 		drive.setActive(false);
 		leftDriveMotors.move(100);
 		rightDriveMotors.move(-100);
-		pros::delay(725);
+		pros::delay(695);
 		drive.setActive(true);
 		intake.move(127);
-		drive.driveTiles(1250);
+		drive.driveTiles(1350);
+		pros::delay(1000);
 		drive.setActive(false);
 		leftDriveMotors.move(-100);
 		rightDriveMotors.move(100);
-		pros::delay(1200);
+		pros::delay(600);
 		drive.setActive(true);
 
 		drive.driveTiles(500);
 		catFire(catapultMotors, limitSwitch, shield);
-		drive.driveTiles(-500);		
+
+		drive.setActive(false);
+		leftDriveMotors.move(-100);
+		rightDriveMotors.move(100);
+		pros::delay(300);
+		drive.setActive(true);
+
+		drive.driveTiles(550);
 
 		drive.setActive(false);
 		leftDriveMotors.move(100);
 		rightDriveMotors.move(-100);
-		pros::delay(625);
+		pros::delay(650);
 		drive.setActive(true);
-		drive.driveTiles(800);
+
+		drive.driveTiles(750, 2000);
+		drive.driveTiles(-750);
+
 		drive.setActive(false);
-		leftDriveMotors.move(100);
-		rightDriveMotors.move(-100);
-		pros::delay(475);
+		leftDriveMotors.move(-100);
+		rightDriveMotors.move(100);
+		pros::delay(525);
 		drive.setActive(true);
-		drive.driveTiles(2000);
-		drive.driveTiles(-2500);
+
+		pros::delay(500);
+		drive.driveTiles(300);
+		catFire(catapultMotors, limitSwitch, shield);
+
+		intake.brake();
+
+		
 
 	}
 	while(true)
