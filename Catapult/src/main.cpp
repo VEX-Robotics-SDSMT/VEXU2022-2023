@@ -82,6 +82,8 @@ void competition_initialize()
  */
 void autonomous()
 {
+		wall.set_value(0);
+
 	//endgame.set_value(0);
 catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 leftDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
@@ -218,7 +220,7 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 
 		drive.driveTiles(500);
 		drive.turnDegreesAbsolute(90, 1500);
-		drive.driveTiles(1000);
+		drive.driveTiles(1050);
 		drive.turnDegreesAbsolute(0, 1500);
 		drive.driveTiles(-525, 750);
 		topRoller.move(-127);
@@ -262,7 +264,7 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 		drive.setActive(false);
 		leftDriveMotors.move(100);
 		rightDriveMotors.move(-100);
-		pros::delay(650);
+		pros::delay(600);
 		drive.setActive(true);
 
 		drive.driveTiles(750, 2000);
@@ -271,7 +273,7 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 		drive.setActive(false);
 		leftDriveMotors.move(-100);
 		rightDriveMotors.move(100);
-		pros::delay(525);
+		pros::delay(425);
 		drive.setActive(true);
 
 		pros::delay(500);
