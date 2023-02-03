@@ -336,11 +336,11 @@ void autonomous()
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 
-		flywheelsGroup.move(106);
+		flywheelsGroup.move(106);  //106
 
 		drive.driveTiles(300, true); //turn and shoot two preloads
-		drive.turnDegreesAbsolute(-14); //15
-		pros::delay(1450);
+		drive.turnDegreesAbsolute(-14.75); //15
+		pros::delay(1400);
 
 		push.set_value(1);
 		pros::delay(100);
@@ -349,21 +349,22 @@ void autonomous()
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
-		pros::delay(400);
-
+		pros::delay(300);
 		
 		drive.turnDegreesAbsolute(-130); //pick up three
 		intake.move(-90);
 		drive.setMaxDriveSpeed(0.20);
 		drive.driveTiles(-2800);
-		flywheelsGroup.move(99);
+		flywheelsGroup.move(98.5);   //97.5
+		pros::delay(100);
+		drive.turnDegreesAbsolute(-43.5); //turn and shoot
+
 		pros::delay(200);
-		drive.turnDegreesAbsolute(-43); //turn and shoot
 
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
-		pros::delay(1800);
+		pros::delay(1700);
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
@@ -373,11 +374,11 @@ void autonomous()
 		push.set_value(0);
 		pros::delay(500);
 		
-		drive.turnDegreesAbsolute(-135);
+		drive.turnDegreesAbsolute(-143);
 		intake.move(-90);
 		drive.driveTiles(-1100);
 
-		flywheelsGroup.move(98);
+		flywheelsGroup.move(95);  // 95
 		drive.turnDegreesAbsolute(-55); //pick up one
 		pros::delay(700); //500
 		push.set_value(1);
@@ -392,25 +393,25 @@ void autonomous()
 		// pros::delay(100);
 		// push.set_value(0);
 		pros::delay(300); //shoot one
-
-		drive.turnDegreesAbsolute(-7);
-		drive.driveTiles(-210);
-		pros::delay(200);
+		
+		
+		drive.driveTiles(-205);
 		drive.turnDegreesAbsolute(0);
+		
 		drive.setMaxDriveSpeed(0.25);
-		drive.driveTiles(-500); //turn along low goal
-		//pros::delay(200);
-		drive.driveTiles(-1200);
-		flywheelsGroup.move(114);
-		drive.driveTiles(-700, 1500);
+		drive.driveTiles(-2300);
 
-		drive.turnDegreesAbsolute(-40);
+		
+		flywheelsGroup.move(111);  //109
+		drive.setMaxDriveSpeed(0.5);
+
+		drive.turnDegreesAbsolute(-42);
 		
 
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
-		pros::delay(2000);
+		pros::delay(1800);
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
@@ -418,10 +419,53 @@ void autonomous()
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
+		pros::delay(500);
 
 		//Match Auton seems fairly consistent hitting 4-6 out of 7
 		//I don't believe any code could really fix this, maybe just setting
 		//up consistently with full air tanks and battery
+
+		//Skills from this point on
+		/*
+		drive.driveTiles(1600);
+		drive.turnDegreesAbsolute(85);
+		drive.setMaxDriveSpeed(0.3);
+		drive.driveTiles(-3100);
+		drive.setMaxDriveSpeed(0.5);
+		
+
+		drive.driveTiles(-400,false);
+		topRoller.set_zero_position(0);
+	
+		flywheelsGroup.move(98);
+
+		pros::delay(600);
+ 	
+		topRoller.move_absolute(1200,-127); //move roller
+		pros::delay(100);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+
+		drive.driveTiles(500);
+		drive.turnDegreesAbsolute(-8);
+
+		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(1000);
+		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(1200);
+		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(300);
+
+		drive.driveTiles(-300);
+		drive.turnDegreesAbsolute(40);
+		launch.set_value(true);
+		*/
 
 
 
@@ -487,15 +531,15 @@ void opcontrol()
 
 		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT))
 		{
-			flywheelPct = 100;
+			flywheelPct = 85;
 		}
 		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN))
 		{
-			flywheelPct = 75;
+			flywheelPct = 80;
 		}
 		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT))
 		{
-			flywheelPct = 50;
+			flywheelPct = 72;
 		}
 
 		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_B))
@@ -506,7 +550,7 @@ void opcontrol()
 		{
 			driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
 		}
-		rollerLoop(topRoller, green, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_Y));
+		rollerLoop(topRoller, green, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_Y), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X));
 		//intakeLoopToggle(MasterController.get_digital(buttonR2), 1);
 		flywheelsGroup.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 		intakeLoopHold(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R2), 100);
