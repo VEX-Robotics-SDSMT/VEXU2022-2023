@@ -34,6 +34,7 @@
 #define LIMIT_SWITCH 2
 #define SHIELD 8
 #define ENDGAME 1
+#define WALL 5
 
 extern pros::Controller MasterController;
 
@@ -57,6 +58,7 @@ extern pros::Motor intake;
 extern pros::ADIDigitalIn limitSwitch;
 extern pros::ADIDigitalOut shield;
 extern pros::ADIDigitalOut endgame;
+extern pros::ADIDigitalOut wall;
 
 extern std::vector<pros::Motor> leftDriveVector;
 extern std::vector<pros::Motor> rightDriveVector;

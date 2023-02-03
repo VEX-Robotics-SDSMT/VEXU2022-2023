@@ -43,6 +43,7 @@ void on_center_button() {
 void initialize()
 {
 	endgame.set_value(0);
+	wall.set_value(0);
 	//redBlue = initAutonSide(MasterController);
 	//set up PIDs
 	//testPID = Mines::PID();
@@ -419,13 +420,22 @@ void opcontrol()
 		}
 		// **** END CATAPULT *****
 
-		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN))
 		{
 			endgame.set_value(true);
 		}
 		else
 		{
 			endgame.set_value(false);
+		}
+
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
+		{
+			wall.set_value(true);
+		}
+		else
+		{
+			wall.set_value(false);
 		}
 
 		// ***** ROLLER *****

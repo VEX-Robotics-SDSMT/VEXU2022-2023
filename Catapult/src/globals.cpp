@@ -24,6 +24,7 @@ pros::Motor intake(INTAKE, BLUE_GEARSET, true);
 pros::ADIDigitalIn limitSwitch (LIMIT_SWITCH);
 pros::ADIDigitalOut shield (SHIELD);
 pros::ADIDigitalOut endgame (ENDGAME);
+pros::ADIDigitalOut wall(WALL);
 
 std::vector<pros::Motor> leftDriveVector = {leftTopRearDrive, leftBotRearDrive, leftFrontDrive};
 std::vector<pros::Motor> rightDriveVector = {rightTopRearDrive, rightBotRearDrive, rightFrontDrive};
