@@ -31,6 +31,7 @@ namespace Mines
         double target = 0;
         double tolerance = 0.05;
         bool stopped = false;
+        bool killed = false;
 
         //Transients - change programatically every loop
         double lastError = 0;
@@ -60,6 +61,7 @@ namespace Mines
             void SetTolerance(double tolerance);
             void SetTarget(double target);
             void SetStopped(bool stopped);
+            void Kill();
 
             double GetVelocity();
             double GetTimeSinceTargetReached();

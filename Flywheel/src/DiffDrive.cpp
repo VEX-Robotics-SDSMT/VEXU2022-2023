@@ -267,6 +267,14 @@ void DiffDrive::setActive(bool active)
     }
 }
 
+void DiffDrive::killPIDs()
+{
+    drivePID.Kill();
+    turnPID.Kill();
+
+    pros::delay(200);
+}
+
 
 
 

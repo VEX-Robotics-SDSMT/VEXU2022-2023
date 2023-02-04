@@ -79,7 +79,7 @@ namespace Mines
         int deltaTime = 20;
         int count = 0;
 
-        while(true)
+        while(!killed)
         {
             count++;
             update(deltaTime);
@@ -206,6 +206,11 @@ namespace Mines
     double PID::GetTarget()
     {
         return target;
+    }
+
+    void PID::Kill()
+    {
+        killed = true;
     }
 }
 

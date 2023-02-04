@@ -74,7 +74,7 @@ class DiffDrive
         void setMaxDriveSpeed(double percent);
         void setMaxTurnSpeed(double percent);
         void setActive(bool active);
-
+        void killPIDs();
 
     private:
         double getDrivePosition();

@@ -164,7 +164,6 @@ void autonomous()
 		
 		flywheelsGroup.move(113);  //112
 		drive.setMaxDriveSpeed(0.5);
-
 		drive.turnDegreesAbsolute(-42);
 		
 
@@ -363,11 +362,7 @@ void autonomous()
 		*/
 	}
 
-	//Attention! do not remove, bot will crash
-	while(true)
-	{
-		pros::delay(1000);
-	}
+	drive.killPIDs();
 }
 
 /**

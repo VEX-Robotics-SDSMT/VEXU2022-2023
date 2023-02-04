@@ -204,6 +204,12 @@ void DiffDrive::setActive(bool active)
     }
 }
 
+void DiffDrive::killPIDs()
+{
+    drivePID.kill();
+    turnPID.kill();
+}
+
 
 //--------------------nested classes-----------------------
 

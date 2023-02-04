@@ -286,15 +286,11 @@ void autonomous()
 		drive.driveTiles(300);
 		//catFire(catapultMotors, limitSwitch, shield);
 
-		intake.brake();
-
-		
+		intake.brake();		
 
 	}
-	while(true)
-	{
-		pros::delay(1000);
-	}
+
+	drive.killPIDs();
 }
 
 /**
