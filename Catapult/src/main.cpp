@@ -229,8 +229,8 @@ void autonomous()
 		drive.turnDegreesAbsolute(0, 1500);
 		drive.driveTiles(-525, 1500);
 		pros::delay(500);
-		topRoller.move(-127);
-		pros::delay(250); //150
+		topRoller.move(127);
+		pros::delay(150); //150
 		topRoller.brake();
 		pros::delay(50); 
 
@@ -241,6 +241,7 @@ void autonomous()
 		//drive.driveTiles(100); //175
 		catFire(catapultMotors, limitSwitch, shield);
 		drive.driveTiles(475); //275 // PID is fine to here, retune or possible switch to encoder-based
+
 
 		drive.setActive(false);
 		leftDriveMotors.move(100);
