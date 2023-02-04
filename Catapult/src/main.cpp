@@ -83,6 +83,8 @@ void competition_initialize()
 void autonomous()
 {
 		wall.set_value(0);
+		double startTime = pros::millis();
+
 
 	//endgame.set_value(0);
 	catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
@@ -99,6 +101,7 @@ void autonomous()
 
 	if(skills)
 	{
+		drive.setActive(false);
 		catInit(catapultMotors, limitSwitch, shield);
 
 		leftDriveMotors.moveVelocity(100);
@@ -196,11 +199,15 @@ void autonomous()
 
 		leftDriveMotors.moveVelocity(100);
 		rightDriveMotors.moveVelocity(-100);
-		pros::delay(2375);
+		pros::delay(475);
 
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 		
+		while(pros::millis() - startTime < 56000)
+		{
+			pros::delay(100);
+		}
 		endgame.set_value(1);
 		pros::delay(1000);
 

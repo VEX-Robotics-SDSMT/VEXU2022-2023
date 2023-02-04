@@ -14,7 +14,7 @@
 
 using namespace Mines;
 
-bool skills = 0;
+bool skills = false;
 int redBlue = 0;
 
 void on_center_button() {
@@ -26,6 +26,7 @@ void on_center_button() {
 		pros::lcd::clear_line(2);
 	}
 }
+
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -86,20 +87,20 @@ void autonomous()
 	
 	if(skills) // Skills route
 	{
-			drive.driveTiles(-100,false);
+		drive.driveTiles(-100,false);
 		topRoller.set_zero_position(0);
 	
 		pros::delay(600);
  	
-		topRoller.move_absolute(800,127); //move roller
+		topRoller.move_absolute(-750,127); //move roller
 		pros::delay(100);
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 
-		flywheelsGroup.move(106);  //106
+		flywheelsGroup.move(107);  //106
 
 		drive.driveTiles(300, true); //turn and shoot two preloads
-		drive.turnDegreesAbsolute(-14.25); //15
+		drive.turnDegreesAbsolute(-15.25); //15
 		pros::delay(2000);
 
 		push.set_value(1);
@@ -111,11 +112,11 @@ void autonomous()
 		push.set_value(0);
 		pros::delay(300);
 		
-		drive.turnDegreesAbsolute(-130); //pick up three
+		drive.turnDegreesAbsolute(-130.5); //pick up three
 		intake.move(-110);
 		drive.setMaxDriveSpeed(0.15);
 		drive.driveTiles(-2800);
-		flywheelsGroup.move(100);   //99
+		flywheelsGroup.move(102);   //100
 		pros::delay(100);
 		drive.turnDegreesAbsolute(-43.5); //turn and shoot
 
@@ -124,11 +125,11 @@ void autonomous()
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
-		pros::delay(1700);
+		pros::delay(1900);
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
-		pros::delay(1700);
+		pros::delay(2100);
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
@@ -138,7 +139,7 @@ void autonomous()
 		intake.move(-90);
 		drive.driveTiles(-1100);
 
-		flywheelsGroup.move(95);  // 95
+		flywheelsGroup.move(98);  // 95
 		drive.turnDegreesAbsolute(-55); //pick up one
 		pros::delay(700); //500
 		push.set_value(1);
@@ -155,14 +156,13 @@ void autonomous()
 		pros::delay(300); //shoot one
 		
 		
-		drive.driveTiles(-205);
+		drive.driveTiles(-110);
 		drive.turnDegreesAbsolute(0);
 		
 		drive.setMaxDriveSpeed(0.25);
 		drive.driveTiles(-2300);
-
 		
-		flywheelsGroup.move(112);  //109
+		flywheelsGroup.move(113);  //112
 		drive.setMaxDriveSpeed(0.5);
 
 		drive.turnDegreesAbsolute(-42);
@@ -227,15 +227,15 @@ void autonomous()
 	
 		pros::delay(600);
  	
-		topRoller.move_absolute(800,127); //move roller
+		topRoller.move_absolute(-250,127); //move roller
 		pros::delay(100);
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 
-		flywheelsGroup.move(106);  //106
+		flywheelsGroup.move(107);  //106
 
 		drive.driveTiles(300, true); //turn and shoot two preloads
-		drive.turnDegreesAbsolute(-14.25); //15
+		drive.turnDegreesAbsolute(-15.25); //15
 		pros::delay(2000);
 
 		push.set_value(1);
@@ -247,11 +247,11 @@ void autonomous()
 		push.set_value(0);
 		pros::delay(300);
 		
-		drive.turnDegreesAbsolute(-130); //pick up three
+		drive.turnDegreesAbsolute(-130.5); //pick up three
 		intake.move(-110);
 		drive.setMaxDriveSpeed(0.15);
 		drive.driveTiles(-2800);
-		flywheelsGroup.move(100);   //99
+		flywheelsGroup.move(102);   //100
 		pros::delay(100);
 		drive.turnDegreesAbsolute(-43.5); //turn and shoot
 
@@ -260,11 +260,11 @@ void autonomous()
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
-		pros::delay(1700);
+		pros::delay(1900);
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
-		pros::delay(1700);
+		pros::delay(2100);
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
@@ -274,7 +274,7 @@ void autonomous()
 		intake.move(-90);
 		drive.driveTiles(-1100);
 
-		flywheelsGroup.move(95);  // 95
+		flywheelsGroup.move(98);  // 95
 		drive.turnDegreesAbsolute(-55); //pick up one
 		pros::delay(700); //500
 		push.set_value(1);
@@ -291,13 +291,13 @@ void autonomous()
 		pros::delay(300); //shoot one
 		
 		
-		drive.driveTiles(-205);
+		drive.driveTiles(-110);
 		drive.turnDegreesAbsolute(0);
 		
 		drive.setMaxDriveSpeed(0.25);
 		drive.driveTiles(-2300);
 		
-		flywheelsGroup.move(112);  //109
+		flywheelsGroup.move(113);  //112
 		drive.setMaxDriveSpeed(0.5);
 
 		drive.turnDegreesAbsolute(-42);
