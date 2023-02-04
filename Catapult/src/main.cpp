@@ -220,9 +220,10 @@ void autonomous()
 		drive.turnDegreesAbsolute(90, 1500);
 		drive.driveTiles(1050);
 		drive.turnDegreesAbsolute(0, 1500);
-		drive.driveTiles(-525, 750);
+		drive.driveTiles(-525, 1500);
+		pros::delay(500);
 		topRoller.move(-127);
-		pros::delay(150);
+		pros::delay(250); //150
 		topRoller.brake();
 		pros::delay(50); 
 
@@ -230,14 +231,14 @@ void autonomous()
 		drive.turnDegreesAbsolute(-45, 2000);
 		drive.driveTiles(850);
 		drive.turnDegreesAbsolute(200, 1500);
-		drive.driveTiles(175);
+		//drive.driveTiles(100); //175
 		catFire(catapultMotors, limitSwitch, shield);
-		drive.driveTiles(275); // PID is fine to here, retune or possible switch to encoder-based
+		drive.driveTiles(475); //275 // PID is fine to here, retune or possible switch to encoder-based
 
 		drive.setActive(false);
 		leftDriveMotors.move(100);
 		rightDriveMotors.move(-100);
-		pros::delay(695);
+		pros::delay(620); //695
 		drive.setActive(true);
 		intake.move(127);
 		drive.driveTiles(1350);
@@ -276,7 +277,7 @@ void autonomous()
 
 		pros::delay(500);
 		drive.driveTiles(300);
-		catFire(catapultMotors, limitSwitch, shield);
+		//catFire(catapultMotors, limitSwitch, shield);
 
 		intake.brake();
 
