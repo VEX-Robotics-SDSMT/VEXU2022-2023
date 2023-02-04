@@ -19,7 +19,7 @@ MinesMotorGroup catapultMotors(catapultVector);
  * "I was pressed!" and nothing.
  */
 
-bool skills = 0;
+bool skills = false;
 int redBlue = 0;
 
 void on_center_button() {
@@ -85,11 +85,9 @@ void autonomous()
 		wall.set_value(0);
 
 	//endgame.set_value(0);
-catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-leftDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
-rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
-	//pros::lcd::print(0,"Start");
-	//fire(cat);
+	catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+	leftDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
+	rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 
 	DiffDrive drive(leftDriveMotors, rightDriveMotors, inertialSensor);
 	drive.setDrivePIDVals(0.90, 0, 0); //0.95
@@ -328,24 +326,6 @@ rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 
 void opcontrol()
 {
-	//pros::Controller master(pros::E_CONTROLLER_MASTER);
-	// test_mtr.tare_position();
-	// MotPID in;
-	// Mines::PID pid(&in);
-	// pid.SetPIDConst(0.1, 0.001, 0);
-	// pid.StartTask();
-
-	// int loopCount = 0;
-
-	// pid.SetTarget(5000);
-
-	// while(loopCount < 20)
-	// {
-	// 	pros::lcd::print(6, "main loop: %d", loopCount);
-	// 	loopCount++;
-	// 	pros::c::delay(100);
-	// }
-
 	bool catapultGoal = 1;
 
 	MinesMotorGroup leftDriveMotors(leftDriveVector);

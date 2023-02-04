@@ -83,250 +83,10 @@ void autonomous()
 	drive.setTurnPIDTol(1);
 	drive.setMaxDriveSpeed(0.3);
 	drive.setMaxTurnSpeed(0.7);
-
-	// rightDriveMotors.moveVelocity(30);
-	// leftDriveMotors.moveVelocity(-30);
-	// pros::delay(1475); //second turn stack of three
-	// rightDriveMotors.brake();
-	// leftDriveMotors.brake();
-	// pros::delay(500);
-	// rightDriveMotors.moveVelocity(-30);
-	// leftDriveMotors.moveVelocity(-30);
-	// intake.move(-100); //pick up three
-	// pros::delay(4700);
-	// rightDriveMotors.brake();
-	// leftDriveMotors.brake();
-	// pros::delay(2500);
-	// //intake.brake();
-	// pros::delay(500);
-	// leftDriveMotors.moveVelocity(40); //third turn
-	// rightDriveMotors.moveVelocity(-40);
-	// pros::delay(950);
-	// leftDriveMotors.brake(); 
-	// rightDriveMotors.brake();
-
-	// flywheelsGroup.move(115);
-	// pros::delay(3000);
-	// for( int i = 0; i < 3; i++)
-	// {
-	// 	push.set_value(1);
-	// 	pros::delay(100); //shoot three accross field
-	// 	push.set_value(0);
-	// 	pros::delay(2000);
-	// }
-
-	// intake.brake();
-	// pros::delay(500);
-	// leftDriveMotors.moveVelocity(-40);
-	// rightDriveMotors.moveVelocity(40);
-	// pros::delay(950); //turn back down the line
-
-	// leftDriveMotors.moveVelocity(40);
-	// rightDriveMotors.moveVelocity(40);
-	// intake.move(120); //drive and pick up next three
-	// pros::delay(6000); //**this value is not tuned**
-	// leftDriveMotors.brake();
-	// rightDriveMotors.brake();
-	// pros::delay(2000);
-
-	// leftDriveMotors.moveVelocity(40);
-	// rightDriveMotors.moveVelocity(-40); //turn toward goal
-	// pros::delay(1500); //**this value is not tuned**
-	// rightDriveMotors.brake();
-	// leftDriveMotors.brake();
-	// intake.brake();
-
-	// flywheelsGroup.move(115);
-	// pros::delay(3000);
-	// for( int i = 0; i < 3; i++)
-	// {
-	// 	push.set_value(1);
-	// 	pros::delay(100); //shoot three accross field
-	// 	push.set_value(0);
-	// 	pros::delay(2000);
-	// }
-	// flywheelsGroup.brake(); //so far the end
 	
 	if(skills) // Skills route
 	{
-		//drive.driveTiles(1000); //Tuning PID
-
-		//drive.driveTiles(100);
-		// leftDriveMotors.moveVelocity(100);
-		// rightDriveMotors.move(100);
-		// pros::delay(1500);
-		// //drive.turnDegreesAbsolute(90);
-		// leftDriveMotors.moveVelocity(100);
-		// rightDriveMotors.move(-100);
-
-		drive.driveTiles(-100, false); //move backward to roller
-
- 		topRoller.move(127); //move roller while applying pressure
-		pros::delay(500);
-		topRoller.brake();
-
-		drive.driveTiles(300); //move forward IN LINE
-		pros::delay(500);		
- 
-		drive.turnDegreesAbsolute(75); //RIGHT turn towards goal
-		pros::delay(500);
-
-		flywheelsGroup.move(105); //shoot preloads
-		pros::delay(2800);
- 		for( int i = 0; i < 2; i++)
-		{
-			push.set_value(1);
-			pros::delay(100);
-			push.set_value(0);
-			pros::delay(1500);
-		}
-
- 		drive.turnDegreesAbsolute(138); //LEFT slight turn
-		pros::delay(500);
-
-		intake.move(-127);
-
-		drive.driveTiles(-500); //move forward to corner disc
-		pros::delay(500);		//pick up one along center
-
-		drive.turnDegreesAbsolute(45); //LEFT slight turn
-		pros::delay(500);
-		drive.driveTiles(-900); //to corner along center
-		pros::delay(500);
-		intake.brake();
-
-		drive.driveTiles(1600); //out of corner
-		drive.turnDegreesAbsolute(90);
-		drive.driveTiles(-1200); //back up to roller
-		pros::delay(500);
-
-		drive.driveTiles(-100, false);
-		topRoller.move(127); //move roller while applying pressure
-		pros::delay(500);
-		topRoller.brake();
-		drive.driveTiles(200); //pull forward slightly
-		drive.turnDegreesAbsolute(85);
-
-		flywheelsGroup.move(103); //shoot loads
-		pros::delay(2500);
- 		for( int i = 0; i < 2; i++)
-		{
-			push.set_value(1);
-			pros::delay(100);
-			push.set_value(0);
-			pros::delay(1500);
-		}
-		flywheelsGroup.brake();
-
-		drive.turnDegreesAbsolute(-45); //turn back down line
-		intake.move(-127);
-		drive.driveTiles(-3500); //drive and pick up three
-		pros::delay(500);
-		drive.turnDegreesAbsolute(-135); //turn toward far goal
-		
-		flywheelsGroup.move(103); //shoot loads
-		pros::delay(2500);
- 		for( int i = 0; i < 3; i++)
-		{
-			push.set_value(1);
-			pros::delay(100);
-			push.set_value(0);
-			pros::delay(1500);
-		}
-
-		drive.turnDegreesAbsolute(-45); //turn back down line
-		drive.driveTiles(-3000);
-		pros::delay(500);
-		drive.turnDegreesAbsolute(165); //turn toward goal
-
-		flywheelsGroup.move(103); //shoot loads
-		pros::delay(2500);
- 		for( int i = 0; i < 3; i++)
-		{
-			push.set_value(1);
-			pros::delay(100);
-			push.set_value(0);
-			pros::delay(1500);
-		}
-
-		flywheelsGroup.brake();
-
-		drive.turnDegreesAbsolute(135);
-		drive.driveTiles(-1500);
-		launch.set_value(1);
-		
-
-
-		//up to this point, shoot 4 discs and both rollers
-		//will need to speed up eventually
-		//still tuning angles and shots
-		//usually hits second of first two and last two
-
-/*
-		leftDriveMotors.moveVelocity(-50); //move forward to corner disc
-		rightDriveMotors.moveVelocity(-50);
-		pros::delay(1200);
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
-		intake.brake();
-
-		leftDriveMotors.moveVelocity(-50); //LEFT slight turn
-		rightDriveMotors.moveVelocity(50);
-		pros::delay(632);
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
-
-		leftDriveMotors.moveVelocity(-30); //move backward to roller
-		rightDriveMotors.moveVelocity(-30);
-		pros::delay(1200);
- 		topRoller.move(127); //move roller while applying pressure
-		pros::delay(200);
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
-		topRoller.brake();
-
-		leftDriveMotors.moveVelocity(50); //move forward to corner disc
-		rightDriveMotors.moveVelocity(50);
-		pros::delay(1500);
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
-
-		leftDriveMotors.moveVelocity(-50); //LEFT slight turn
-		rightDriveMotors.moveVelocity(50);
-		pros::delay(316);
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
-
-		leftDriveMotors.moveVelocity(-50); //move forward to corner disc
-		rightDriveMotors.moveVelocity(-50);
-		pros::delay(700);
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
-
-		pros::delay(17277);
-		launch.set_value(1);
-		pros::delay(1000);
-		leftDriveMotors.moveVelocity(-50); //LEFT slight turn
-		rightDriveMotors.moveVelocity(50);
-		pros::delay(530);
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
-		
-		flywheelsGroup.move(113); //shoot preloads
-		pros::delay(2500);
-			push.set_value(1);
-			pros::delay(100);
-			push.set_value(0);
-		flywheelsGroup.brake();
-		//*/
-
-
-		}
-	else // Match auton route
-	{
-		
-
-		drive.driveTiles(-100,false);
+			drive.driveTiles(-100,false);
 		topRoller.set_zero_position(0);
 	
 		pros::delay(600);
@@ -421,6 +181,141 @@ void autonomous()
 		push.set_value(0);
 		pros::delay(500);
 
+		drive.driveTiles(1600);
+		drive.turnDegreesAbsolute(85);
+		drive.setMaxDriveSpeed(0.3);
+		drive.driveTiles(-3100);
+		drive.setMaxDriveSpeed(0.5);
+		
+
+		drive.driveTiles(-400,false);
+		topRoller.set_zero_position(0);
+	
+		flywheelsGroup.move(98);
+
+		pros::delay(600);
+ 	
+		topRoller.move_absolute(1200,-127); //move roller
+		pros::delay(100);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+
+		drive.driveTiles(500);
+		drive.turnDegreesAbsolute(-8);
+
+		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(1000);
+		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(1200);
+		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(300);
+
+		drive.driveTiles(-300);
+		drive.turnDegreesAbsolute(40);
+		launch.set_value(true);
+	}
+	else // Match auton route
+	{
+		drive.driveTiles(-100,false);
+		topRoller.set_zero_position(0);
+	
+		pros::delay(600);
+ 	
+		topRoller.move_absolute(800,127); //move roller
+		pros::delay(100);
+		leftDriveMotors.brake();
+		rightDriveMotors.brake();
+
+		flywheelsGroup.move(106);  //106
+
+		drive.driveTiles(300, true); //turn and shoot two preloads
+		drive.turnDegreesAbsolute(-14.25); //15
+		pros::delay(2000);
+
+		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(1500);
+		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(300);
+		
+		drive.turnDegreesAbsolute(-130); //pick up three
+		intake.move(-110);
+		drive.setMaxDriveSpeed(0.15);
+		drive.driveTiles(-2800);
+		flywheelsGroup.move(100);   //99
+		pros::delay(100);
+		drive.turnDegreesAbsolute(-43.5); //turn and shoot
+
+		pros::delay(1000);
+
+		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(1700);
+		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(1700);
+		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(500);
+		
+		drive.turnDegreesAbsolute(-143);
+		intake.move(-90);
+		drive.driveTiles(-1100);
+
+		flywheelsGroup.move(95);  // 95
+		drive.turnDegreesAbsolute(-55); //pick up one
+		pros::delay(700); //500
+		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(700);
+		// push.set_value(1);
+		// pros::delay(100);
+		// push.set_value(0);
+		// pros::delay(500);
+		// push.set_value(1); //three just in case
+		// pros::delay(100);
+		// push.set_value(0);
+		pros::delay(300); //shoot one
+		
+		
+		drive.driveTiles(-205);
+		drive.turnDegreesAbsolute(0);
+		
+		drive.setMaxDriveSpeed(0.25);
+		drive.driveTiles(-2300);
+		
+		flywheelsGroup.move(112);  //109
+		drive.setMaxDriveSpeed(0.5);
+
+		drive.turnDegreesAbsolute(-42);
+		
+
+		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(1800);
+		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(2000);
+		push.set_value(1);
+		pros::delay(100);
+		push.set_value(0);
+		pros::delay(500);
+
 		//Match Auton seems fairly consistent hitting 4-6 out of 7
 		//I don't believe any code could really fix this, maybe just setting
 		//up consistently with full air tanks and battery
@@ -466,10 +361,6 @@ void autonomous()
 		drive.turnDegreesAbsolute(40);
 		launch.set_value(true);
 		*/
-
-
-
-
 	}
 
 	//Attention! do not remove, bot will crash
