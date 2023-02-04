@@ -82,7 +82,8 @@ void competition_initialize()
  */
 void autonomous()
 {
-		wall.set_value(0);
+	wall.set_value(0);
+	double startTime = pros::millis();
 
 	//endgame.set_value(0);
 	catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
@@ -201,6 +202,10 @@ void autonomous()
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 		
+		while (pros::millis() - startTime < 56000)
+		{
+			pros::delay(20);
+		}
 		endgame.set_value(1);
 		pros::delay(1000);
 
@@ -209,7 +214,10 @@ void autonomous()
 		pros::delay(475);
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
-		}
+
+
+
+	}
 		
 	//}
 	else
@@ -233,25 +241,23 @@ void autonomous()
 		drive.turnDegreesAbsolute(200, 1500);
 		//drive.driveTiles(100); //175
 		catFire(catapultMotors, limitSwitch, shield);
+		pros::delay(500);
+		inertialSensor.reset();
+		while(inertialSensor.is_calibrating())
+		{
+			pros::delay(20);
+		}
 		drive.driveTiles(475); //275 // PID is fine to here, retune or possible switch to encoder-based
 
-		drive.setActive(false);
-		leftDriveMotors.move(100);
-		rightDriveMotors.move(-100);
-		pros::delay(620); //695
-		drive.setActive(true);
+		drive.turnDegreesAbsolute(155, 1500);
 		intake.move(127);
 		drive.driveTiles(1350);
 		pros::delay(1000);
-		drive.setActive(false);
-		leftDriveMotors.move(-100);
-		rightDriveMotors.move(100);
-		pros::delay(600);
-		drive.setActive(true);
-
+		drive.turnDegreesAbsolute(198, 2500);
 		drive.driveTiles(500);
 		catFire(catapultMotors, limitSwitch, shield);
 
+/*
 		drive.setActive(false);
 		leftDriveMotors.move(-100);
 		rightDriveMotors.move(100);
@@ -278,10 +284,8 @@ void autonomous()
 		pros::delay(500);
 		drive.driveTiles(300);
 		//catFire(catapultMotors, limitSwitch, shield);
-
+*/
 		intake.brake();
-
-		
 
 	}
 	while(true)
