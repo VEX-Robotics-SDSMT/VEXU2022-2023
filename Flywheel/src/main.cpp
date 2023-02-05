@@ -136,7 +136,7 @@ void autonomous()
 		pros::delay(500);
 		
 		drive.turnDegreesAbsolute(-143);
-		intake.move(-90);
+		intake.move(-127);
 		drive.driveTiles(-1100);
 
 		flywheelsGroup.move(98);  // 95
@@ -156,7 +156,7 @@ void autonomous()
 		pros::delay(300); //shoot one
 		
 		
-		drive.driveTiles(-110);
+		drive.driveTiles(-160);
 		drive.turnDegreesAbsolute(0);
 		
 		drive.setMaxDriveSpeed(0.25);
@@ -164,6 +164,7 @@ void autonomous()
 		
 		flywheelsGroup.move(113);  //112
 		drive.setMaxDriveSpeed(0.5);
+
 		drive.turnDegreesAbsolute(-42);
 		
 
@@ -202,18 +203,18 @@ void autonomous()
 		drive.driveTiles(500);
 		drive.turnDegreesAbsolute(-8);
 
-		push.set_value(1);
-		pros::delay(100);
-		push.set_value(0);
-		pros::delay(1000);
-		push.set_value(1);
-		pros::delay(100);
-		push.set_value(0);
-		pros::delay(1200);
-		push.set_value(1);
-		pros::delay(100);
-		push.set_value(0);
-		pros::delay(300);
+		// push.set_value(1);
+		// pros::delay(100);
+		// push.set_value(0);
+		// pros::delay(1000);
+		// push.set_value(1);
+		// pros::delay(100);
+		// push.set_value(0);
+		// pros::delay(1200);
+		// push.set_value(1);
+		// pros::delay(100);
+		// push.set_value(0);
+		// pros::delay(300);
 
 		drive.driveTiles(-300);
 		drive.turnDegreesAbsolute(40);
@@ -270,7 +271,7 @@ void autonomous()
 		pros::delay(500);
 		
 		drive.turnDegreesAbsolute(-143);
-		intake.move(-90);
+		intake.move(-127);
 		drive.driveTiles(-1100);
 
 		flywheelsGroup.move(98);  // 95
@@ -290,7 +291,7 @@ void autonomous()
 		pros::delay(300); //shoot one
 		
 		
-		drive.driveTiles(-110);
+		drive.driveTiles(-160);
 		drive.turnDegreesAbsolute(0);
 		
 		drive.setMaxDriveSpeed(0.25);
