@@ -19,7 +19,7 @@ MinesMotorGroup catapultMotors(catapultVector);
  * "I was pressed!" and nothing.
  */
 
-bool skills = false;
+bool skills = true;
 int redBlue = 0;
 
 void on_center_button() {
@@ -133,7 +133,7 @@ void autonomous()
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 		topRollerFront.move(127);
-		pros::delay(275);
+		pros::delay(200);
 
 		topRollerFront.brake();
 		leftDriveMotors.moveVelocity(-100);
@@ -154,12 +154,12 @@ void autonomous()
 
 		leftDriveMotors.moveVelocity(-100);
 		rightDriveMotors.moveVelocity(-100);
-		pros::delay(1100);
+		pros::delay(1300);
 
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 		topRoller.move(127);
-		pros::delay(275);
+		pros::delay(200);
 
 		topRoller.brake();
 		leftDriveMotors.moveVelocity(100);
