@@ -6,6 +6,7 @@
 #include "./MinesMotorGroup.h"
 
 #define INERTIAL_SENSOR 17
+#define COLOR_SENSOR 3 //update
 
 #define TOP_ROLLER 11
 #define TOP_ROLLER_FRONT 21
@@ -38,9 +39,12 @@
 #define ENDGAME 1
 #define WALL 5
 
+enum Color { red, blue };
+
 extern pros::Controller MasterController;
 
 extern pros::Imu inertialSensor;
+extern pros::Optical opticalSensor;
 
 extern pros::Motor topRoller;
 extern pros::Motor topRollerFront;
@@ -80,6 +84,8 @@ extern int blue;
 extern int green;
 extern int red;
 extern double absoluteRot;
+extern int requiredColorLoops;
+
 #define RED_GEARSET pros::E_MOTOR_GEARSET_36
 #define GREEN_GEARSET pros::E_MOTOR_GEARSET_18
 #define BLUE_GEARSET pros::E_MOTOR_GEARSET_06

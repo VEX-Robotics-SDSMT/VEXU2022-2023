@@ -141,3 +141,41 @@ void catFire(Mines::MinesMotorGroup catapultMotorGroup, pros::ADIDigitalIn limit
 		shield.set_value(0);
 		pros::delay(200);
 }
+
+
+
+Color getColor(pros::c::optical_rgb_s_t color)
+{
+    if (color.blue > color.red)
+    {
+        return Color::blue;
+    }
+    else
+    {
+        return Color::red;
+    }
+}
+
+void swapRollerColor(Color targetColor, double voltage)
+{
+    opticalSensor.set_led_pwm(100);
+    int loopCount = 0;
+
+    while (loopCount < requiredColorLoops)
+    {
+        Color readColor = getColor(opticalSensor.get_rgb());
+        topRoller.move(voltage);
+
+        if(readColor == targetColor)
+        {
+            loopCount++;
+        }
+        else
+        {
+            loopCount = 0;
+        }
+    }
+
+    topRoller.brake();
+    opticalSensor.set_led_pwm(0);
+}

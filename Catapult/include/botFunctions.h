@@ -15,5 +15,7 @@ void fire(Mines::MinesMotorGroup motorGroup);
 void loadAndFire(Mines::MinesMotorGroup catapultMotorGroup, pros::ADIDigitalIn limitSwitch);
 void catInit(Mines::MinesMotorGroup catapultMotorGroup, pros::ADIDigitalIn limitSwitch, pros::ADIDigitalOut shield);
 void catFire(Mines::MinesMotorGroup catapultMotorGroup, pros::ADIDigitalIn limitSwitch, pros::ADIDigitalOut shield);
+Color getColor(pros::c::optical_rgb_s_t color);
+void swapRollerColor(Color color, double voltage);
 
 #endif

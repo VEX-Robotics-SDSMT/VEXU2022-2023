@@ -47,8 +47,6 @@ void initialize()
 	drive.setMaxDriveSpeed(0.3);
 	drive.setMaxTurnSpeed(0.75);
 	//redBlue = initAutonSide(MasterController);
-	//set up PIDs
-	//testPID = Mines::PID();
 }
 
 /**
@@ -59,7 +57,6 @@ void initialize()
 void disabled() 
 {
 	drive.killPIDs();
-
 }
 
 /**
@@ -89,10 +86,8 @@ void competition_initialize()
 
 void autonomous()
 {
-	wall.set_value(0);
 	double startTime = pros::millis();
 
-	//endgame.set_value(0);
 	catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 	leftDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 	rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
