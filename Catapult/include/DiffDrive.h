@@ -6,6 +6,11 @@
 #include "pros/imu.hpp"
 #include <math.h>
 #include "Logger.h"
+#include "pros/llemu.hpp"
+#include "pros/motors.hpp"
+#include "pros/rtos.h"
+#include <algorithm>
+#include <cmath>
 
 namespace Mines {
 
@@ -36,7 +41,7 @@ class DiffDrive
     //instance variables
     MinesMotorGroup leftMotors;
     MinesMotorGroup rightMotors;
-    pros::Imu intertial;
+    pros::Imu inertial;
 
     DriveInterface driveInterface;
     TurnInterface turnInterface;
@@ -77,6 +82,7 @@ class DiffDrive
         void setActive(bool active);
 
         void killPIDs();
+        void StartPIDs();
 
 
     private:

@@ -1,11 +1,7 @@
 #ifndef LOGGER
 #define LOGGER
 
-#include "globals.h"
-#include "pros/imu.hpp"
-#include "pros/llemu.hpp"
-#include "pros/motors.hpp"
-#include "pros/rtos.h"
+#include "api.h"
 
 enum LoggerSettings
 {

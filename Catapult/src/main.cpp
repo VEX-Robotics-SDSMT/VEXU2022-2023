@@ -1,14 +1,9 @@
 #include "main.h"
-#include "DiffDrive.h"
-#include "MinesMotorGroup.h"
 #include "globals.h"
 #include "pros/misc.h"
 
 using namespace Mines;
 
-MinesMotorGroup leftDriveMotors(leftDriveVector);
-MinesMotorGroup rightDriveMotors(rightDriveVector);
-MinesMotorGroup catapultMotors(catapultVector);
 
 //globals
 
@@ -44,6 +39,13 @@ void initialize()
 {
 	endgame.set_value(0);
 	wall.set_value(0);
+
+	drive.setDrivePIDVals(0.90, 0, 0); //0.95
+	drive.setDrivePIDTol(5);
+	drive.setTurnPIDVals(2.95, 0, 0);//1.2
+	drive.setTurnPIDTol(0.5);
+	drive.setMaxDriveSpeed(0.3);
+	drive.setMaxTurnSpeed(0.75);
 	//redBlue = initAutonSide(MasterController);
 	//set up PIDs
 	//testPID = Mines::PID();
@@ -54,7 +56,11 @@ void initialize()
  * the VEX Competition Switch, following either autonomous or opcontrol. When
  * the robot is enabled, this task will exit.
  */
-void disabled() {}
+void disabled() 
+{
+	drive.killPIDs();
+
+}
 
 /**
  * Runs after initialize(), and before autonomous when connected to the Field
@@ -80,24 +86,18 @@ void competition_initialize()
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
+
 void autonomous()
 {
-		wall.set_value(0);
-		double startTime = pros::millis();
-
+	wall.set_value(0);
+	double startTime = pros::millis();
 
 	//endgame.set_value(0);
 	catapultMotors.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 	leftDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 	rightDriveMotors.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 
-	DiffDrive drive(leftDriveMotors, rightDriveMotors, inertialSensor);
-	drive.setDrivePIDVals(0.90, 0, 0); //0.95
-	drive.setDrivePIDTol(5);
-	drive.setTurnPIDVals(2.95, 0, 0);//1.2
-	drive.setTurnPIDTol(0.5);
-	drive.setMaxDriveSpeed(0.3);
-	drive.setMaxTurnSpeed(0.75);
+	drive.StartPIDs();
 
 	if(skills)
 	{
@@ -216,9 +216,7 @@ void autonomous()
 		pros::delay(475);
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
-		}
-		
-	//}
+	}
 	else
 	{
 		catInit(catapultMotors, limitSwitch, shield);
@@ -230,7 +228,7 @@ void autonomous()
 		drive.driveTiles(-525, 1500);
 		pros::delay(500);
 		topRoller.move(127);
-		pros::delay(150); //150
+		pros::delay(120); //150
 		topRoller.brake();
 		pros::delay(50); 
 
@@ -238,15 +236,17 @@ void autonomous()
 		drive.turnDegreesAbsolute(-45, 2000);
 		drive.driveTiles(850);
 		drive.turnDegreesAbsolute(200, 1500);
-		//drive.driveTiles(100); //175
+		drive.driveTiles(100); //175
 		catFire(catapultMotors, limitSwitch, shield);
-		drive.driveTiles(475); //275 // PID is fine to here, retune or possible switch to encoder-based
 
+		inertialSensor.reset();
+		while (inertialSensor.is_calibrating())
+		{
+			pros::delay(20);
+		}
 
-		drive.setActive(false);
-		leftDriveMotors.move(100);
-		rightDriveMotors.move(-100);
-		pros::delay(620); //695
+		drive.driveTiles(275); //275 // PID is fine to here, retune or possible switch to encoder-based
+		drive.turnDegreesAbsolute(117, 2000);
 		drive.setActive(true);
 		intake.move(127);
 		drive.driveTiles(1350);
@@ -259,8 +259,9 @@ void autonomous()
 
 		drive.driveTiles(500);
 		catFire(catapultMotors, limitSwitch, shield);
+		intake.brake();
 
-		drive.setActive(false);
+		/*drive.setActive(false);
 		leftDriveMotors.move(-100);
 		rightDriveMotors.move(100);
 		pros::delay(300);
@@ -287,7 +288,7 @@ void autonomous()
 		drive.driveTiles(300);
 		//catFire(catapultMotors, limitSwitch, shield);
 
-		intake.brake();		
+		intake.brake();		*/
 
 	}
 
@@ -428,13 +429,5 @@ void opcontrol()
 		// ***** ROLLER *****
 		rollerLoop(topRoller, topRollerFront, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT));
 		// ***** END ROLLER *****
-	}
-
-	//pid.SetTarget(-120);
-
-	//DO NOT REMOVE: Main should not exit while there are subtasks going on - it will crash the robot
-	while(true)
-	{
-		pros::c::delay(1000);
 	}
 }
