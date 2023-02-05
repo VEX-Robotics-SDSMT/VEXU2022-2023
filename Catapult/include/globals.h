@@ -2,6 +2,8 @@
 #define _GLOBALS_H
 
 #include "api.h"
+#include "./DiffDrive.h"
+#include "./MinesMotorGroup.h"
 
 #define INERTIAL_SENSOR 17
 
@@ -64,6 +66,12 @@ extern std::vector<pros::Motor> leftDriveVector;
 extern std::vector<pros::Motor> rightDriveVector;
 
 extern std::vector<pros::Motor> catapultVector;
+
+extern Mines::MinesMotorGroup leftDriveMotors;
+extern Mines::MinesMotorGroup rightDriveMotors;
+extern Mines::MinesMotorGroup catapultMotors;
+
+extern Mines::DiffDrive drive;
 
 extern double axisPercentBlue;
 extern double axisPercentGreen;

@@ -31,10 +31,15 @@ std::vector<pros::Motor> rightDriveVector = {rightTopRearDrive, rightBotRearDriv
 
 std::vector<pros::Motor> catapultVector = {leftCatapult, rightCatapult};
 
+Mines::MinesMotorGroup leftDriveMotors(leftDriveVector);
+Mines::MinesMotorGroup rightDriveMotors(rightDriveVector);
+Mines::MinesMotorGroup catapultMotors(catapultVector);
+
+Mines::DiffDrive drive(leftDriveMotors, rightDriveMotors, inertialSensor);
+
 double axisPercentBlue = 600.0 / 127;
 double axisPercentGreen = 200.0 / 127;
 double axisPercentRed = 100.0 / 127;
 int blue = 600;
 int green = 200;
 int red = 100;
-double absoluteRot = 0;

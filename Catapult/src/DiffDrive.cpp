@@ -1,19 +1,11 @@
 #include "DiffDrive.h"
-#include "MinesMotorGroup.h"
-#include "globals.h"
-#include "pros/imu.hpp"
-#include "pros/llemu.hpp"
-#include "pros/motors.hpp"
-#include "pros/rtos.h"
-#include <algorithm>
-#include <cmath>
 
 using namespace Mines;
 using namespace std;
 
 
 DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::IMU imu) : 
-    leftMotors(left), rightMotors(right), intertial(imu),
+    leftMotors(left), rightMotors(right), inertial(imu),
     driveInterface(this), turnInterface(this),
     drivePID(&driveInterface, LoggerSettings::verbose), turnPID(&turnInterface, LoggerSettings::none),
     logger(LoggerSettings::verbose)
@@ -21,10 +13,6 @@ DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::IMU imu)
     MAX_SPEED = rightMotors.getMaxVelocity();
 
     logger.Log("status: constructor called", 10, LoggerSettings::verbose);
-    drivePID.StartTask();
-    logger.Log("status: drivePID started", 10, LoggerSettings::verbose);
-    turnPID.StartTask();
-    logger.Log("status: turnPID started", 10, LoggerSettings::verbose);
 
     leftMotors.tarePosition();
     rightMotors.tarePosition();
@@ -67,11 +55,6 @@ void DiffDrive::driveTiles(double target, int timeOut)
 
 void DiffDrive::turnDegreesAbsolute(double target, bool waitForCompletion)
 {
-    if(fabs(inertialSensor.get_rotation() - absoluteRot) > 0.01)
-    {
-        inertialSensor.set_rotation(absoluteRot);
-    }
-    absoluteRot = target;
     turnPID.SetStopped(false);
     turnPID.SetTarget(target);
     if(waitForCompletion)
@@ -86,11 +69,6 @@ void DiffDrive::turnDegreesAbsolute(double target, bool waitForCompletion)
 
 void DiffDrive::turnDegreesAbsolute(double target, int timeOut)
 {
-    if(fabs(inertialSensor.get_rotation() - absoluteRot) > 0.01)
-    {
-        inertialSensor.set_rotation(absoluteRot);
-    }
-    absoluteRot = target;
     turnPID.SetStopped(false);
     turnPID.SetTarget(target);
     while(turnPID.GetTimeSinceTargetReached() < GOAL_TIME && turnPID.GetTimeSinceTargetSet() < timeOut)
@@ -150,7 +128,7 @@ void DiffDrive::setDriveVelocity(double value)
 
 double DiffDrive::getTurnPosition()
 {
-    double current = intertial.get_heading();
+    double current = inertial.get_heading();
 
     double target = turnPID.GetTarget();
 
@@ -200,7 +178,7 @@ void DiffDrive::setActive(bool active)
     if (active == true)
     {
         driveTiles(0, 50);
-        turnDegreesAbsolute(inertialSensor.get_heading(), 50);
+        turnDegreesAbsolute(inertial.get_heading(), 50);
     }
 }
 
@@ -208,6 +186,13 @@ void DiffDrive::killPIDs()
 {
     drivePID.kill();
     turnPID.kill();
+    pros::delay(200);
+}
+
+void DiffDrive::StartPIDs()
+{
+    drivePID.StartTask();
+    turnPID.StartTask();
 }
 
 
