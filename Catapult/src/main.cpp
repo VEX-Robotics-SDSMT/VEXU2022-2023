@@ -422,7 +422,7 @@ void opcontrol()
 		}
 
 		// ***** ROLLER *****
-		rollerLoop(topRoller, topRollerFront, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT));
+		rollerLoop(topRoller, topRollerFront, redGearing, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1));
 		// ***** END ROLLER *****
 	}
 }
