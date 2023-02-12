@@ -4,6 +4,7 @@
 #include "api.h"
 #include "./DiffDrive.h"
 #include "./MinesMotorGroup.h"
+#include "./Logger.h"
 
 #define INERTIAL_SENSOR 17
 #define COLOR_SENSOR 7
@@ -40,6 +41,9 @@
 #define WALL 5
 
 enum Color { red, blue, purple };
+
+//loggers
+extern ScreenLogger colorLogger;
 
 extern pros::Controller MasterController;
 

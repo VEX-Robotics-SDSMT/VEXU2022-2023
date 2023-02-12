@@ -1,6 +1,9 @@
 #include "api.h"
 #include "../include/globals.h"
 
+//loggers
+ScreenLogger colorLogger(LoggerSettings::verbose);
+
 pros::Controller MasterController (pros::E_CONTROLLER_MASTER);
 
 pros::Imu inertialSensor(INERTIAL_SENSOR);
@@ -45,4 +48,4 @@ double axisPercentRed = 100.0 / 127;
 int redGearing = 100;
 int greenGearing = 200;
 int blueGearing = 600;
-int requiredColorLoops = 10;
+int requiredColorLoops = 50;

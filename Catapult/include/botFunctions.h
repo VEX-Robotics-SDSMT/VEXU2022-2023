@@ -4,6 +4,7 @@
 #include "globals.h"
 #include "MinesMotorGroup.h"
 #include "pros/adi.hpp"
+#include <string>
 
 void toggleIntake();
 void intakeLoopHold(bool run, bool rev, double pct);

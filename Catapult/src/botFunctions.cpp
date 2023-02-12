@@ -1,5 +1,4 @@
 #include "../include/botFunctions.h"
-#include "../include/MinesMotorGroup.h"
 
 bool intakeToggle = 0;
 
@@ -146,7 +145,11 @@ void catFire(Mines::MinesMotorGroup catapultMotorGroup, pros::ADIDigitalIn limit
 
 Color getColor(pros::c::optical_rgb_s_t color)
 {
-    if (color.blue > color.red)
+    if (fabs(color.blue - color.red) < 0.3)
+    {
+        return Color::purple;
+    }
+    else if (color.blue > color.red)
     {
         return Color::blue;
     }
@@ -165,22 +168,28 @@ void swapRollerColor(Color targetColor, double voltage)
 
     while (loopCount < requiredColorLoops)
     {
-        Color readColor = getColor(opticalSensor.get_rgb());
+        pros::c::optical_rgb_s_t readColor = opticalSensor.get_rgb();
+        colorLogger.Log(("Red: " + std::to_string(readColor.red) + 
+            "  Green: " + std::to_string(readColor.green) + 
+            "  Blue: " + std::to_string(readColor.blue)).c_str(), 7, LoggerSettings::verbose);
+
+        Color colorEnum = getColor(readColor);
         
 
-        if(readColor != targetColor)
-        {
-            loopCount++;
-            topRollerFront.brake();
-
-        }
-        else
+        if(colorEnum == targetColor || colorEnum == Color::purple)
         {
             loopCount = 0;
             topRollerFront.move(voltage);
+            colorLogger.Log("Color target aquired", 8, LoggerSettings::verbose);
+        }
+        else
+        {
+            loopCount++;
+            topRollerFront.brake();
+            colorLogger.Log("Color searching", 8, LoggerSettings::verbose);
         }
 
-        pros::delay(5);
+        pros::delay(20);
     }
 
     topRollerFront.brake();
