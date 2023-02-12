@@ -6,7 +6,7 @@
 #include "./MinesMotorGroup.h"
 
 #define INERTIAL_SENSOR 17
-#define COLOR_SENSOR 3 //update
+#define COLOR_SENSOR 7
 
 #define TOP_ROLLER 11
 #define TOP_ROLLER_FRONT 21
@@ -39,7 +39,7 @@
 #define ENDGAME 1
 #define WALL 5
 
-enum Color { red, blue };
+enum Color { red, blue, purple };
 
 extern pros::Controller MasterController;
 
@@ -80,9 +80,9 @@ extern Mines::DiffDrive drive;
 extern double axisPercentBlue;
 extern double axisPercentGreen;
 extern double axisPercentRed;
-extern int blue;
-extern int green;
-extern int red;
+extern int blueMotorGearset;
+extern int greenMotorGearset;
+extern int redMotorGearset;
 extern double absoluteRot;
 extern int requiredColorLoops;
 

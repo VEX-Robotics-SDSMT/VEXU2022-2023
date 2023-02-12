@@ -161,21 +161,28 @@ void swapRollerColor(Color targetColor, double voltage)
     opticalSensor.set_led_pwm(100);
     int loopCount = 0;
 
+    pros::delay(5);
+
     while (loopCount < requiredColorLoops)
     {
         Color readColor = getColor(opticalSensor.get_rgb());
-        topRoller.move(voltage);
+        
 
-        if(readColor == targetColor)
+        if(readColor != targetColor)
         {
             loopCount++;
+            topRollerFront.brake();
+
         }
         else
         {
             loopCount = 0;
+            topRollerFront.move(voltage);
         }
+
+        pros::delay(5);
     }
 
-    topRoller.brake();
+    topRollerFront.brake();
     opticalSensor.set_led_pwm(0);
 }

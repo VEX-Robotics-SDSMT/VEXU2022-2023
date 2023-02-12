@@ -365,7 +365,7 @@ void opcontrol()
 			toggleIntake();
 		}
 
-		intakeLoopToggle(MasterController.get_digital(buttonR2), 1);
+		intakeLoopToggle(MasterController.get_digital(buttonR2), true);
 		//intakeLoopHold(MasterController.get_digital(R1), MasterController.get_digital(R2));
 		// ***** END INTAKE *****
 
@@ -424,5 +424,20 @@ void opcontrol()
 		// ***** ROLLER *****
 		rollerLoop(topRoller, topRollerFront, red, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT));
 		// ***** END ROLLER *****
+
+
+
+
+
+		// ***** TEST *****
+		if (MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_A))
+		{
+			swapRollerColor(Color::red, 70);
+		}
+
+		if (MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B))
+		{
+			swapRollerColor(Color::blue, 70);
+		}
 	}
 }
