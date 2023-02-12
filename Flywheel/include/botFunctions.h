@@ -3,6 +3,7 @@
 
 #include "globals.h"
 #include "MinesMotorGroup.h"
+#include "pros/motors.h"
 
 void driveLoop(Mines::MinesMotorGroup leftMotorGroup, Mines::MinesMotorGroup rightMotorGroup, double leftVelocity, double rightVelocity);
 void rollerLoop(pros::Motor roller, double velocity, bool run, bool rev);

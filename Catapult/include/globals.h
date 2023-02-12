@@ -8,31 +8,31 @@
 #define INERTIAL_SENSOR 17
 #define COLOR_SENSOR 7
 
-#define TOP_ROLLER 11
+#define TOP_ROLLER 12
 #define TOP_ROLLER_FRONT 21
-#define ROLLER_MOTOR_GEARSET red
+#define ROLLER_MOTOR_GEARSET redGearing
 
 #define L_TOP_REAR 19
-#define L_TOP_REAR_MOTOR_GEARSET blue
+#define L_TOP_REAR_MOTOR_GEARSET blueGearing
 #define L_BOT_REAR 16
-#define L_BOT_REAR_MOTOR_GEARSET blue
+#define L_BOT_REAR_MOTOR_GEARSET blueGearing
 #define L_FRONT 20
-#define L_FRONT_MOTOR_GEARSET blue
+#define L_FRONT_MOTOR_GEARSET blueGearing
 #define R_TOP_REAR 5
-#define R_TOP_REAR_MOTOR_GEARSET blue
+#define R_TOP_REAR_MOTOR_GEARSET blueGearing
 #define R_BOT_REAR 6
-#define R_BOT_REAR_MOTOR_GEARSET blue
+#define R_BOT_REAR_MOTOR_GEARSET blueGearing
 #define R_FRONT 8
-#define R_FRONT_MOTOR_GEARSET blue
+#define R_FRONT_MOTOR_GEARSET blueGearing
 
 #define L_CATAPULT 14
-#define L_CATAPULT_MOTOR_GEARSET red
+#define L_CATAPULT_MOTOR_GEARSET redGearing
 #define R_CATAPULT 1
-#define R_CATAPULT_MOTOR_GEARSET red
+#define R_CATAPULT_MOTOR_GEARSET redGearing
 
 
 #define INTAKE 15
-#define INTAKE_MOTOR_GEARSET blue
+#define INTAKE_MOTOR_GEARSET blueGearing
 
 #define LIMIT_SWITCH 2
 #define SHIELD 8
@@ -80,9 +80,10 @@ extern Mines::DiffDrive drive;
 extern double axisPercentBlue;
 extern double axisPercentGreen;
 extern double axisPercentRed;
-extern int blueMotorGearset;
-extern int greenMotorGearset;
-extern int redMotorGearset;
+
+extern int redGearing;
+extern int greenGearing;
+extern int blueGearing;
 extern double absoluteRot;
 extern int requiredColorLoops;
 

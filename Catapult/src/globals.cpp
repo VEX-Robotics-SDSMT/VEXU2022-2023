@@ -41,7 +41,8 @@ Mines::DiffDrive drive(leftDriveMotors, rightDriveMotors, inertialSensor);
 double axisPercentBlue = 600.0 / 127;
 double axisPercentGreen = 200.0 / 127;
 double axisPercentRed = 100.0 / 127;
-int blueMotorGearset = 600;
-int greenMotorGearset = 200;
-int redMotorGearset = 100;
-int requiredColorLoops = 15;
+
+int redGearing = 100;
+int greenGearing = 200;
+int blueGearing = 600;
+int requiredColorLoops = 10;

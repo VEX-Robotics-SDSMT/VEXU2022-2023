@@ -57,6 +57,8 @@ extern int blue;
 extern int green;
 extern int red;
 
+extern bool skills;
+
 #define buttonUp pros::E_CONTROLLER_DIGITAL_UP
 #define buttonDown pros::E_CONTROLLER_DIGITAL_DOWN
 #define buttonLeft pros::E_CONTROLLER_DIGITAL_LEFT
