@@ -4,9 +4,10 @@
 #include "api.h"
 #include "./DiffDrive.h"
 #include "./MinesMotorGroup.h"
+#include "./Logger.h"
 
 #define INERTIAL_SENSOR 17
-#define COLOR_SENSOR 3 //update
+#define COLOR_SENSOR 7
 
 #define TOP_ROLLER 12
 #define TOP_ROLLER_FRONT 21
@@ -39,7 +40,10 @@
 #define ENDGAME 1
 #define WALL 5
 
-enum Color {red, blue};
+enum Color { red, blue, purple };
+
+//loggers
+extern ScreenLogger colorLogger;
 
 extern pros::Controller MasterController;
 
@@ -80,6 +84,7 @@ extern Mines::DiffDrive drive;
 extern double axisPercentBlue;
 extern double axisPercentGreen;
 extern double axisPercentRed;
+
 extern int redGearing;
 extern int greenGearing;
 extern int blueGearing;
