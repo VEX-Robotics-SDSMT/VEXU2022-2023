@@ -176,6 +176,6 @@ void swapRollerColor(Color targetColor, double voltage)
         }
     }
 
-    topRoller.brake();
+    //topRoller.brake();
     opticalSensor.set_led_pwm(0);
 }

@@ -8,7 +8,7 @@
 #define INERTIAL_SENSOR 17
 #define COLOR_SENSOR 3 //update
 
-#define TOP_ROLLER 11
+#define TOP_ROLLER 12
 #define TOP_ROLLER_FRONT 21
 #define ROLLER_MOTOR_GEARSET redGearing
 
