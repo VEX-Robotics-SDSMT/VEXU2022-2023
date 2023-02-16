@@ -114,7 +114,6 @@ void autonomous()
 
 		leftDriveMotors.moveVelocity(-100);//rev
 		rightDriveMotors.moveVelocity(-100);
-		intake.brake();
 		pros::delay(500);
 
 		leftDriveMotors.moveVelocity(100);
@@ -123,6 +122,7 @@ void autonomous()
 
 		leftDriveMotors.moveVelocity(100);
 		rightDriveMotors.moveVelocity(100);
+		intake.brake();
 		pros::delay(1400);
 
 		leftDriveMotors.brake();
@@ -154,12 +154,12 @@ void autonomous()
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 		topRoller.move(127);
-		pros::delay(200);
+		pros::delay(260);
 
 		topRoller.brake();
 		leftDriveMotors.moveVelocity(100);
 		rightDriveMotors.moveVelocity(100);
-		pros::delay(500);
+		pros::delay(180);
 
 		leftDriveMotors.moveVelocity(-100);
 		rightDriveMotors.moveVelocity(100);
@@ -167,8 +167,12 @@ void autonomous()
 
 		leftDriveMotors.moveVelocity(-100);
 		rightDriveMotors.moveVelocity(-100);
-		pros::delay(5300);
+		pros::delay(5700);
 
+		shield.set_value(1);
+		leftDriveMotors.moveVelocity(-100);
+		rightDriveMotors.moveVelocity(100);
+		pros::delay(300);
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 		shield.set_value(1);
@@ -178,39 +182,41 @@ void autonomous()
 		{
 			catapultMotors.move(127);
 		}
-		catapultMotors.brake();
-
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(100);
-		pros::delay(6000);
-
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(-100);
-		pros::delay(950);
-
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(100);
-		pros::delay(750);
-
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(-100);
-		pros::delay(475);
-
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
-		
-		while(pros::millis() - startTime < 56000)
-		{
-			pros::delay(100);
-		}
-		endgame.set_value(1);
 		pros::delay(1000);
+		while(limitSwitch.get_value() == 0)
+		{
+			catapultMotors.move(127);
+		}
+		catapultMotors.brake();
+		shield.set_value(0);
 
 		leftDriveMotors.moveVelocity(100);
 		rightDriveMotors.moveVelocity(-100);
-		pros::delay(475);
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
+		pros::delay(240);
+
+		leftDriveMotors.moveVelocity(100);
+		rightDriveMotors.moveVelocity(100);
+		pros::delay(6500);
+
+		 leftDriveMotors.moveVelocity(100);
+		 rightDriveMotors.moveVelocity(-100);
+		 pros::delay(475);
+		 leftDriveMotors.brake();
+		 rightDriveMotors.brake();
+		 while(pros::millis() - startTime < 56000)
+		 {
+		 	pros::delay(100);
+		 }
+		 endgame.set_value(1);
+		 pros::delay(1000);
+	 	 leftDriveMotors.moveVelocity(100);
+		 rightDriveMotors.moveVelocity(-100);
+		 pros::delay(500);
+		 leftDriveMotors.moveVelocity(100);
+		 rightDriveMotors.moveVelocity(100);
+		 pros::delay(300);
+		 leftDriveMotors.brake();
+		 rightDriveMotors.brake();
 	}
 	else
 	{
@@ -422,7 +428,7 @@ void opcontrol()
 		}
 
 		// ***** ROLLER *****
-		rollerLoop(topRoller, topRollerFront, redGearing, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1));
+		rollerLoop(topRoller, topRollerFront, redGearing, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_B));
 		// ***** END ROLLER *****
 
 
