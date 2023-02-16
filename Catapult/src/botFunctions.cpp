@@ -163,10 +163,11 @@ void swapRollerColor(Color targetColor, double voltage)
 {
     opticalSensor.set_led_pwm(100);
     int loopCount = 0;
+    int timeout = pros::millis() + ROLLER_TIMEOUT;
 
     pros::delay(5);
 
-    while (loopCount < requiredColorLoops)
+    while (loopCount < requiredColorLoops && timeout > pros::millis() )
     {
         pros::c::optical_rgb_s_t readColor = opticalSensor.get_rgb();
         colorLogger.Log(("Red: " + std::to_string(readColor.red) + 

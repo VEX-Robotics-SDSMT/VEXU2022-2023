@@ -90,6 +90,7 @@ extern int greenGearing;
 extern int blueGearing;
 extern double absoluteRot;
 extern int requiredColorLoops;
+extern const double ROLLER_TIMEOUT;
 
 #define RED_GEARSET pros::E_MOTOR_GEARSET_36
 #define GREEN_GEARSET pros::E_MOTOR_GEARSET_18

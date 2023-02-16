@@ -49,3 +49,4 @@ int redGearing = 100;
 int greenGearing = 200;
 int blueGearing = 600;
 int requiredColorLoops = 50;
+const double ROLLER_TIMEOUT = 1500;
