@@ -39,4 +39,4 @@ int blue = 600;
 int green = 200;
 int red = 100;
 
-bool skills = true;
+bool skills = false;
