@@ -161,14 +161,17 @@ Color getColor(pros::c::optical_rgb_s_t color)
 
 void swapRollerColor(Color targetColor, double voltage)
 {
+    //set the led to full power, start the filter and the timeout
     opticalSensor.set_led_pwm(100);
     int loopCount = 0;
     int timeout = pros::millis() + ROLLER_TIMEOUT;
 
     pros::delay(5);
 
+    // while we have not hit the target and a=have not timed out
     while (loopCount < requiredColorLoops && timeout > pros::millis() )
     {
+        //get the read color and log it
         pros::c::optical_rgb_s_t readColor = opticalSensor.get_rgb();
         colorLogger.Log(("Red: " + std::to_string(readColor.red) + 
             "  Green: " + std::to_string(readColor.green) + 
@@ -176,15 +179,17 @@ void swapRollerColor(Color targetColor, double voltage)
 
         Color colorEnum = getColor(readColor);
         
-
+        //if we see see the wrong color 
         if(colorEnum == targetColor || colorEnum == Color::purple)
         {
+            //reset the filter, move the roller and log
             loopCount = 0;
             topRollerFront.move(voltage);
             colorLogger.Log("Color target aquired", 8, LoggerSettings::verbose);
         }
         else
         {
+            //if we see the right color, stop moving the roller and start filtering
             loopCount++;
             topRollerFront.brake();
             colorLogger.Log("Color searching", 8, LoggerSettings::verbose);
@@ -193,7 +198,7 @@ void swapRollerColor(Color targetColor, double voltage)
         pros::delay(20);
     }
 
+    //stop the roller and turn off the light
     topRollerFront.brake();
-    
     opticalSensor.set_led_pwm(0);
 }
