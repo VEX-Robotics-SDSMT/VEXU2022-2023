@@ -20,14 +20,17 @@ void intakeLoopToggle(bool rev, int pct)
     {
         intakeToggle = 0;
         intake.move_velocity((100)*pct * INTAKE_MOTOR_GEARSET*-1);
+        intake2.move_velocity((100)*pct * INTAKE_MOTOR_GEARSET*-1);
     }
     else if(intakeToggle == 1)
     {
         intake.move_velocity((100)*pct * INTAKE_MOTOR_GEARSET);
+        intake2.move_velocity((100)*pct * INTAKE_MOTOR_GEARSET);
     }
     else
     {
         intake.brake();
+        intake2.brake();
     }
 }
 
@@ -37,14 +40,17 @@ void intakeLoopHold(bool run, bool rev, double pct)
     {
         intakeToggle = 0;
         intake.move_velocity(-(10000)*pct * INTAKE_MOTOR_GEARSET);
+        intake2.move_velocity(-(10000)*pct * INTAKE_MOTOR_GEARSET);
     }
     else if(run == 1)
     {
         intake.move_velocity((10000)*pct * INTAKE_MOTOR_GEARSET);
+        intake2.move_velocity((10000)*pct * INTAKE_MOTOR_GEARSET);
     }
     else
     {
         intake.brake();
+        intake2.brake();
     }
 }
 
@@ -93,21 +99,25 @@ void loadAndFire(Mines::MinesMotorGroup catapultMotorGroup, pros::ADIDigitalIn l
     
 }
 
-void rollerLoop(pros::Motor roller, pros::Motor rollerFront, double velocity, bool run, bool rev)
+void rollerLoop(pros::Motor roller, pros::Motor rollerFrontL, pros::Motor rollerFrontR, double velocity, bool run, bool rev)
 {
     if(run)
     {
         roller.move_velocity(velocity);
-        rollerFront.move_velocity(velocity);
+        rollerFrontL.move_velocity(velocity);
+        rollerFrontR.move_velocity(velocity);
     }
     else if(rev)
     {
         roller.move_velocity(velocity);
+        rollerFrontL.move_velocity(velocity);
+        rollerFrontR.move_velocity(velocity);
     }
     else
     {
         roller.brake();
-        rollerFront.brake();
+        rollerFrontL.brake();
+        rollerFrontR.brake();
     }
 }
 
@@ -168,12 +178,8 @@ void swapRollerColor(Color targetColor, double voltage)
 
     pros::delay(5);
 
-<<<<<<< Updated upstream
     // while we have not hit the target and a=have not timed out
     while (loopCount < requiredColorLoops && timeout > pros::millis() )
-=======
-    while (loopCount < requiredColorLoops && timeout > pros::millis() ) 
->>>>>>> Stashed changes
     {
         //get the read color and log it
         pros::c::optical_rgb_s_t readColor = opticalSensor.get_rgb();
@@ -183,18 +189,11 @@ void swapRollerColor(Color targetColor, double voltage)
 
         Color colorEnum = getColor(readColor); 
         
-<<<<<<< Updated upstream
         //if we see see the wrong color 
         if(colorEnum == targetColor || colorEnum == Color::purple)
         {
             //reset the filter, move the roller and log
             loopCount = 0;
-=======
-
-        if(colorEnum == targetColor || colorEnum == Color::purple) 
-        {
-            loopCount = 0; 
->>>>>>> Stashed changes
             topRollerFront.move(voltage);
             colorLogger.Log("Color target aquired", 8, LoggerSettings::verbose);
         }

@@ -397,5 +397,16 @@ void opcontrol()
 		{
 			push.set_value(false);
 		}
+
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X))
+		{
+			push.set_value(true);
+			push3.set_value(true);
+		}
+		else
+		{
+			push.set_value(false);
+			push3.set_value(false);
+		}
 	}
 }
