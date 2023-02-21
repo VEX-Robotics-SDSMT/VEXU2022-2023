@@ -168,12 +168,9 @@ void swapRollerColor(Color targetColor, double voltage)
 
     pros::delay(5);
 
-<<<<<<< Updated upstream
     // while we have not hit the target and a=have not timed out
     while (loopCount < requiredColorLoops && timeout > pros::millis() )
-=======
-    while (loopCount < requiredColorLoops && timeout > pros::millis() ) 
->>>>>>> Stashed changes
+
     {
         //get the read color and log it
         pros::c::optical_rgb_s_t readColor = opticalSensor.get_rgb();
@@ -183,18 +180,11 @@ void swapRollerColor(Color targetColor, double voltage)
 
         Color colorEnum = getColor(readColor); 
         
-<<<<<<< Updated upstream
         //if we see see the wrong color 
         if(colorEnum == targetColor || colorEnum == Color::purple)
         {
             //reset the filter, move the roller and log
             loopCount = 0;
-=======
-
-        if(colorEnum == targetColor || colorEnum == Color::purple) 
-        {
-            loopCount = 0; 
->>>>>>> Stashed changes
             topRollerFront.move(voltage);
             colorLogger.Log("Color target aquired", 8, LoggerSettings::verbose);
         }
