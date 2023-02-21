@@ -29,8 +29,8 @@ void rollerLoop(pros::Motor roller, double velocity, bool run, bool rev)
 {
     if(run)
         roller.move_velocity(velocity);
-    else if(rev)
-        roller.move_velocity(-velocity);
+   // else if(rev){}
+        //roller.move_velocity(-velocity);
     else
         roller.brake();
 }
