@@ -224,7 +224,7 @@ void autonomous()
 		flywheelsGroup.move(95);  //90 < x < 95
 
 		drive.driveTiles(300, true); //turn and shoot two preloads
-		drive.turnDegreesAbsolute(-16.7); //15
+		drive.turnDegreesAbsolute(-17); //15
 		pros::delay(2000);
 
 		push.set_value(1);
@@ -279,7 +279,7 @@ void autonomous()
 		drive.setMaxDriveSpeed(0.25);
 		drive.driveTiles(-2300);
 		
-		flywheelsGroup.move(103);  //103 < x< 107
+		flywheelsGroup.move(103);  //103
 		drive.setMaxDriveSpeed(0.5);
 
 		drive.turnDegreesAbsolute(-43);
