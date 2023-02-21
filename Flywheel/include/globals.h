@@ -17,7 +17,8 @@
 #define STRING 13
 #define FLY1 21
 #define FLY2 20
-#define INTAKE 2
+#define INTAKE1 2
+#define INTAKE2 19
 #define LAUNCH 8
 #define PUSH 7
 
@@ -29,7 +30,8 @@ extern pros::Controller MasterController;
 extern pros::Imu intertialSensor;
 
 extern pros::Motor topRoller;
-extern pros::Motor intake;
+extern pros::Motor intake1;
+extern pros::Motor intake2;
 
 extern pros::Motor leftTopFrontDrive;
 extern pros::Motor leftTopRearDrive;
@@ -46,6 +48,7 @@ extern std::vector<pros::Motor> rightDriveVector;
 extern Mines::MinesMotorGroup leftDriveMotors;
 extern Mines::MinesMotorGroup rightDriveMotors;
 extern Mines::MinesMotorGroup flywheelsGroup;
+extern Mines::MinesMotorGroup intake;
 
 
 extern pros::Motor string;

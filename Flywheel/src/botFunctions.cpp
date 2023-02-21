@@ -40,11 +40,11 @@ void intakeLoopToggle(bool rev, int pct)
     if(rev == 1)
     {
         intakeToggle = 0;
-        intake.move_velocity((100)*pct * INTAKE_MOTOR_GEARSET*-1);
+        intake.moveVelocity((100)*pct * INTAKE_MOTOR_GEARSET*-1);
     }
     else if(intakeToggle == 1)
     {
-        intake.move_velocity((100)*pct * INTAKE_MOTOR_GEARSET);
+        intake.moveVelocity((100)*pct * INTAKE_MOTOR_GEARSET);
     }
     else
     {
@@ -57,10 +57,10 @@ void intakeLoopHold(bool run, bool rev, double pct)
     if(rev == 1)
     {
         intakeToggle = 0;
-        intake.move_velocity(-(100)*pct * INTAKE_MOTOR_GEARSET);
+        intake.moveVelocity(-(100)*pct * INTAKE_MOTOR_GEARSET);
     }
     else if(run == 1)
-        intake.move_velocity((100)*pct * INTAKE_MOTOR_GEARSET);
+        intake.moveVelocity((100)*pct * INTAKE_MOTOR_GEARSET);
     else
         intake.brake();
 }

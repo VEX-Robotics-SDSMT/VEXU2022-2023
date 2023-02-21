@@ -7,7 +7,8 @@ pros::Imu intertialSensor(INERTIAL_SENSOR);
 
 pros::Motor topRoller(TOP_ROLLER, pros::E_MOTOR_GEARSET_18, false);
 
-pros::Motor intake(INTAKE, pros::E_MOTOR_GEARSET_18, true);
+pros::Motor intake1(INTAKE1, pros::E_MOTOR_GEARSET_18, true);
+pros::Motor intake2(INTAKE2, pros::E_MOTOR_GEARSET_18, false);
 
 pros::Motor leftFrontDrive(L_FRONT, pros::E_MOTOR_GEARSET_18, true);
 pros::Motor leftRearDrive(L_REAR, pros::E_MOTOR_GEARSET_18, true);
@@ -25,9 +26,11 @@ pros::ADIDigitalOut push(PUSH);
 std::vector<pros::Motor> leftDriveVector = {leftFrontDrive, leftRearDrive, leftMidDrive};
 std::vector<pros::Motor> rightDriveVector = {rightFrontDrive, rightRearDrive, rightMidDrive};
 std::vector<pros::Motor> flywheels = {fly1, fly2};
+std::vector<pros::Motor> intakes = {intake1, intake2};
 Mines::MinesMotorGroup leftDriveMotors(leftDriveVector);
 Mines::MinesMotorGroup rightDriveMotors(rightDriveVector);
 Mines::MinesMotorGroup flywheelsGroup(flywheels);
+Mines::MinesMotorGroup intake(intakes);
 
 double axisPercentBlue = 600.0 / 127;
 double axisPercentGreen = 200.0 / 127;
@@ -36,4 +39,4 @@ int blue = 600;
 int green = 200;
 int red = 100;
 
-bool skills = true;
+bool skills = false;
