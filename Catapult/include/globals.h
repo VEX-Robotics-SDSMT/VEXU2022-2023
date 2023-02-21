@@ -10,7 +10,8 @@
 #define COLOR_SENSOR 7
 
 #define TOP_ROLLER 12
-#define TOP_ROLLER_FRONT 21
+#define TOP_ROLLER_FRONT_L 21
+#define TOP_ROLLER_FRONT_R 3
 #define ROLLER_MOTOR_GEARSET redGearing
 
 #define L_TOP_REAR 19
@@ -33,12 +34,13 @@
 
 
 #define INTAKE 15
+#define INTAKE2 16
 #define INTAKE_MOTOR_GEARSET blueGearing
 
 #define LIMIT_SWITCH 2
+#define LIMIT_SWITCH_MID 3 
 #define SHIELD 8
 #define ENDGAME 1
-#define WALL 5
 
 enum Color { red, blue, purple };
 

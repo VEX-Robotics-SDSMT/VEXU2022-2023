@@ -22,6 +22,7 @@ pros::Motor fly2(FLY2, pros::E_MOTOR_GEARSET_06, false);
 
 pros::ADIDigitalOut launch(LAUNCH);
 pros::ADIDigitalOut push(PUSH);
+pros::ADIDigitalOut push(PUSH3);
 
 std::vector<pros::Motor> leftDriveVector = {leftFrontDrive, leftRearDrive, leftMidDrive};
 std::vector<pros::Motor> rightDriveVector = {rightFrontDrive, rightRearDrive, rightMidDrive};

@@ -21,6 +21,7 @@
 #define INTAKE2 19
 #define LAUNCH 8
 #define PUSH 7
+#define PUSH3 6
 
 #define INTAKE_MOTOR_GEARSET red
 #define FLYWHEELS_MOTOR_GEARSET blue
@@ -42,6 +43,7 @@ extern pros::Motor rightBot;
 
 extern pros::ADIDigitalOut launch;
 extern pros::ADIDigitalOut push;
+extern pros::ADIDigitalOut push3;
 
 extern std::vector<pros::Motor> leftDriveVector;
 extern std::vector<pros::Motor> rightDriveVector;
