@@ -38,7 +38,7 @@ void on_center_button() {
 void initialize()
 {
 	endgame.set_value(0);
-	wall.set_value(0);
+	//wall.set_value(0);
 
 	drive.setDrivePIDVals(0.90, 0, 0); //0.95
 	drive.setDrivePIDTol(5);
@@ -428,7 +428,7 @@ void opcontrol()
 		}
 
 		// ***** ROLLER *****
-		rollerLoop(topRoller, topRollerFrontLeft, topRollerFrontRoght, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_B));
+		rollerLoop(topRoller, topRollerFrontL, topRollerFrontR, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_B));
 		// ***** END ROLLER *****
 
 
