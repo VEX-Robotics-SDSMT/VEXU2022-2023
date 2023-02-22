@@ -67,6 +67,7 @@ extern pros::Motor leftCatapult;
 extern pros::Motor rightCatapult;
 
 extern pros::Motor intake;
+extern pros::Motor intake2;
 
 extern pros::ADIDigitalIn limitSwitch;
 extern pros::ADIDigitalOut shield;
