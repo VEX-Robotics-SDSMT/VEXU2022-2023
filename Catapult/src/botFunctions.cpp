@@ -194,7 +194,7 @@ void swapRollerColor(Color targetColor, double voltage)
         {
             //reset the filter, move the roller and log
             loopCount = 0;
-            topRollerFrontR.move(voltage);
+            topRollerFront.move(voltage);
             colorLogger.Log("Color target aquired", 8, LoggerSettings::verbose);
         }
         else
