@@ -53,7 +53,8 @@ extern pros::Imu inertialSensor;
 extern pros::Optical opticalSensor;
 
 extern pros::Motor topRoller;
-extern pros::Motor topRollerFront;
+extern pros::Motor topRollerFrontR;
+extern pros::Motor topRollerFrontL;
 
 extern pros::Motor leftTopRearDrive;
 extern pros::Motor leftBotRearDrive;
@@ -80,6 +81,7 @@ extern std::vector<pros::Motor> catapultVector;
 extern Mines::MinesMotorGroup leftDriveMotors;
 extern Mines::MinesMotorGroup rightDriveMotors;
 extern Mines::MinesMotorGroup catapultMotors;
+extern Mines::MinesMotorGroup topRollerFront;
 
 extern Mines::DiffDrive drive;
 

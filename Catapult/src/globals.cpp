@@ -36,10 +36,12 @@ std::vector<pros::Motor> leftDriveVector = {leftTopRearDrive, leftBotRearDrive, 
 std::vector<pros::Motor> rightDriveVector = {rightTopRearDrive, rightBotRearDrive, rightFrontDrive};
 
 std::vector<pros::Motor> catapultVector = {leftCatapult, rightCatapult};
+std::vector<pros::Motor> topRollerFrontVector = {topRollerFrontLeft, topRollerFrontRoght};
 
 Mines::MinesMotorGroup leftDriveMotors(leftDriveVector);
 Mines::MinesMotorGroup rightDriveMotors(rightDriveVector);
 Mines::MinesMotorGroup catapultMotors(catapultVector);
+Mines::MinesMotorGroup topRollerFront(topRollerFrontVector);
 
 Mines::DiffDrive drive(leftDriveMotors, rightDriveMotors, inertialSensor);
 

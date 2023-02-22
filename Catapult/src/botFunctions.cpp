@@ -99,25 +99,22 @@ void loadAndFire(Mines::MinesMotorGroup catapultMotorGroup, pros::ADIDigitalIn l
     
 }
 
-void rollerLoop(pros::Motor roller, pros::Motor rollerFrontL, pros::Motor rollerFrontR, double velocity, bool run, bool rev)
+void rollerLoop(pros::Motor roller, Mines::MinesMotorGroup topRollerFront, double velocity, bool run, bool rev)
 {
     if(run)
     {
         roller.move_velocity(velocity);
-        rollerFrontL.move_velocity(velocity);
-        rollerFrontR.move_velocity(velocity);
+        topRollerFront.moveVelocity(velocity);
     }
     else if(rev)
     {
         roller.move_velocity(velocity);
-        rollerFrontL.move_velocity(velocity);
-        rollerFrontR.move_velocity(velocity);
+        topRollerFront.moveVelocity(velocity);
     }
     else
     {
         roller.brake();
-        rollerFrontL.brake();
-        rollerFrontR.brake();
+        topRoller.brake();
     }
 }
 
