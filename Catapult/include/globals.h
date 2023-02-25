@@ -41,6 +41,7 @@
 #define LIMIT_SWITCH_MID 3 
 #define SHIELD 8
 #define ENDGAME 1
+#define WALL 4 //currently do not have wall
 
 enum Color { red, blue, purple };
 
