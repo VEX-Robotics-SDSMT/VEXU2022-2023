@@ -10,8 +10,8 @@ pros::Imu inertialSensor(INERTIAL_SENSOR);
 pros::Optical opticalSensor(COLOR_SENSOR);
 
 pros::Motor topRoller(TOP_ROLLER, RED_GEARSET, true);
-pros::Motor topRollerFrontLeft(TOP_ROLLER_FRONT_L, RED_GEARSET, false);
-pros::Motor topRollerFrontRoght(TOP_ROLLER_FRONT_R, RED_GEARSET, true);
+pros::Motor topRollerFrontL(TOP_ROLLER_FRONT_L, RED_GEARSET, false);
+pros::Motor topRollerFrontR(TOP_ROLLER_FRONT_R, RED_GEARSET, true);
 
 
 pros::Motor leftTopRearDrive(L_TOP_REAR, BLUE_GEARSET, false);
@@ -36,7 +36,7 @@ std::vector<pros::Motor> leftDriveVector = {leftTopRearDrive, leftBotRearDrive, 
 std::vector<pros::Motor> rightDriveVector = {rightTopRearDrive, rightBotRearDrive, rightFrontDrive};
 
 std::vector<pros::Motor> catapultVector = {leftCatapult, rightCatapult};
-std::vector<pros::Motor> topRollerFrontVector = {topRollerFrontLeft, topRollerFrontRoght};
+std::vector<pros::Motor> topRollerFrontVector = {topRollerFrontL, topRollerFrontR};
 
 Mines::MinesMotorGroup leftDriveMotors(leftDriveVector);
 Mines::MinesMotorGroup rightDriveMotors(rightDriveVector);

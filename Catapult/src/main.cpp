@@ -38,7 +38,7 @@ void on_center_button() {
 void initialize()
 {
 	endgame.set_value(0);
-	wall.set_value(0);
+	//wall.set_value(0); //currently don't have the wall
 
 	drive.setDrivePIDVals(0.90, 0, 0); //0.95
 	drive.setDrivePIDTol(5);
@@ -418,13 +418,13 @@ void opcontrol()
 			endgame.set_value(false);
 		}
 
-		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) //currently don't have wall
 		{
-			wall.set_value(true);
+			//wall.set_value(true);
 		}
 		else
 		{
-			wall.set_value(false);
+			//wall.set_value(false);
 		}
 
 		// ***** ROLLER *****
