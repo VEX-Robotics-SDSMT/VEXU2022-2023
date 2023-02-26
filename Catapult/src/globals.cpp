@@ -10,8 +10,8 @@ pros::Imu inertialSensor(INERTIAL_SENSOR);
 pros::Optical opticalSensor(COLOR_SENSOR);
 
 pros::Motor topRoller(TOP_ROLLER, RED_GEARSET, true);
-pros::Motor topRollerFrontLeft(TOP_ROLLER_FRONT_L, RED_GEARSET, false);
-pros::Motor topRollerFrontRoght(TOP_ROLLER_FRONT_R, RED_GEARSET, true);
+pros::Motor topRollerFrontL(TOP_ROLLER_FRONT_L, RED_GEARSET, false);
+pros::Motor topRollerFrontR(TOP_ROLLER_FRONT_R, RED_GEARSET, true);
 
 
 pros::Motor leftTopRearDrive(L_TOP_REAR, BLUE_GEARSET, false);
@@ -31,15 +31,18 @@ pros::ADIDigitalIn limitSwitch (LIMIT_SWITCH);
 pros::ADIDigitalIn limitSwitchMid (LIMIT_SWITCH_MID);
 pros::ADIDigitalOut shield (SHIELD);
 pros::ADIDigitalOut endgame (ENDGAME);
+pros::ADIDigitalOut wall (WALL);
 
 std::vector<pros::Motor> leftDriveVector = {leftTopRearDrive, leftBotRearDrive, leftFrontDrive};
 std::vector<pros::Motor> rightDriveVector = {rightTopRearDrive, rightBotRearDrive, rightFrontDrive};
 
 std::vector<pros::Motor> catapultVector = {leftCatapult, rightCatapult};
+std::vector<pros::Motor> topRollerFrontVector = {topRollerFrontL, topRollerFrontR};
 
 Mines::MinesMotorGroup leftDriveMotors(leftDriveVector);
 Mines::MinesMotorGroup rightDriveMotors(rightDriveVector);
 Mines::MinesMotorGroup catapultMotors(catapultVector);
+Mines::MinesMotorGroup topRollerFront(topRollerFrontVector);
 
 Mines::DiffDrive drive(leftDriveMotors, rightDriveMotors, inertialSensor);
 

@@ -428,7 +428,7 @@ void opcontrol()
 		}
 
 		// ***** ROLLER *****
-		rollerLoop(topRoller, topRollerFront, redGearing, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_B));
+		rollerLoop(topRoller, topRollerFrontL, topRollerFrontR, 100, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_B));
 		// ***** END ROLLER *****
 
 

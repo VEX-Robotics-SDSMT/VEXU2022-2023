@@ -41,6 +41,7 @@
 #define LIMIT_SWITCH_MID 3 
 #define SHIELD 8
 #define ENDGAME 1
+#define WALL 4 //currently do not have wall
 
 enum Color { red, blue, purple };
 
@@ -53,7 +54,8 @@ extern pros::Imu inertialSensor;
 extern pros::Optical opticalSensor;
 
 extern pros::Motor topRoller;
-extern pros::Motor topRollerFront;
+extern pros::Motor topRollerFrontR;
+extern pros::Motor topRollerFrontL;
 
 extern pros::Motor leftTopRearDrive;
 extern pros::Motor leftBotRearDrive;
@@ -66,6 +68,7 @@ extern pros::Motor leftCatapult;
 extern pros::Motor rightCatapult;
 
 extern pros::Motor intake;
+extern pros::Motor intake2;
 
 extern pros::ADIDigitalIn limitSwitch;
 extern pros::ADIDigitalOut shield;
@@ -80,6 +83,7 @@ extern std::vector<pros::Motor> catapultVector;
 extern Mines::MinesMotorGroup leftDriveMotors;
 extern Mines::MinesMotorGroup rightDriveMotors;
 extern Mines::MinesMotorGroup catapultMotors;
+extern Mines::MinesMotorGroup topRollerFront;
 
 extern Mines::DiffDrive drive;
 
