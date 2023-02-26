@@ -80,7 +80,7 @@ void autonomous()
 	
 	if(skills) // Skills route
 	{
-		flywheelsGroup.move(102);  //107, 90
+		flywheelsGroup.move(79);  //82, 90
 		drive.driveTiles(-100,false);
 		topRoller.set_zero_position(0);
 	
@@ -104,13 +104,14 @@ void autonomous()
 		push.set_value(0);
 		pros::delay(300);
 
-		flywheelsGroup.move(93);   //100, 60		
+		flywheelsGroup.move(72);   //82, 60		
 		drive.turnDegreesAbsolute(-130.5); //pick up three
-		intake.move(-120);
+		intake1.move(-127);
+		intake2.move(-127);
 		drive.setMaxDriveSpeed(0.20);
 		drive.driveTiles(-2800);
 		pros::delay(100);
-		drive.turnDegreesAbsolute(110); //turn and shoot, 113
+		drive.turnDegreesAbsolute(109.5); //turn and shoot, 113
 
 		pros::delay(500);
 		push.set_value(1);
@@ -129,10 +130,11 @@ void autonomous()
 
 		drive.setMaxDriveSpeed(0.40);
 		drive.turnDegreesAbsolute(-140);
-		intake.move(-127);
+		intake1.move(-127);
+		intake2.move(-127);
 		drive.driveTiles(-1100);
 
-		flywheelsGroup.move(94);  // 95, 30
+		flywheelsGroup.move(70);  // 80, 30
 		drive.turnDegreesAbsolute(127); //pick up one 128
 		pros::delay(700); //500
 		push.set_value(1);
@@ -141,17 +143,17 @@ void autonomous()
 		pros::delay(300); //shoot one
 		
 		
-		drive.driveTiles(425); //-160
+		drive.driveTiles(400); //-160
 		drive.turnDegreesAbsolute(0);
 		
 		drive.setMaxDriveSpeed(0.25);
 		drive.driveTiles(-2300);
 		
-		flywheelsGroup.move(92);  //112, 30
+		flywheelsGroup.move(65);  //75, 30
 		drive.setMaxDriveSpeed(0.5);
 
 		drive.turnDegreesAbsolute(77);
-		drive.driveTiles(-250);
+		//drive.driveTiles(-250);
 		
 
 		push.set_value(1);
@@ -166,8 +168,9 @@ void autonomous()
 		pros::delay(100);
 		push.set_value(0);
 		pros::delay(500);
-		flywheelsGroup.move(110);
+		flywheelsGroup.move(95);//105
 
+		drive.driveTiles(-250);
 		drive.turnDegreesAbsolute(-42);
 
 		drive.setMaxDriveSpeed(0.75);
@@ -237,7 +240,8 @@ void autonomous()
 		pros::delay(300);
 		
 		drive.turnDegreesAbsolute(-130.5); //pick up three
-		intake.move(-110);
+		intake1.move(-127);
+		intake2.move(-127);
 		drive.setMaxDriveSpeed(0.15);
 		drive.driveTiles(-2800);
 		flywheelsGroup.move(91);   // 90 perfect
@@ -260,7 +264,8 @@ void autonomous()
 		pros::delay(500);
 		
 		drive.turnDegreesAbsolute(-143);
-		intake.move(-127);
+		intake1.move(-127);
+		intake2.move(-127);
 		drive.driveTiles(-1100);
 
 		flywheelsGroup.move(88);  // 90
