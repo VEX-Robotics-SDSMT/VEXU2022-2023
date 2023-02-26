@@ -221,10 +221,10 @@ void autonomous()
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 
-		flywheelsGroup.move(95);  //90 < x < 95
+		flywheelsGroup.move(96);  //90 < x < 95
 
 		drive.driveTiles(300, true); //turn and shoot two preloads
-		drive.turnDegreesAbsolute(-17); //15
+		drive.turnDegreesAbsolute(-15, false); //15
 		pros::delay(2000);
 
 		push.set_value(1);
@@ -240,9 +240,9 @@ void autonomous()
 		intake.move(-110);
 		drive.setMaxDriveSpeed(0.15);
 		drive.driveTiles(-2800);
-		flywheelsGroup.move(90);   // 90 perfect
+		flywheelsGroup.move(91);   // 90 perfect
 		pros::delay(100);
-		drive.turnDegreesAbsolute(-43.5); //turn and shoot
+		drive.turnDegreesAbsolute(-42.5); //turn and shoot
 
 		pros::delay(1000);
 
@@ -279,7 +279,7 @@ void autonomous()
 		drive.setMaxDriveSpeed(0.25);
 		drive.driveTiles(-2300);
 		
-		flywheelsGroup.move(103);  //103
+		flywheelsGroup.move(105);  //103
 		drive.setMaxDriveSpeed(0.5);
 
 		drive.turnDegreesAbsolute(-43);
