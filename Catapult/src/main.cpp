@@ -334,6 +334,7 @@ void autonomous()
 void opcontrol()
 {
 	bool catapultGoal = 1;
+	bool catapultMid = 0;
 
 	MinesMotorGroup leftDriveMotors(leftDriveVector);
 	MinesMotorGroup rightDriveMotors(rightDriveVector);
@@ -392,6 +393,19 @@ void opcontrol()
 				shield.set_value(1);
 				pros::delay(750);
 				catapultGoal = 0;
+			}
+		}
+
+		if(MasterController.get_digital_new_press(buttonX))
+		{
+			if(catapultGoal == 0)
+			{
+				shield.set_value(1);
+				while(limitSwitchMid.get_value() != 1)
+				{
+					catapultLoop(catapultMotors, 100);
+				}
+				shield.set_value(0);
 			}
 		}
 

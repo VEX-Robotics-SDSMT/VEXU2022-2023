@@ -71,6 +71,7 @@ extern pros::Motor intake;
 extern pros::Motor intake2;
 
 extern pros::ADIDigitalIn limitSwitch;
+extern pros::ADIDigitalIn limitSwitchMid;
 extern pros::ADIDigitalOut shield;
 extern pros::ADIDigitalOut endgame;
 extern pros::ADIDigitalOut wall;
