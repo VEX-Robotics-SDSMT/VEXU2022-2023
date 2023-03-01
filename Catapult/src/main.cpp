@@ -96,127 +96,139 @@ void autonomous()
 
 	if(skills)
 	{
-		drive.setActive(false);
 		catInit(catapultMotors, limitSwitch, shield);
-
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(100);//straight
-		pros::delay(1000);
-
-		leftDriveMotors.moveVelocity(100);//turn
-		rightDriveMotors.moveVelocity(-100);
-		pros::delay(950);
-
-		leftDriveMotors.moveVelocity(100);//rev
-		rightDriveMotors.moveVelocity(100);
+		drive.driveTiles(1000);
+		drive.turnDegreesAbsolute(90);
 		intake.move(127);
-		pros::delay(3000);
-
-		leftDriveMotors.moveVelocity(-100);//rev
-		rightDriveMotors.moveVelocity(-100);
-		pros::delay(500);
-
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(-100);
-		pros::delay(950);
-
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(100);
+		intake2.move(127);
+		drive.driveTiles(2500);
+		drive.driveTiles(-1000);
+		drive.turnDegreesAbsolute(180);
 		intake.brake();
-		pros::delay(1400);
+		intake2.brake();
+		//drive.setActive(false);
+		// catInit(catapultMotors, limitSwitch, shield);
 
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
-		topRollerFront.move(127);
-		pros::delay(200);
+		// leftDriveMotors.moveVelocity(100);
+		// rightDriveMotors.moveVelocity(100);//straight
+		// pros::delay(1000);
 
-		topRollerFront.brake();
-		leftDriveMotors.moveVelocity(-100);
-		rightDriveMotors.moveVelocity(-100);
-		pros::delay(1000);
+		// leftDriveMotors.moveVelocity(100);//turn
+		// rightDriveMotors.moveVelocity(-100);
+		// pros::delay(950);
 
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(-100);
-		pros::delay(475);
+		// leftDriveMotors.moveVelocity(100);//rev
+		// rightDriveMotors.moveVelocity(100);
+		// intake.move(127);
+		// pros::delay(3000);
 
-		leftDriveMotors.moveVelocity(-100);
-		rightDriveMotors.moveVelocity(-100);
-		pros::delay(1300);
+		// leftDriveMotors.moveVelocity(-100);//rev
+		// rightDriveMotors.moveVelocity(-100);
+		// pros::delay(500);
 
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(-100);
-		pros::delay(475);
+		// leftDriveMotors.moveVelocity(100);
+		// rightDriveMotors.moveVelocity(-100);
+		// pros::delay(950);
 
-		leftDriveMotors.moveVelocity(-100);
-		rightDriveMotors.moveVelocity(-100);
-		pros::delay(1300);
+		// leftDriveMotors.moveVelocity(100);
+		// rightDriveMotors.moveVelocity(100);
+		// intake.brake();
+		// pros::delay(1400);
 
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
-		topRoller.move(127);
-		pros::delay(260);
+		// leftDriveMotors.brake();
+		// rightDriveMotors.brake();
+		// topRollerFront.move(127);
+		// pros::delay(200);
 
-		topRoller.brake();
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(100);
-		pros::delay(180);
+		// topRollerFront.brake();
+		// leftDriveMotors.moveVelocity(-100);
+		// rightDriveMotors.moveVelocity(-100);
+		// pros::delay(1000);
 
-		leftDriveMotors.moveVelocity(-100);
-		rightDriveMotors.moveVelocity(100);
-		pros::delay(950);
+		// leftDriveMotors.moveVelocity(100);
+		// rightDriveMotors.moveVelocity(-100);
+		// pros::delay(475);
 
-		leftDriveMotors.moveVelocity(-100);
-		rightDriveMotors.moveVelocity(-100);
-		pros::delay(5700);
+		// leftDriveMotors.moveVelocity(-100);
+		// rightDriveMotors.moveVelocity(-100);
+		// pros::delay(1300);
 
-		shield.set_value(1);
-		leftDriveMotors.moveVelocity(-100);
-		rightDriveMotors.moveVelocity(100);
-		pros::delay(300);
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
-		shield.set_value(1);
-		pros::delay(1000);
+		// leftDriveMotors.moveVelocity(100);
+		// rightDriveMotors.moveVelocity(-100);
+		// pros::delay(475);
 
-		while(limitSwitch.get_value() == 1)
-		{
-			catapultMotors.move(127);
-		}
-		pros::delay(1000);
-		while(limitSwitch.get_value() == 0)
-		{
-			catapultMotors.move(127);
-		}
-		catapultMotors.brake();
-		shield.set_value(0);
+		// leftDriveMotors.moveVelocity(-100);
+		// rightDriveMotors.moveVelocity(-100);
+		// pros::delay(1300);
 
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(-100);
-		pros::delay(240);
+		// leftDriveMotors.brake();
+		// rightDriveMotors.brake();
+		// topRoller.move(127);
+		// pros::delay(260);
 
-		leftDriveMotors.moveVelocity(100);
-		rightDriveMotors.moveVelocity(100);
-		pros::delay(6500);
+		// topRoller.brake();
+		// leftDriveMotors.moveVelocity(100);
+		// rightDriveMotors.moveVelocity(100);
+		// pros::delay(180);
 
-		 leftDriveMotors.moveVelocity(100);
-		 rightDriveMotors.moveVelocity(-100);
-		 pros::delay(475);
-		 leftDriveMotors.brake();
-		 rightDriveMotors.brake();
-		 while(pros::millis() - startTime < 56000)
-		 {
-		 	pros::delay(100);
-		 }
-		 endgame.set_value(1);
-		 pros::delay(1000);
-	 	 leftDriveMotors.moveVelocity(100);
-		 rightDriveMotors.moveVelocity(-100);
-		 pros::delay(500);
-		 leftDriveMotors.moveVelocity(100);
-		 rightDriveMotors.moveVelocity(100);
-		 pros::delay(300);
-		 leftDriveMotors.brake();
-		 rightDriveMotors.brake();
+		// leftDriveMotors.moveVelocity(-100);
+		// rightDriveMotors.moveVelocity(100);
+		// pros::delay(950);
+
+		// leftDriveMotors.moveVelocity(-100);
+		// rightDriveMotors.moveVelocity(-100);
+		// pros::delay(5700);
+
+		// shield.set_value(1);
+		// leftDriveMotors.moveVelocity(-100);
+		// rightDriveMotors.moveVelocity(100);
+		// pros::delay(300);
+		// leftDriveMotors.brake();
+		// rightDriveMotors.brake();
+		// shield.set_value(1);
+		// pros::delay(1000);
+
+		// while(limitSwitch.get_value() == 1)
+		// {
+		// 	catapultMotors.move(127);
+		// }
+		// pros::delay(1000);
+		// while(limitSwitch.get_value() == 0)
+		// {
+		// 	catapultMotors.move(127);
+		// }
+		// catapultMotors.brake();
+		// shield.set_value(0);
+
+		// leftDriveMotors.moveVelocity(100);
+		// rightDriveMotors.moveVelocity(-100);
+		// pros::delay(240);
+
+		// leftDriveMotors.moveVelocity(100);
+		// rightDriveMotors.moveVelocity(100);
+		// pros::delay(6500);
+
+		//  leftDriveMotors.moveVelocity(100);
+		//  rightDriveMotors.moveVelocity(-100);
+		//  pros::delay(475);
+		//  leftDriveMotors.brake();
+		//  rightDriveMotors.brake();
+		//  while(pros::millis() - startTime < 56000)
+		//  {
+		//  	pros::delay(100);
+		//  }
+		//  endgame.set_value(1);
+		//  pros::delay(1000);
+	 	//  leftDriveMotors.moveVelocity(100);
+		//  rightDriveMotors.moveVelocity(-100);
+		//  pros::delay(500);
+		 
+		//  leftDriveMotors.moveVelocity(100);
+		//  rightDriveMotors.moveVelocity(100);
+		//  pros::delay(300);
+
+		//  leftDriveMotors.brake();
+		//  rightDriveMotors.brake();
 	}
 	else
 	{
@@ -398,15 +410,11 @@ void opcontrol()
 
 		if(MasterController.get_digital_new_press(buttonX))
 		{
-			if(catapultGoal == 0)
-			{
-				shield.set_value(1);
 				while(limitSwitchMid.get_value() != 1)
 				{
 					catapultLoop(catapultMotors, 100);
 				}
 				shield.set_value(0);
-			}
 		}
 
 		if(limitSwitch.get_value() != catapultGoal)
