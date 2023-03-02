@@ -80,7 +80,7 @@ void autonomous()
 	
 	if(skills) // Skills route
 	{
-		flywheelsGroup.move(79);  //82, 90
+		flywheelsGroup.move(83);  //82, 90
 		drive.driveTiles(-100,false);
 		topRoller.set_zero_position(0);
 	
@@ -95,6 +95,7 @@ void autonomous()
 		drive.turnDegreesAbsolute(75.75); //72
 		pros::delay(500);
 
+		//Fire preloads
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
@@ -104,7 +105,7 @@ void autonomous()
 		push.set_value(0);
 		pros::delay(300);
 
-		flywheelsGroup.move(72);   //82, 60		
+		flywheelsGroup.move(75);   //82, 60		
 		drive.turnDegreesAbsolute(-130.5); //pick up three
 		intake1.move(-127);
 		intake2.move(-127);
@@ -113,6 +114,7 @@ void autonomous()
 		pros::delay(100);
 		drive.turnDegreesAbsolute(109.5); //turn and shoot, 113
 
+		//Fire first stack
 		pros::delay(500);
 		push.set_value(1);
 		pros::delay(100);
@@ -134,7 +136,8 @@ void autonomous()
 		intake2.move(-127);
 		drive.driveTiles(-1100);
 
-		flywheelsGroup.move(70);  // 80, 30
+		//fire single
+		flywheelsGroup.move(69);  // 80, 30
 		drive.turnDegreesAbsolute(127); //pick up one 128
 		pros::delay(700); //500
 		push.set_value(1);
@@ -143,7 +146,7 @@ void autonomous()
 		pros::delay(300); //shoot one
 		
 		
-		drive.driveTiles(400); //-160
+		drive.driveTiles(200); //-160
 		drive.turnDegreesAbsolute(0);
 		
 		drive.setMaxDriveSpeed(0.25);
@@ -152,10 +155,10 @@ void autonomous()
 		flywheelsGroup.move(65);  //75, 30
 		drive.setMaxDriveSpeed(0.5);
 
-		drive.turnDegreesAbsolute(77);
+		drive.turnDegreesAbsolute(75);
 		//drive.driveTiles(-250);
 		
-
+		//Fire line of discs
 		push.set_value(1);
 		pros::delay(100);
 		push.set_value(0);
@@ -168,14 +171,14 @@ void autonomous()
 		pros::delay(100);
 		push.set_value(0);
 		pros::delay(500);
-		flywheelsGroup.move(95);//105
+		flywheelsGroup.move(82);//105
 
 		drive.driveTiles(-250);
 		drive.turnDegreesAbsolute(-42);
 
 		drive.setMaxDriveSpeed(0.75);
-		drive.driveTiles(1700);
-		drive.turnDegreesAbsolute(90);
+		drive.driveTiles(1900);
+		drive.turnDegreesAbsolute(93);
 		drive.setMaxDriveSpeed(0.3);
 		drive.driveTiles(-2850);
 		drive.setMaxDriveSpeed(0.5);
