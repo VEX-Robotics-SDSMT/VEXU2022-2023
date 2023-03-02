@@ -80,7 +80,7 @@ void autonomous()
 	
 	if(skills) // Skills route
 	{
-		flywheelsGroup.move(83);  //82, 90
+		flywheelsGroup.move(91);  //82, 90
 		drive.driveTiles(-100,false);
 		topRoller.set_zero_position(0);
 	
@@ -92,7 +92,7 @@ void autonomous()
 		rightDriveMotors.brake();
 
 		drive.driveTiles(300, true); //turn and shoot two preloads
-		drive.turnDegreesAbsolute(75.75); //72
+		drive.turnDegreesAbsolute(73); //72
 		pros::delay(500);
 
 		//Fire preloads
@@ -105,14 +105,14 @@ void autonomous()
 		push.set_value(0);
 		pros::delay(300);
 
-		flywheelsGroup.move(75);   //82, 60		
-		drive.turnDegreesAbsolute(-130.5); //pick up three
+		flywheelsGroup.move(79);   //82, 60		
+		drive.turnDegreesAbsolute(-130); //pick up three
 		intake1.move(-127);
 		intake2.move(-127);
 		drive.setMaxDriveSpeed(0.20);
 		drive.driveTiles(-2800);
 		pros::delay(100);
-		drive.turnDegreesAbsolute(109.5); //turn and shoot, 113
+		drive.turnDegreesAbsolute(100); //turn and shoot, 113
 
 		//Fire first stack
 		pros::delay(500);
@@ -134,10 +134,10 @@ void autonomous()
 		drive.turnDegreesAbsolute(-140);
 		intake1.move(-127);
 		intake2.move(-127);
-		drive.driveTiles(-1100);
+		drive.driveTiles(-1400);
 
 		//fire single
-		flywheelsGroup.move(69);  // 80, 30
+		flywheelsGroup.move(75);  // 80, 30
 		drive.turnDegreesAbsolute(127); //pick up one 128
 		pros::delay(700); //500
 		push.set_value(1);
@@ -145,14 +145,13 @@ void autonomous()
 		push.set_value(0);
 		pros::delay(300); //shoot one
 		
-		
-		drive.driveTiles(200); //-160
+		//drive.driveTiles(210); //-160
 		drive.turnDegreesAbsolute(0);
 		
 		drive.setMaxDriveSpeed(0.25);
 		drive.driveTiles(-2300);
 		
-		flywheelsGroup.move(65);  //75, 30
+		flywheelsGroup.move(75);  //75, 30
 		drive.setMaxDriveSpeed(0.5);
 
 		drive.turnDegreesAbsolute(75);
@@ -171,16 +170,16 @@ void autonomous()
 		pros::delay(100);
 		push.set_value(0);
 		pros::delay(500);
-		flywheelsGroup.move(82);//105
+		flywheelsGroup.move(93);//105
 
 		drive.driveTiles(-250);
 		drive.turnDegreesAbsolute(-42);
 
 		drive.setMaxDriveSpeed(0.75);
-		drive.driveTiles(1900);
-		drive.turnDegreesAbsolute(93);
-		drive.setMaxDriveSpeed(0.3);
-		drive.driveTiles(-2850);
+		drive.driveTiles(1000);
+		drive.turnDegreesAbsolute(90);
+		drive.setMaxDriveSpeed(0.20);
+		drive.driveTiles(-3000);
 		drive.setMaxDriveSpeed(0.5);
 		drive.driveTiles(-500, false);
 
@@ -195,8 +194,8 @@ void autonomous()
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 
-		drive.driveTiles(500);
-		drive.turnDegreesAbsolute(89.5);
+		drive.driveTiles(800);
+		drive.turnDegreesAbsolute(83);
 
 		push.set_value(1);
 		pros::delay(100);
@@ -211,9 +210,11 @@ void autonomous()
 		push.set_value(0);
 		pros::delay(300);
 
-		drive.driveTiles(300);
-		drive.turnDegreesAbsolute(55, 1000);
+		drive.driveTiles(800);
+		drive.turnDegreesAbsolute(45, 1000);
+		drive.driveTiles(-1200);
 		launch.set_value(true);
+		drive.turnDegreesAbsolute(0);
 	}
 	else // Match auton route
 	{
@@ -247,7 +248,7 @@ void autonomous()
 		intake2.move(-127);
 		drive.setMaxDriveSpeed(0.15);
 		drive.driveTiles(-2800);
-		flywheelsGroup.move(91);   // 90 perfect
+		flywheelsGroup.move(91);
 		pros::delay(100);
 		drive.turnDegreesAbsolute(-42.5); //turn and shoot
 
