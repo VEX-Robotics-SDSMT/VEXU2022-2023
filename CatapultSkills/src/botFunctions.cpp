@@ -147,7 +147,6 @@ void catFire(Mines::MinesMotorGroup catapultMotorGroup, pros::ADIDigitalIn limit
 		 	catapultMotorGroup.move(127);
 		 }
 		catapultMotorGroup.brake();
-		shield.set_value(0);
 		pros::delay(200);
 }
 

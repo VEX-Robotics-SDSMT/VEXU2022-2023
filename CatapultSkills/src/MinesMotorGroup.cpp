@@ -82,21 +82,33 @@ int MinesMotorGroup::setBrakeMode(pros::motor_brake_mode_e mode)
 double MinesMotorGroup::getActualVelocity()
 {
     double average = 0;
+    int motorCount = 0;
     for(int i = 0; i < motorVector.size(); i++)
     {
-        average += motorVector[i].get_actual_velocity();
+        double vel = motorVector[i].get_actual_velocity();
+        if (vel != NAN && vel != infinity() && vel != -infinity())
+        {
+            average += vel;
+            motorCount++;
+        }   
     }
-    return average / motorVector.size();
+    return average / motorCount;
 }
 
 double MinesMotorGroup::getPosition()
 {
     double average = 0;
+    int motorCount = 0;
     for(int i = 0; i < motorVector.size(); i++)
     {
-        average += motorVector[i].get_position();
+        double pos = motorVector[i].get_position();
+        if (pos != NAN && pos != infinity() && pos != -infinity())
+        {
+            average += pos;
+            motorCount++;
+        }   
     }
-    return average / motorVector.size();
+    return average / motorCount;
 }
 
 double MinesMotorGroup::getMaxVelocity()

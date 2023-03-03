@@ -45,8 +45,8 @@ void initialize()
 	drive.setDrivePIDVals(0.90, 0, 0); //0.95
 	drive.setDrivePIDTol(5);
 	drive.setTurnPIDVals(2.95, 0, 0);//1.2
-	drive.setTurnPIDTol(0.5);
-	drive.setMaxDriveSpeed(0.3);
+	drive.setTurnPIDTol(0.75);
+	drive.setMaxDriveSpeed(0.5);
 	drive.setMaxTurnSpeed(0.75);
 	//redBlue = initAutonSide(MasterController);
 }
@@ -76,7 +76,7 @@ void competition_initialize()
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
+ * with the default priority and stack size	 whenever the robot is enabled via
  * the Field Management System or the VEX Competition Switch in the autonomous
  * mode. Alternatively, this function may be called in initialize or opcontrol
  * for non-competition testing purposes.
@@ -99,138 +99,82 @@ void autonomous()
 	if(skills)
 	{
 		catInit(catapultMotors, limitSwitch, shield);
-		drive.setActive(true);
+		//drive.setActive(true);
 
-		// leftDriveMotors.moveVelocity(100);
-		// rightDriveMotors.moveVelocity(100);//straight
-		// pros::delay(1000);
-
-		// leftDriveMotors.moveVelocity(100);//turn
-		// rightDriveMotors.moveVelocity(-100);
-		// pros::delay(950);
-
-		// leftDriveMotors.moveVelocity(100);//rev
-		// rightDriveMotors.moveVelocity(100);
-
-		// pros::delay(3000);
-		
-		// leftDriveMotors.moveVelocity(-100);//rev
-		// rightDriveMotors.moveVelocity(-100);
-		// pros::delay(600);
-
-		// leftDriveMotors.moveVelocity(-100);//turn
-		// rightDriveMotors.moveVelocity(100);
-		// pros::delay(950);
-
-		// leftDriveMotors.moveVelocity(-100);
-		// rightDriveMotors.moveVelocity(100);
-		// pros::delay(950); //1400
-
-		// intake.brake();
-		// intake2.brake();
-
-		// leftDriveMotors.moveVelocity(-100);
-		// rightDriveMotors.moveVelocity(-100);
-		// pros::delay(1400);
-
-		// topRoller.move(127);
-		// pros::delay(300);
-
-		// topRoller.brake();
-		// leftDriveMotors.moveVelocity(100);
-		// rightDriveMotors.moveVelocity(100);
-		// pros::delay(1400);
-
-		// leftDriveMotors.moveVelocity(100);
-		// rightDriveMotors.moveVelocity(-100);
-		// pros::delay(475);
-
-		// leftDriveMotors.moveVelocity(100);
-		// rightDriveMotors.moveVelocity(100);
-		// pros::delay(1600);
-
-		// leftDriveMotors.moveVelocity(100);
-		// rightDriveMotors.moveVelocity(-100);
-		// pros::delay(525);
-
-		// leftDriveMotors.moveVelocity(100);
-		// rightDriveMotors.moveVelocity(100);
-		// pros::delay(1600);
-
-		// leftDriveMotors.brake();
-		// rightDriveMotors.brake();
-		// topRollerFrontL.move(127);
-		// pros::delay(260); //260
-		
-
-		// topRollerFrontL.brake();
-		// leftDriveMotors.moveVelocity(-100);
-		// rightDriveMotors.moveVelocity(-100);
-		// pros::delay(400);
-
-		drive.driveTiles(750);	
+		drive.driveTiles(550);	
 
 		drive.turnDegreesAbsolute(90);
 
 		intake.move(1270);
 		intake2.move(1270);
-		drive.driveTiles(2000);
+		drive.driveTiles(1500);
 
-		drive.driveTiles(-500);
+		drive.driveTiles(-200);
 
 		drive.turnDegreesAbsolute(0);				
 
 		intake.brake();
 		intake2.brake();
 
-		drive.driveTiles(-1000, 1500);
+		drive.driveTiles(-1200, 1500);
 		pros::delay(750);
 		topRoller.move(127);
-		pros::delay(120); //150
+		pros::delay(320); //150
 		topRoller.brake();
 
-		drive.driveTiles(-1000);
+		drive.driveTiles(200); //1000
 		drive.turnDegreesAbsolute(45);
-		drive.driveTiles(-1000);
+		drive.driveTiles(700);
 		drive.turnDegreesAbsolute(90);
 
-		drive.driveTiles(-1000, 1500);
+		drive.driveTiles(1000, 1500);
 		pros::delay(750);
-		topRollerFrontL.move(127);
-		pros::delay(120); //150
-		topRollerFrontL.brake();
+		topRollerFrontR.move(127);
+		pros::delay(190); //150
+		topRollerFrontR.brake();
+		drive.driveTiles(-900);
 
-		// drive.turnDegreesAbsolute(-90);
-		// drive.driveTiles(2000);
-		// drive.turnDegreesAbsolute(-100);
-		// drive.setActive(0);
-		// catFire(catapultMotors, limitSwitch, shield);
+		drive.turnDegreesAbsolute(-180);
+		drive.driveTiles(-3225);
+		// drive.turnDegreesAbsolute(-190);
+		drive.setActive(0);
+		catFire(catapultMotors, limitSwitch, shield);
 
-		// for(int i = 0; i < 3; i++)
-		// {
-		// 	leftDriveMotors.move(100);
-		// 	rightDriveMotors.move(100);
-		// 	pros::delay(200);
+		for(int i = 0; i < 3; i++)
+		{
+			drive.setActive(1);
+			drive.driveTiles(700);
+			drive.setActive(0);
+			leftDriveMotors.moveVelocity(-100);
+			rightDriveMotors.moveVelocity(100);
+			pros::delay(1150);
+			while(limitSwitchMid.get_value() != 1)
+			{
+				catapultMotors.move(127);
+			}
+			catapultMotors.brake();
+			shield.set_value(0);
 
-		// 	drive.setActive(1);
-		// 	drive.driveTiles(-2000);
-		// 	drive.setActive(0);
-		// 	leftDriveMotors.moveVelocity(-100);
-		// 	rightDriveMotors.moveVelocity(100);
-		// 	pros::delay(950);
-		// 	while(limitSwitchMid.get_value() != 1)
-		// 	{
-		// 		catapultMotors.move(127);
-		// 	}
-		// 	catapultMotors.brake();
+			drive.setActive(1);
+			drive.setMaxDriveSpeed(0.3);
+			drive.driveTiles(750, 1000);
+			drive.setMaxDriveSpeed(0.5);
+			drive.setActive(0);
 
-		// 	leftDriveMotors.moveVelocity(100);
-		// 	rightDriveMotors.moveVelocity(100);
-		// 	pros::delay(950);
-		// 	leftDriveMotors.brake();
-		// 	rightDriveMotors.brake();
-		// 	pros::delay(6000);
-		// }
+			inertialSensor.reset();
+			while(inertialSensor.is_calibrating())
+			{
+				pros::delay(100);
+			}
+			pros::delay(1000);
+
+			drive.setActive(1);
+			drive.driveTiles(-900);
+			drive.turnDegreesAbsolute(90);
+			drive.driveTiles(-700);
+
+			catFire(catapultMotors, limitSwitch, shield);
+		}
 		
 
 
