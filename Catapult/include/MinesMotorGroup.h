@@ -4,6 +4,7 @@
 #include <vector>
 #include "api.h"
 #include "pros/motors.hpp"
+#include "Logger.h"
 
 namespace Mines {
 
@@ -11,16 +12,18 @@ namespace Mines {
 class MinesMotorGroup
 {
     const int NOT_INITIALIZED_CODE = -2;
+    const std::string NAME = "[MotorGroup]";
 
     //variables
     std::vector<pros::Motor> motorVector;
+    ScreenLogger logger;
     bool initialized = false;
     int size;
 
     //public functions
     public:
-        MinesMotorGroup(std::vector<pros::Motor> &motors);
-        MinesMotorGroup(pros::Motor motors[], int numMotors);
+        MinesMotorGroup(std::vector<pros::Motor> &motors, LoggerSettings loggerSettings = LoggerSettings::none);
+        MinesMotorGroup(pros::Motor motors[], int numMotors, LoggerSettings loggerSettings = LoggerSettings::none);
 
         int move(const int voltage);
         int moveVelocity(const int velocity);
