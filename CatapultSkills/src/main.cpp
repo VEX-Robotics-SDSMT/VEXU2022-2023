@@ -42,12 +42,12 @@ void initialize()
 	endgame.set_value(0);
 	wall.set_value(0);
 
-	drive.setDrivePIDVals(0.90, 0, 0); //0.95
-	drive.setDrivePIDTol(5);
-	drive.setTurnPIDVals(2.98, 0, 0);//1.2
-	drive.setTurnPIDTol(0.75);
+	drive.setDrivePIDVals(0.9, 0, 0); //0.90
+	drive.setDrivePIDTol(10);
+	drive.setTurnPIDVals(3, 0, 0);//4.15
+	drive.setTurnPIDTol(0.5);
 	drive.setMaxDriveSpeed(0.5);
-	drive.setMaxTurnSpeed(0.75);
+	drive.setMaxTurnSpeed(1);
 	//redBlue = initAutonSide(MasterController);
 }
 
@@ -98,6 +98,14 @@ void autonomous()
 
 	if(skills)
 	{
+		// for(int i = 0; i < 4; i++)
+		// {
+		// 	drive.driveTiles(1000);
+		// drive.turnDegreesAbsolute(90);
+		// drive.driveTiles(1000);
+		// }
+		// while(1)
+		// 	pros::delay(1000);
 		catInit(catapultMotors, limitSwitch, shield);
 		//drive.setActive(true);
 
@@ -109,14 +117,16 @@ void autonomous()
 		intake2.move(1270);
 		drive.driveTiles(1500);
 
-		drive.driveTiles(-200);
+		drive.driveTiles(-400);
 
 		drive.turnDegreesAbsolute(0);				
 
-		intake.brake();
-		intake2.brake();
+		// intake.brake();
+		// intake2.brake();
 
-		drive.driveTiles(-1200, 1500);
+		drive.setMaxDriveSpeed(0.75);
+
+		drive.driveTiles(-1200, 850);
 		pros::delay(750);
 		topRoller.move(127);
 		pros::delay(320); //150
@@ -127,27 +137,30 @@ void autonomous()
 		drive.driveTiles(700);
 		drive.turnDegreesAbsolute(90);
 
-		drive.driveTiles(1000, 1500);
+		drive.driveTiles(1000, 1000);
 		pros::delay(750);
 		topRollerFrontR.move(127);
 		pros::delay(190); //150
 		topRollerFrontR.brake();
-		drive.driveTiles(-900);
+		drive.driveTiles(-850);
 
+		drive.setTurnPIDTol(0.5);
 		drive.turnDegreesAbsolute(-180);
-		drive.driveTiles(-3000);
+		drive.driveTiles(-2950);
 		// drive.turnDegreesAbsolute(-190);
 		drive.setActive(0);
 		catFire(catapultMotors, limitSwitch, shield);
 
-		for(int i = 0; i < 3; i++)
-		{
+		// for(int i = 0; i < 3; i++)
+		// {
 			drive.setActive(1);
 			drive.driveTiles(400);
 			drive.setActive(0);
 			leftDriveMotors.moveVelocity(-100);
 			rightDriveMotors.moveVelocity(100);
 			pros::delay(1150);
+			leftDriveMotors.brake();
+			rightDriveMotors.brake();
 			while(limitSwitchMid.get_value() != 1)
 			{
 				catapultMotors.move(127);
@@ -157,7 +170,7 @@ void autonomous()
 
 			drive.setActive(1);
 			drive.setMaxDriveSpeed(0.3);
-			drive.driveTiles(750, 1000);
+			drive.driveTiles(1000, 1000);
 			drive.setMaxDriveSpeed(0.5);
 			drive.setActive(0);
 
@@ -169,13 +182,19 @@ void autonomous()
 			pros::delay(1000);
 
 			drive.setActive(1);
-			drive.driveTiles(-900);
+			drive.driveTiles(-600);
 			drive.turnDegreesAbsolute(90);
-			drive.driveTiles(-400);
+			drive.driveTiles(-450);
 
 			catFire(catapultMotors, limitSwitch, shield);
-		}
-		
+
+			leftDriveMotors.moveVelocity(-100);
+			rightDriveMotors.moveVelocity(100);
+			pros::delay(700);
+			leftDriveMotors.brake();
+			rightDriveMotors.brake();
+		// }
+		endgame.set_value(1);
 
 
 	}
