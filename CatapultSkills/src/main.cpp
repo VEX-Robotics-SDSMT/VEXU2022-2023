@@ -44,7 +44,7 @@ void initialize()
 
 	drive.setDrivePIDVals(0.90, 0, 0); //0.95
 	drive.setDrivePIDTol(5);
-	drive.setTurnPIDVals(2.95, 0, 0);//1.2
+	drive.setTurnPIDVals(2.98, 0, 0);//1.2
 	drive.setTurnPIDTol(0.75);
 	drive.setMaxDriveSpeed(0.5);
 	drive.setMaxTurnSpeed(0.75);
@@ -135,7 +135,7 @@ void autonomous()
 		drive.driveTiles(-900);
 
 		drive.turnDegreesAbsolute(-180);
-		drive.driveTiles(-3225);
+		drive.driveTiles(-3000);
 		// drive.turnDegreesAbsolute(-190);
 		drive.setActive(0);
 		catFire(catapultMotors, limitSwitch, shield);
@@ -143,7 +143,7 @@ void autonomous()
 		for(int i = 0; i < 3; i++)
 		{
 			drive.setActive(1);
-			drive.driveTiles(700);
+			drive.driveTiles(400);
 			drive.setActive(0);
 			leftDriveMotors.moveVelocity(-100);
 			rightDriveMotors.moveVelocity(100);
@@ -171,7 +171,7 @@ void autonomous()
 			drive.setActive(1);
 			drive.driveTiles(-900);
 			drive.turnDegreesAbsolute(90);
-			drive.driveTiles(-700);
+			drive.driveTiles(-400);
 
 			catFire(catapultMotors, limitSwitch, shield);
 		}

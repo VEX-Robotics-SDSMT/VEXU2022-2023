@@ -80,7 +80,7 @@ void autonomous()
 	
 	if(skills) // Skills route
 	{
-		flywheelsGroup.move(91);  //82, 90
+		flywheelsGroup.move(88);  //82, 90
 		drive.driveTiles(-100,false);
 		topRoller.set_zero_position(0);
 	
@@ -92,7 +92,7 @@ void autonomous()
 		rightDriveMotors.brake();
 
 		drive.driveTiles(300, true); //turn and shoot two preloads
-		drive.turnDegreesAbsolute(73); //72
+		drive.turnDegreesAbsolute(72); //72
 		pros::delay(500);
 
 		//Fire preloads
@@ -105,14 +105,14 @@ void autonomous()
 		push.set_value(0);
 		pros::delay(300);
 
-		flywheelsGroup.move(79);   //82, 60		
+		flywheelsGroup.move(78);   //82, 60		
 		drive.turnDegreesAbsolute(-130); //pick up three
-		intake1.move(-127);
-		intake2.move(-127);
+		intake1.move(-120);
+		intake2.move(-120);
 		drive.setMaxDriveSpeed(0.20);
 		drive.driveTiles(-2800);
 		pros::delay(100);
-		drive.turnDegreesAbsolute(100); //turn and shoot, 113
+		drive.turnDegreesAbsolute(101); //turn and shoot, 113
 
 		//Fire first stack
 		pros::delay(500);
@@ -132,13 +132,13 @@ void autonomous()
 
 		drive.setMaxDriveSpeed(0.40);
 		drive.turnDegreesAbsolute(-140);
-		intake1.move(-127);
-		intake2.move(-127);
+		intake1.move(-120);
+		intake2.move(-120);
 		drive.driveTiles(-1400);
 
 		//fire single
-		flywheelsGroup.move(75);  // 80, 30
-		drive.turnDegreesAbsolute(127); //pick up one 128
+		flywheelsGroup.move(74);  // 80, 30
+		drive.turnDegreesAbsolute(128); //pick up one 128
 		pros::delay(700); //500
 		push.set_value(1);
 		pros::delay(100);
@@ -151,10 +151,10 @@ void autonomous()
 		drive.setMaxDriveSpeed(0.25);
 		drive.driveTiles(-2300);
 		
-		flywheelsGroup.move(75);  //75, 30
+		flywheelsGroup.move(74);  //75, 30
 		drive.setMaxDriveSpeed(0.5);
 
-		drive.turnDegreesAbsolute(75);
+		drive.turnDegreesAbsolute(76);
 		//drive.driveTiles(-250);
 		
 		//Fire line of discs
