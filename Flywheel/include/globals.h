@@ -25,6 +25,7 @@
 
 #define INTAKE_MOTOR_GEARSET red
 #define FLYWHEELS_MOTOR_GEARSET blue
+#define ROLLER_MOTOR_GEARSET green
 
 extern pros::Controller MasterController;
 
@@ -41,16 +42,16 @@ extern pros::Motor rightTopFrontDrive;
 extern pros::Motor rightTopRearDrive;
 extern pros::Motor rightBot;
 
-extern pros::ADIDigitalOut launch;
-extern pros::ADIDigitalOut push;
-extern pros::ADIDigitalOut push3;
+extern pros::ADIDigitalOut endgame;
+extern pros::ADIDigitalOut shoot1;
+extern pros::ADIDigitalOut shoot3;
 
 extern std::vector<pros::Motor> leftDriveVector;
 extern std::vector<pros::Motor> rightDriveVector;
 extern Mines::MinesMotorGroup leftDriveMotors;
 extern Mines::MinesMotorGroup rightDriveMotors;
 extern Mines::MinesMotorGroup flywheelsGroup;
-extern Mines::MinesMotorGroup intake;
+extern Mines::MinesMotorGroup intakeGroup;
 
 
 extern pros::Motor string;

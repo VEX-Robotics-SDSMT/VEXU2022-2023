@@ -25,44 +25,22 @@ void driveLoop(Mines::MinesMotorGroup leftMotorGroup, Mines::MinesMotorGroup rig
     rightMotorGroup.move(rightVelocity);
 }
 
-void rollerLoop(pros::Motor roller, double velocity, bool run, bool rev)
+void rollerLoop(pros::Motor roller, int pct, bool run)
 {
     if(run)
-        roller.move_velocity(velocity);
-   // else if(rev){}
-        //roller.move_velocity(-velocity);
+        roller.move_velocity(ROLLER_MOTOR_GEARSET*(pct/100));
     else
         roller.brake();
 }
 
-void intakeLoopToggle(bool rev, int pct)
+void intakeLoopHold(Mines::MinesMotorGroup intakeMotors, int pct, bool run, bool rev)
 {
     if(rev == 1)
-    {
-        intakeToggle = 0;
-        intake.moveVelocity((100)*pct * INTAKE_MOTOR_GEARSET*-1);
-    }
-    else if(intakeToggle == 1)
-    {
-        intake.moveVelocity((100)*pct * INTAKE_MOTOR_GEARSET);
-    }
-    else
-    {
-        intake.brake();
-    }
-}
-
-void intakeLoopHold(bool run, bool rev, double pct)
-{
-    if(rev == 1)
-    {
-        intakeToggle = 0;
-        intake.moveVelocity(-(100)*pct * INTAKE_MOTOR_GEARSET);
-    }
+        intakeMotors.moveVelocity(-(100)*pct * INTAKE_MOTOR_GEARSET);
     else if(run == 1)
-        intake.moveVelocity((100)*pct * INTAKE_MOTOR_GEARSET);
+        intakeMotors.moveVelocity((100)*pct * INTAKE_MOTOR_GEARSET);
     else
-        intake.brake();
+        intakeMotors.brake();
 }
 
 void flywheelLoopToggle(Mines::MinesMotorGroup flywheels, int pct)

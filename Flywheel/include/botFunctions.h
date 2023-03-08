@@ -6,11 +6,9 @@
 #include "pros/motors.h"
 
 void driveLoop(Mines::MinesMotorGroup leftMotorGroup, Mines::MinesMotorGroup rightMotorGroup, double leftVelocity, double rightVelocity);
-void rollerLoop(pros::Motor roller, double velocity, bool run, bool rev);
-void intakeLoopHold(bool run, bool rev, double pct);
-void intakeLoopToggle(bool rev, int pct);
+void rollerLoop(pros::Motor rollerMotor, int pct, bool runButton);
+void intakeLoopHold(Mines::MinesMotorGroup intakeMotors, int pct, bool runButton, bool revButton);
 void flywheelLoopToggle(Mines::MinesMotorGroup flywheels, int pct);
-void toggleIntake();
 void toggleFlywheels();
 
 #endif

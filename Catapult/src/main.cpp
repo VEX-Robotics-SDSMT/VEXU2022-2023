@@ -14,7 +14,8 @@ using namespace Mines;
  * "I was pressed!" and nothing.
  */
 
-bool skills = true;
+bool skills = false;
+
 int redBlue = 0;
 
 void on_center_button() {

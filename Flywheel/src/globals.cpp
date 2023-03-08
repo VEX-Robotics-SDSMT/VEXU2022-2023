@@ -20,9 +20,9 @@ pros::Motor rightMidDrive(R_MID, pros::E_MOTOR_GEARSET_18, false);
 pros::Motor fly1(FLY1, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor fly2(FLY2, pros::E_MOTOR_GEARSET_06, false);
 
-pros::ADIDigitalOut launch(LAUNCH);
-pros::ADIDigitalOut push(PUSH);
-pros::ADIDigitalOut push3(PUSH3);
+pros::ADIDigitalOut endgame(LAUNCH);
+pros::ADIDigitalOut shoot1(PUSH);
+pros::ADIDigitalOut shoot3(PUSH3);
 
 std::vector<pros::Motor> leftDriveVector = {leftFrontDrive, leftRearDrive, leftMidDrive};
 std::vector<pros::Motor> rightDriveVector = {rightFrontDrive, rightRearDrive, rightMidDrive};
@@ -31,7 +31,7 @@ std::vector<pros::Motor> intakes = {intake1, intake2};
 Mines::MinesMotorGroup leftDriveMotors(leftDriveVector);
 Mines::MinesMotorGroup rightDriveMotors(rightDriveVector);
 Mines::MinesMotorGroup flywheelsGroup(flywheels);
-Mines::MinesMotorGroup intake(intakes);
+Mines::MinesMotorGroup intakeGroup(intakes);
 
 double axisPercentBlue = 600.0 / 127;
 double axisPercentGreen = 200.0 / 127;
@@ -40,4 +40,4 @@ int blue = 600;
 int green = 200;
 int red = 100;
 
-bool skills = true;
+bool skills = false;

@@ -80,31 +80,35 @@ void autonomous()
 	
 	if(skills) // Skills route
 	{
+		// Start spinning up the flywheel and drive into the roller
 		flywheelsGroup.move(84);  //82, 90
 		drive.driveTiles(-100,false);
 		topRoller.set_zero_position(0);
 	
 		pros::delay(600);
  	
+		// Move the roller
 		topRoller.move_absolute(-750,127); //move roller
 		pros::delay(100);
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 
+		// Drive forward to avoid hitting the wall, then turn towards the high goal
 		drive.driveTiles(300, true); //turn and shoot two preloads
 		drive.turnDegreesAbsolute(72); //72
 		pros::delay(500);
 
 		//Fire preloads
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(1100);
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(300);
 
+		// Slow down flywheels for next shot and move forward picking up the stack of 3 discs, then turn towards the goal
 		flywheelsGroup.move(76);   //82, 60		
 		drive.turnDegreesAbsolute(-130); //pick up three
 		intake1.move(-118);
@@ -116,41 +120,44 @@ void autonomous()
 
 		//Fire first stack
 		pros::delay(500);
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(1100);
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(1100);
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(500);
 
-
+		// Turn and pick up the single disc (first disc in line of 3)
 		drive.setMaxDriveSpeed(0.40);
 		drive.turnDegreesAbsolute(-140);
 		intake1.move(-118);
 		intake2.move(-118);
 		drive.driveTiles(-1375);
 
-		//fire single
+		//fire single disc
 		flywheelsGroup.move(71);  // 80, 30
 		drive.turnDegreesAbsolute(127); //pick up one 128
 		pros::delay(700); //500
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(300); //shoot one
-		
-		//drive.driveTiles(210); //-160
+
+
+		//turn towards line of 3 on the low goal
 		drive.turnDegreesAbsolute(0);
 		
+		//Slow down and drive towards the line of 3, intaking them
 		drive.setMaxDriveSpeed(0.25);
 		drive.driveTiles(-2300);
 		
+		//Speed up the flywheels and turn towards the goal
 		flywheelsGroup.move(74);  //75, 30
 		drive.setMaxDriveSpeed(0.5);
 
@@ -158,25 +165,28 @@ void autonomous()
 		//drive.driveTiles(-250);
 		
 		//Fire line of discs
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(800);
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(1100);
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(500);
 		flywheelsGroup.move(89);//105
 
+
+		// Back up and turn towards a position that is in line with the 2nd stack of 3 discs and the 2nd roller, then drive to that point
 		drive.driveTiles(-250);
 		drive.turnDegreesAbsolute(-42);
-
 		drive.setMaxDriveSpeed(0.75);
 		drive.driveTiles(950);
+
+		// Drive forward, picking up discs and then driving into the roller and scoring it
 		drive.turnDegreesAbsolute(90);
 		drive.setMaxDriveSpeed(0.20);
 		drive.driveTiles(-3000);
@@ -189,122 +199,132 @@ void autonomous()
 
  	
 		topRoller.move_absolute(-950,127); 
-		//drive.driveTiles(-400,false);
 		pros::delay(100);
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 
+
+		//Turn towards the goal and shoot the 2nd stack of 3 discs
 		drive.driveTiles(800);
 		drive.turnDegreesAbsolute(84);
 
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(1000);
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(1200);
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(300);
 
+		// Fire endgame, then turn so that each wheel is touching its own tile
 		drive.driveTiles(800);
 		drive.turnDegreesAbsolute(45, 1000);
 		drive.driveTiles(-1200);
-		launch.set_value(true);
+		endgame.set_value(true);
 		drive.turnDegreesAbsolute(0);
 	}
 	else // Match auton route
 	{
+		// Start spinning up flywheels and get the first roller
 		drive.driveTiles(-100,false);
 		topRoller.set_zero_position(0);
 	
 		pros::delay(600);
  	
-		topRoller.move_absolute(-250,127); //move roller
+		topRoller.move_absolute(-250,127); 
 		pros::delay(100);
 		leftDriveMotors.brake();
 		rightDriveMotors.brake();
 
-		flywheelsGroup.move(96);  //90 < x < 95
+		flywheelsGroup.move(96);  
 
-		drive.driveTiles(300, true); //turn and shoot two preloads
-		drive.turnDegreesAbsolute(-15, false); //15
+		// Shoot preloads
+		drive.driveTiles(300, true); 
+		drive.turnDegreesAbsolute(-15, false);
 		pros::delay(2000);
 
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(1800);
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(300);
-		
-		drive.turnDegreesAbsolute(-130.5); //pick up three
+
+		// Turn towards first stack of 3, then move forward and intake them
+		drive.turnDegreesAbsolute(-130.5); 
 		intake1.move(-127);
 		intake2.move(-127);
 		drive.setMaxDriveSpeed(0.15);
 		drive.driveTiles(-2800);
 		flywheelsGroup.move(91);
 		pros::delay(100);
-		drive.turnDegreesAbsolute(-42.5); //turn and shoot
+
+		// Turn towards goal, shoot first stack of 3
+		drive.turnDegreesAbsolute(-42.5); 
 
 		pros::delay(1000);
 
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(1900);
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(2100);
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(500);
-		
+
+		// Turn towards single disc (First disc in line of 3) and intake it
 		drive.turnDegreesAbsolute(-143);
 		intake1.move(-127);
 		intake2.move(-127);
 		drive.driveTiles(-1100);
 
-		flywheelsGroup.move(88);  // 90
-		drive.turnDegreesAbsolute(-55.5); //pick up one
-		pros::delay(700); //500
-		push.set_value(1);
+		// Shoot the single disc
+		flywheelsGroup.move(88);  
+		drive.turnDegreesAbsolute(-55.5); 
+		pros::delay(700); 
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(700);
-		pros::delay(300); //shoot one
+		pros::delay(300); 
 		
-		
+		// Turn towards line of 3 discs on the low goal
 		drive.driveTiles(-180); //180
 		drive.turnDegreesAbsolute(0);
 		
+		// Slow down and intake the 3 discs on the low goal
 		drive.setMaxDriveSpeed(0.25);
 		drive.driveTiles(-2300);
 		
+		// Speed up the flywheels and turn towards the high goal
 		flywheelsGroup.move(105);  //103
 		drive.setMaxDriveSpeed(0.5);
-
 		drive.turnDegreesAbsolute(-43);
 		
-
-		push.set_value(1);
+		// Shoot the 3 discs that were on the low goal
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(1600);
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(1600);
-		push.set_value(1);
+		shoot1.set_value(1);
 		pros::delay(100);
-		push.set_value(0);
+		shoot1.set_value(0);
 		pros::delay(500);
 	}
 
@@ -327,10 +347,13 @@ void autonomous()
 
 void opcontrol()
 {	
+	// Initialize the flywheel speed to 100% and brake type to coast
 	int flywheelPct = 100;
+	flywheelsGroup.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 
 	while(true)
-	{		
+	{	
+		// ********************DRIVE********************
 		// 2 stick arcade
 		// double leftAxisY = MasterController.get_analog(axisLeftY);
 		// double rightAxisX = MasterController.get_analog(axisRightX);
@@ -352,15 +375,27 @@ void opcontrol()
 		// double leftVelocity = ((leftAxisY) * axisPercentBlue);
 		// double rightVelocity = ((-rightAxisY) * axisPercentBlue);
 
+		// If the driver is holding B, drive at 30% speed to aim easier, otherwise drive using the values found anbove
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_B))
+		{
+			driveLoop(leftDriveMotors, rightDriveMotors, .3*leftVelocity, .3*rightVelocity);
+		}
+		else
+		{
+			driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
+		}
+		//*********************************************
+
+
+
+		// ********************FLYWHEELS********************
+		// Flywheel toggle control
 		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L2))
 		{
 			toggleFlywheels();
 		}
-		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_R1))
-		{
-			toggleIntake();
-		}
-		
+
+		// Flywheel speed control
 		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT))
 		{
 			flywheelPct = 85;
@@ -374,43 +409,47 @@ void opcontrol()
 			flywheelPct = 72;
 		}
 
-		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_B))
-		{
-			driveLoop(leftDriveMotors, rightDriveMotors, .3*leftVelocity, .3*rightVelocity);
-		}
-		else
-		{
-			driveLoop(leftDriveMotors, rightDriveMotors, leftVelocity, rightVelocity);
-		}
-		
-		rollerLoop(topRoller, green, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_Y), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X));
-		//intakeLoopToggle(MasterController.get_digital(buttonR2), 1);
-		flywheelsGroup.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
-		intakeLoopHold(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R2), 100);
 		flywheelLoopToggle(flywheelsGroup, flywheelPct);
+		// *************************************************
 
+
+		
+		// ********************ROLLER********************
+		rollerLoop(topRoller, 100, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1));
+		// **********************************************
+
+
+
+		// ********************INTAKE********************
+		intakeLoopHold(intakeGroup, 100, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R1), MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_R2));
+		// **********************************************
+
+
+
+		// ********************ENDGAME********************
 		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
-		{
-			launch.set_value(true);
-		}
+			endgame.set_value(true);
 		else
-		{
-			launch.set_value(false);
-		}
+			endgame.set_value(false);
+		// ***********************************************
 
+
+
+		// ********************SHOOT********************
 		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_A))
 		{
-			push.set_value(true);
+			shoot1.set_value(true);
 		}
 		else if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_Y))
 		{
-			push.set_value(true);
-			push3.set_value(true);
+			shoot1.set_value(true);
+			shoot3.set_value(true);
 		}
 		else
 		{
-			push.set_value(false);
-			push3.set_value(false);			
+			shoot1.set_value(false);
+			shoot3.set_value(false);			
 		}
+		// *********************************************
 	}
 }
