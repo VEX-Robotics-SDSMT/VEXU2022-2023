@@ -70,13 +70,13 @@
 extern "C" {
 #endif
 
- class MotPID : public Mines::PIDInterface
+ /*class MotPID : public Mines::PIDInterface
  {
 	public:
 		MotPID();
 		double getPositionPID() override;
 		void setVelocityPID(double value) override;
- };
+ };*/
 
 
 void autonomous(void);

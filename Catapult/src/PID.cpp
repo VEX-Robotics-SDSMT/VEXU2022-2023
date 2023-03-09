@@ -14,7 +14,7 @@ namespace Mines
 
     void PID::update(double deltaT)
     {
-        double currentPosition = getPosition();
+        double currentPosition = getActualPosition();
         logger.Log(("current position: " + std::to_string(currentPosition)).c_str(), 0, LoggerSettings::verbose);
         double error = target - currentPosition;
         logger.Log(("current error value: " + std::to_string(error)).c_str(), 1, LoggerSettings::verbose);
@@ -55,6 +55,9 @@ namespace Mines
         }
 
         //setting output variables
+        double dynamicMax = fabs(getActualVelocity()) + MAX_ACCEL;
+        double clampedVelocity = clamp(controlVariable, -dynamicMax, dynamicMax);
+
         setOutput(controlVariable);
     }
 
@@ -76,9 +79,14 @@ namespace Mines
         }
     }
 
-    double PID::getPosition()
+    double PID::getActualPosition()
     {
-        return interface->getPositionPID();
+        return interface->getPositionActual();
+    }
+
+    double PID::getActualVelocity()
+    {
+        return interface->getVelocityActual();
     }
 
     void PID::setOutput(double value)
@@ -109,6 +117,11 @@ namespace Mines
         KP = kp;
         KI = ki;
         KD = kd;
+    }
+
+    void PID::SetMaxAccel(double maxAccel)
+    {
+        MAX_ACCEL = maxAccel;
     }
 
     void PID::SetTolerance(double tolerance)

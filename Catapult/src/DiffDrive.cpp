@@ -85,14 +85,16 @@ void DiffDrive::setBrakeMode(pros::motor_brake_mode_e mode)
     leftMotors.setBrakeMode(mode);
 }
 
-void DiffDrive::setDrivePIDVals(double kp, double ki, double kd)
+void DiffDrive::setDrivePIDVals(double kp, double ki, double kd, double maxAccel)
 {
     drivePID.SetPIDConst(kp, ki, kd);
+    drivePID.SetMaxAccel(maxAccel);
 }
 
-void DiffDrive::setTurnPIDVals(double kp, double ki, double kd)
+void DiffDrive::setTurnPIDVals(double kp, double ki, double kd, double maxAccel)
 {
     turnPID.SetPIDConst(kp, ki, kd); 
+    turnPID.SetMaxAccel(maxAccel);
 }
 
 void DiffDrive::setDrivePIDTol(double tolerance)
@@ -120,6 +122,11 @@ double DiffDrive::getDrivePosition()
     return (leftMotors.getPosition() + rightMotors.getPosition()) / 2;
 }
 
+double DiffDrive::getDriveVelocity()
+{
+    return (leftMotors.getActualVelocity() + rightMotors.getActualVelocity()) / 2;
+}
+
 void DiffDrive::setDriveVelocity(double value)
 {
     driveVelocity = value;
@@ -144,6 +151,11 @@ double DiffDrive::getTurnPosition()
     {
         return current;
     }
+}
+
+double DiffDrive::getTurnVelocity()
+{
+    return inertial.get_yaw();
 }
 
 void DiffDrive::setTurnVelocity(double value)
@@ -204,9 +216,14 @@ DiffDrive::DriveInterface::DriveInterface(DiffDrive* pParent)
     parent = pParent;
 }
 
-double DiffDrive::DriveInterface::getPositionPID()
+double DiffDrive::DriveInterface::getPositionActual()
 {
     return parent->getDrivePosition();
+}
+
+double DiffDrive::DriveInterface::getVelocityActual()
+{
+    return parent->getDriveVelocity();
 }
 
 void DiffDrive::DriveInterface::setVelocityPID(double value)
@@ -219,9 +236,14 @@ DiffDrive::TurnInterface::TurnInterface(DiffDrive* pParent)
     parent = pParent;
 }
 
-double DiffDrive::TurnInterface::getPositionPID()
+double DiffDrive::TurnInterface::getPositionActual()
 {
     return parent->getTurnPosition();
+}
+
+double DiffDrive::TurnInterface::getVelocityActual()
+{
+    return parent->getTurnVelocity();
 }
 
 void DiffDrive::TurnInterface::setVelocityPID(double value)

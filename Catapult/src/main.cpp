@@ -41,9 +41,9 @@ void initialize()
 	endgame.set_value(0);
 	wall.set_value(0);
 
-	drive.setDrivePIDVals(0.90, 0, 0); //0.95
+	drive.setDrivePIDVals(0.90, 0, 0, 0.01); //0.95
 	drive.setDrivePIDTol(5);
-	drive.setTurnPIDVals(2.95, 0, 0);//1.2
+	drive.setTurnPIDVals(2.95, 0, 0, 0.01);//1.2
 	drive.setTurnPIDTol(0.5);
 	drive.setMaxDriveSpeed(0.3);
 	drive.setMaxTurnSpeed(0.75);

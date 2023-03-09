@@ -12,7 +12,8 @@ namespace Mines
     class PIDInterface
     {
         public:
-            virtual double getPositionPID() = 0;
+            virtual double getPositionActual() = 0;
+            virtual double getVelocityActual() = 0;
             virtual void setVelocityPID(double value) = 0;
     };
 
@@ -26,6 +27,7 @@ namespace Mines
         double KP = 0.005;
         double KI = 0;
         double KD = 0.0001;
+        double MAX_ACCEL = 0.001;
 
         //Setpoints - goal variables of the algorithm
         double target = 0;
@@ -46,7 +48,8 @@ namespace Mines
             static void taskStarter(void* arg);
             void resetTimers();
             void update(double deltaT);
-            double getPosition();
+            double getActualPosition();
+            double getActualVelocity();
             void setOutput(double value);
 
         public:
@@ -58,6 +61,7 @@ namespace Mines
             void StartTask();
             void updateTask();
             void SetPIDConst(double kp, double ki, double kd);
+            void SetMaxAccel(double maxAccel);
             void SetTolerance(double tolerance);
             void SetTarget(double target);
             void SetStopped(bool stopped);

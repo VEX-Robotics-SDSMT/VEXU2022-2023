@@ -24,7 +24,8 @@ class DiffDrive
         public:
             DriveInterface(DiffDrive* pParent);
 
-            double getPositionPID() override;
+            double getPositionActual() override;
+            double getVelocityActual() override;
             void setVelocityPID(double value) override;
     };
     class TurnInterface : public PIDInterface
@@ -34,7 +35,8 @@ class DiffDrive
         public:
             TurnInterface(DiffDrive* pParent);
 
-            double getPositionPID() override;
+            double getPositionActual() override;
+            double getVelocityActual() override;
             void setVelocityPID(double value) override;
     };
 
@@ -73,8 +75,8 @@ class DiffDrive
 
         //configuration functions
         void setBrakeMode(pros::motor_brake_mode_e mode);
-        void setDrivePIDVals(double kp, double ki, double kd);
-        void setTurnPIDVals(double kp, double ki, double kd);
+        void setDrivePIDVals(double kp, double ki, double kd, double maxAccel);
+        void setTurnPIDVals(double kp, double ki, double kd, double maxAccel);
         void setDrivePIDTol(double tolerance);
         void setTurnPIDTol(double tolerance);
         void setMaxDriveSpeed(double percent);
@@ -87,8 +89,10 @@ class DiffDrive
 
     private:
         double getDrivePosition();
+        double getDriveVelocity();
         void setDriveVelocity(double value);
         double getTurnPosition();
+        double getTurnVelocity();
         void setTurnVelocity(double value);
         void setMotorVelocities();
 
