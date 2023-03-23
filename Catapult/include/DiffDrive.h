@@ -11,6 +11,7 @@
 #include "pros/rtos.h"
 #include <algorithm>
 #include <cmath>
+#include <limits.h>
 
 namespace Mines {
 
@@ -55,6 +56,8 @@ class DiffDrive
     int GOAL_TIME = 500;
     double MAX_DRIVE_PERCENT = 1;
     double MAX_TURN_PERCENT = 1;
+    double MAX_DRIVE_ACCEL = INT_MAX;
+    double MAX_TURN_ACCEL = INT_MAX;
     
     bool ACTIVE = true;
 
@@ -65,6 +68,9 @@ class DiffDrive
 
     public:
         DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::Imu Imu);
+
+        double getDriveVelocity();
+        double getTurnVelocity();
 
         void driveTiles(double target, bool waitForCompletion=true);
         void driveTiles(double target, int timeOut);
@@ -79,6 +85,8 @@ class DiffDrive
         void setTurnPIDTol(double tolerance);
         void setMaxDriveSpeed(double percent);
         void setMaxTurnSpeed(double percent);
+        void setMaxDriveAccel(double value);
+        void setMaxTurnAccel(double value);
         void setActive(bool active);
 
         void killPIDs();

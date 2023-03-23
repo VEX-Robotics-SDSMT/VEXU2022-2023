@@ -18,6 +18,16 @@ DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::IMU imu)
     rightMotors.tarePosition();
 }
 
+double DiffDrive::getDriveVelocity()
+{
+    return (leftMotors.getActualVelocity() + rightMotors.getActualVelocity()) / 2;
+}
+
+double DiffDrive::getTurnVelocity()
+{
+    return inertial.get_gyro_rate().z; //might need to be a different call
+}
+
 void DiffDrive::driveTiles(double target, bool waitForCompletion)
 {
     drivePID.SetStopped(false);
@@ -115,6 +125,16 @@ void DiffDrive::setMaxTurnSpeed(double percent)
     MAX_TURN_PERCENT = percent;
 }
 
+void DiffDrive::setMaxDriveAccel(double value)
+{
+    MAX_DRIVE_ACCEL = value;
+}
+
+void DiffDrive::setMaxTurnAccel(double value)
+{
+    MAX_TURN_ACCEL = value;
+}
+
 double DiffDrive::getDrivePosition()
 {
     return (leftMotors.getPosition() + rightMotors.getPosition()) / 2;
@@ -122,7 +142,10 @@ double DiffDrive::getDrivePosition()
 
 void DiffDrive::setDriveVelocity(double value)
 {
-    driveVelocity = value;
+    double dyanamicMax = fabs(getDriveVelocity()) + MAX_DRIVE_ACCEL;
+    double clampedVal = std::clamp(value, -dyanamicMax, dyanamicMax);
+
+    driveVelocity = clampedVal;
     setMotorVelocities();
 }
 
@@ -148,7 +171,10 @@ double DiffDrive::getTurnPosition()
 
 void DiffDrive::setTurnVelocity(double value)
 {
-    turnVelocity = value;
+    double dyanamicMax = fabs(getTurnVelocity()) + MAX_TURN_ACCEL;
+    double clampedVal = std::clamp(value, -dyanamicMax, dyanamicMax);
+
+    turnVelocity = clampedVal;
     setMotorVelocities();
 }
 

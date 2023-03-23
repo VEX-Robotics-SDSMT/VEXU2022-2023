@@ -9,6 +9,8 @@ pros::Controller MasterController (pros::E_CONTROLLER_MASTER);
 pros::Imu inertialSensor(INERTIAL_SENSOR);
 pros::Optical opticalSensor(COLOR_SENSOR);
 
+pros::Vision visionSensor(20, pros::c::E_VISION_ZERO_CENTER);
+
 pros::Motor topRoller(TOP_ROLLER, RED_GEARSET, true);
 pros::Motor topRollerFrontL(TOP_ROLLER_FRONT_L, RED_GEARSET, false);
 pros::Motor topRollerFrontR(TOP_ROLLER_FRONT_R, RED_GEARSET, true);

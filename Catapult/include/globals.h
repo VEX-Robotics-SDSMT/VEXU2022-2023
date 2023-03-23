@@ -53,6 +53,10 @@ extern pros::Controller MasterController;
 extern pros::Imu inertialSensor;
 extern pros::Optical opticalSensor;
 
+//sensor that doesn't exist
+extern pros::Vision visionSensor;
+//-----------
+
 extern pros::Motor topRoller;
 extern pros::Motor topRollerFrontR;
 extern pros::Motor topRollerFrontL;

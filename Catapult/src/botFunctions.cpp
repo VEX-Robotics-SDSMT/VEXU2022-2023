@@ -212,3 +212,17 @@ void swapRollerColor(Color targetColor, double voltage)
     topRollerFront.brake();
     opticalSensor.set_led_pwm(0);
 }
+
+
+void autoAim()
+{
+    drive.setActive(false);
+
+    //visionSensor.
+
+
+
+    drive.setActive(true);
+}
+
+
