@@ -70,14 +70,17 @@ void competition_initialize()
  */
 void autonomous() 
 {
+	ScreenLogger logger(LoggerSettings::verbose);
 	DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
-	drive.setDrivePIDVals(0.2, 0, 0);
+	drive.setDrivePIDVals(0.15, 0, 0);//0.2
 	drive.setDrivePIDTol(5);
 	drive.setTurnPIDVals(1.2, 0, 0);//1.2
 	drive.setTurnPIDTol(1);
-	drive.setMaxDriveSpeed(0.3);
+	drive.setMaxDriveSpeed(1); 
 	drive.setMaxTurnSpeed(0.7);
-	
+
+	drive.setMaxDriveAccel(0.12);
+
 	if(skills) // Skills route
 	{
 		// Start spinning up the flywheel and drive into the roller

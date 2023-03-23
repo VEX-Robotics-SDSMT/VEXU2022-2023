@@ -1,45 +1,34 @@
 #include "DiffDrive.h"
-#include "MinesMotorGroup.h"
-#include "globals.h"
-#include "pros/imu.hpp"
-#include "pros/llemu.hpp"
-#include "pros/motors.hpp"
-#include "pros/rtos.h"
-#include <algorithm>
-#include <cmath>
 
 using namespace Mines;
 using namespace std;
 
-/** Contructor for the Differential Drive class
-*
-* @param left left side motor group
-* @param right right side motor group
-* @param imu inertial sensor
-*/
+
 DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::IMU imu) : 
-    leftMotors(left), rightMotors(right), intertial(imu),
+    leftMotors(left), rightMotors(right), inertial(imu),
     driveInterface(this), turnInterface(this),
-    drivePID(&driveInterface, LoggerSettings::verbose), turnPID(&turnInterface, LoggerSettings::none),
-    logger(LoggerSettings::verbose)
+    drivePID(&driveInterface, LoggerSettings::none), turnPID(&turnInterface, LoggerSettings::none),
+    logger(LoggerSettings::none)
 {
     MAX_SPEED = rightMotors.getMaxVelocity();
 
     logger.Log("status: constructor called", 10, LoggerSettings::verbose);
-    drivePID.StartTask();
-    logger.Log("status: drivePID started", 10, LoggerSettings::verbose);
-    turnPID.StartTask();
-    logger.Log("status: turnPID started", 10, LoggerSettings::verbose);
 
     leftMotors.tarePosition();
     rightMotors.tarePosition();
+    StartPIDs();
 }
 
-/** Moves the robot forward or backward to the target using an acceleration curve
-*
-* @param target positive or negative distance to drive from the current location
-* @param waitForCompletion decides if the call is blocking, defaults to true
-*/
+double DiffDrive::getDriveVelocity()
+{
+    return (leftMotors.getActualVelocity() + rightMotors.getActualVelocity()) / 2;
+}
+
+double DiffDrive::getTurnVelocity()
+{
+    return inertial.get_gyro_rate().z; //might need to be a different call
+}
+
 void DiffDrive::driveTiles(double target, bool waitForCompletion)
 {
     leftMotors.tarePosition();
@@ -55,11 +44,6 @@ void DiffDrive::driveTiles(double target, bool waitForCompletion)
     }
 }
 
-/** Moves the robot forward or backward to the target using an acceleration curve
-*
-* @param target positive or negative distance to drive from the current location
-* @param timeout amount of time in ms that the robot should try to get to the target before it gives up
-*/
 void DiffDrive::driveTiles(double target, int timeOut)
 {
     leftMotors.tarePosition();
@@ -75,11 +59,6 @@ void DiffDrive::driveTiles(double target, int timeOut)
     drivePID.SetTarget(getDrivePosition());
 }
 
-/** rotates the robot to the target using an acceleration curve
-*
-* @param target the direction in degrees (0-360) for the robot to rotate to
-* @param waitForCompletion decides if the call is blocking, defaults to true
-*/
 void DiffDrive::turnDegreesAbsolute(double target, bool waitForCompletion)
 {
     turnPID.SetTarget(target);
@@ -92,11 +71,6 @@ void DiffDrive::turnDegreesAbsolute(double target, bool waitForCompletion)
     }
 }
 
-/** rotates the robot to the target using an acceleration curve
-*
-* @param target the direction in degrees (0-360) for the robot to rotate to
-* @param timeout amount of time in ms that the robot should try to get to the target before it gives up
-*/
 void DiffDrive::turnDegreesAbsolute(double target, int timeOut)
 {
     turnPID.SetTarget(target);
@@ -108,102 +82,73 @@ void DiffDrive::turnDegreesAbsolute(double target, int timeOut)
     turnPID.SetTarget(getTurnPosition());
 }
 
-/** sets the brakemode of all of the drive motors
- * 
- * @param mode
-*/
 void DiffDrive::setBrakeMode(pros::motor_brake_mode_e mode)
 {
     leftMotors.setBrakeMode(mode);
 }
 
-/** sets the PID values for the drive PID
-*
-* @param kp proportional - sets speed relative distance
-* from the target. Should do the majority of the heavy lifting.
-* @param ki integral - sets speed cumulatively based on kp. 
-* Used to deal with unexpected resitance.
-* @param kd derivative - sets speed based on inverse of last speed? 
-* Used to prevent overshoot.
-*/
 void DiffDrive::setDrivePIDVals(double kp, double ki, double kd)
 {
     drivePID.SetPIDConst(kp, ki, kd);
 }
 
-/** sets the PID values for the turn PID
-*
-* @param kp proportional - sets speed relative distance
-* from the target. Should do the majority of the heavy lifting.
-* @param ki integral - sets speed cumulatively based on kp. 
-* Used to deal with unexpected resitance.
-* @param kd derivative - sets speed based on inverse of last speed? 
-* Used to prevent overshoot.
-*/
 void DiffDrive::setTurnPIDVals(double kp, double ki, double kd)
 {
     turnPID.SetPIDConst(kp, ki, kd); 
 }
 
-/** Sets the acceptable margin of error before the drive operation is considered complete
-*
-* @param tolerance
-*/
 void DiffDrive::setDrivePIDTol(double tolerance)
 {
     drivePID.SetTolerance(tolerance);
 }
 
-/** Sets the acceptable margin of error before the turn operation is considered complete
-*
-* @param tolerance
-*/
 void DiffDrive::setTurnPIDTol(double tolerance)
 {
     turnPID.SetTolerance(tolerance);
 }
 
-/** Sets the max motor speed for the drive operation
-*
-* @param percent percent of the maximum speed the motors are capable of, between 0 and 1
-*/
 void DiffDrive::setMaxDriveSpeed(double percent)
 {
     MAX_DRIVE_PERCENT = percent;
 }
 
-/** Sets the max motor speed for the turn operation
-*
-* @param percent percent of the maximum speed the motors are capable of, between 0 and 1
-*/
 void DiffDrive::setMaxTurnSpeed(double percent)
 {
     MAX_TURN_PERCENT = percent;
 }
 
-/** gets the average encoder position of the left and right side motors
-*/
+void DiffDrive::setMaxDriveAccel(double value)
+{
+    MAX_DRIVE_ACCEL = value;
+}
+
+void DiffDrive::setMaxTurnAccel(double value)
+{
+    MAX_TURN_ACCEL = value;
+}
+
 double DiffDrive::getDrivePosition()
 {
     return (leftMotors.getPosition() + rightMotors.getPosition()) / 2;
 }
 
-/** Sets the ideal target speed of the drive 
-*
-* @param value
-*/
 void DiffDrive::setDriveVelocity(double value)
 {
-    driveVelocity = value;
+    double adjustedDriveMaxAccel = MAX_DRIVE_ACCEL * MAX_SPEED;
+    double dyanamicMax = fabs(getDriveVelocity()) + adjustedDriveMaxAccel;
+    double clampedVal = std::clamp(value, -dyanamicMax, dyanamicMax);
+
+    logger.Log("adj: " + std::to_string(adjustedDriveMaxAccel) +
+    " dyn: " + std::to_string(dyanamicMax), 3, LoggerSettings::verbose);
+    logger.Log("Target drive velocity: " + std::to_string(clampedVal), 4, LoggerSettings::verbose);
+
+    driveVelocity = clampedVal;
     setMotorVelocities();
 }
 
-
-/** Gets the degrees the robot is facing from the inertial sensor
-*/
 double DiffDrive::getTurnPosition()
 {
-    double current = intertial.get_heading();
+    double current = inertial.get_heading();
 
     double target = turnPID.GetTarget();
 
@@ -221,28 +166,29 @@ double DiffDrive::getTurnPosition()
     }
 }
 
-/** Sets the target speed for the motors for a turn
-*
-* @param value
-*/
 void DiffDrive::setTurnVelocity(double value)
-{
+{    
+    /*double adjustedTurnMaxAccel = MAX_TURN_ACCEL * MAX_SPEED;
+    double dyanamicMax = fabs(getTurnVelocity()) + adjustedTurnMaxAccel;
+    double clampedVal = std::clamp(value, -dyanamicMax, dyanamicMax);
+    logger.Log("Target turn velocity: " + std::to_string(clampedVal), 2, LoggerSettings::verbose);
+
+    turnVelocity = clampedVal;*/
     turnVelocity = value;
     setMotorVelocities();
 }
 
-/** Sets the final speed for the motors based on the turn speed and drive speed command variables, and the 
- * max turn and drive speed config variables
-*/
 void DiffDrive::setMotorVelocities()
 {
     double adjustedDriveMax = MAX_DRIVE_PERCENT * MAX_SPEED;
     double adjustedTurnMax = MAX_TURN_PERCENT * MAX_SPEED;
+
     double adjustedDriveVelocity = clamp(driveVelocity, -adjustedDriveMax, adjustedDriveMax);
     double adjustedTurnVelocity = clamp(turnVelocity, -adjustedTurnMax, adjustedTurnMax);
 
     double targetLeftSpeed = adjustedDriveVelocity + adjustedTurnVelocity;
     double targetRightSpeed = adjustedDriveVelocity - adjustedTurnVelocity;
+
     double scaleFactor = min(MAX_SPEED / max(fabs(targetLeftSpeed), fabs(targetRightSpeed)), 1.0);
 
     if (ACTIVE)
@@ -252,10 +198,6 @@ void DiffDrive::setMotorVelocities()
     }
 }
 
-/** Sets if the drivebase affects the motors
-*
-* @param active
-*/
 void DiffDrive::setActive(bool active)
 {
     ACTIVE = active;
@@ -263,69 +205,52 @@ void DiffDrive::setActive(bool active)
     if (active == true)
     {
         driveTiles(0, 50);
-        turnDegreesAbsolute(intertialSensor.get_heading(), 50);
+        turnDegreesAbsolute(inertial.get_heading(), 50);
     }
 }
 
 void DiffDrive::killPIDs()
 {
-    drivePID.Kill();
-    turnPID.Kill();
-
+    drivePID.kill();
+    turnPID.kill();
     pros::delay(200);
 }
 
-
-
+void DiffDrive::StartPIDs()
+{
+    drivePID.StartTask();
+    turnPID.StartTask();
+}
 
 
 //--------------------nested classes-----------------------
 
-/** Drive interface constructor
-*
-* @param pParent the drivebase class that this interface calls to get sensor data and output motor speeds
-*/
+
 DiffDrive::DriveInterface::DriveInterface(DiffDrive* pParent)
 {
     parent = pParent;
 }
 
-/** Gets the position of the drive, in this case, motor encoder values
-*/
 double DiffDrive::DriveInterface::getPositionPID()
 {
     return parent->getDrivePosition();
 }
 
-/** Sets the recommended speed the PID found
-*
-* @param value
-*/
 void DiffDrive::DriveInterface::setVelocityPID(double value)
 {
     parent->setDriveVelocity(value);
 }
 
-/** Turn interface constructor
-*
-* @param pParent the drivebase class that this interface calls to get sensor data and output motor speeds
-*/
 DiffDrive::TurnInterface::TurnInterface(DiffDrive* pParent)
 {
     parent = pParent;
 }
 
-/** Gets the rotaion of the robot, in this case, inertial sensor heading values
-*/
 double DiffDrive::TurnInterface::getPositionPID()
 {
     return parent->getTurnPosition();
 }
 
-/** Sets the recommended speed the PID found
-*
-* @param value
-*/
 void DiffDrive::TurnInterface::setVelocityPID(double value)
 {
     parent->setTurnVelocity(value);

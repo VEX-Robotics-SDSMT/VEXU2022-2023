@@ -6,6 +6,12 @@
 #include "pros/imu.hpp"
 #include <math.h>
 #include "Logger.h"
+#include "pros/llemu.hpp"
+#include "pros/motors.hpp"
+#include "pros/rtos.h"
+#include <algorithm>
+#include <cmath>
+#include <limits.h>
 
 namespace Mines {
 
@@ -36,7 +42,7 @@ class DiffDrive
     //instance variables
     MinesMotorGroup leftMotors;
     MinesMotorGroup rightMotors;
-    pros::Imu intertial;
+    pros::Imu inertial;
 
     DriveInterface driveInterface;
     TurnInterface turnInterface;
@@ -47,11 +53,14 @@ class DiffDrive
 
     //configuration variables
     double MAX_SPEED;
-    int GOAL_TIME = 300;
+    int GOAL_TIME = 500;
     double MAX_DRIVE_PERCENT = 1;
     double MAX_TURN_PERCENT = 1;
-
+    double MAX_DRIVE_ACCEL = 1;
+    double MAX_TURN_ACCEL = 1;
+    
     bool ACTIVE = true;
+
 
     //updateable variables
     double turnVelocity = 0;
@@ -59,6 +68,9 @@ class DiffDrive
 
     public:
         DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::Imu Imu);
+
+        double getDriveVelocity();
+        double getTurnVelocity();
 
         void driveTiles(double target, bool waitForCompletion=true);
         void driveTiles(double target, int timeOut);
@@ -73,8 +85,13 @@ class DiffDrive
         void setTurnPIDTol(double tolerance);
         void setMaxDriveSpeed(double percent);
         void setMaxTurnSpeed(double percent);
+        void setMaxDriveAccel(double value);
+        void setMaxTurnAccel(double value);
         void setActive(bool active);
+
         void killPIDs();
+        void StartPIDs();
+
 
     private:
         double getDrivePosition();

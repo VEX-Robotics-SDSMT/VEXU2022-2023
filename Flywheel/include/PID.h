@@ -61,7 +61,7 @@ namespace Mines
             void SetTolerance(double tolerance);
             void SetTarget(double target);
             void SetStopped(bool stopped);
-            void Kill();
+            void kill();
 
             double GetVelocity();
             double GetTimeSinceTargetReached();

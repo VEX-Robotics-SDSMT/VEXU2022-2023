@@ -6,6 +6,7 @@
 #include "pros/llemu.hpp"
 #include "pros/motors.hpp"
 #include "pros/rtos.h"
+#include <string>
 
 enum LoggerSettings
 {
@@ -23,7 +24,7 @@ class ScreenLogger
     public:
         ScreenLogger(LoggerSettings setting);
 
-        void Log(const char logLine[], int row, LoggerSettings setting);
+        void Log(std::string logLine, int row, LoggerSettings setting);
 };
 
 
