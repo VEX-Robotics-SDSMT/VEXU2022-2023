@@ -233,6 +233,89 @@ void autonomous()
 	}
 	else // Match auton route
 	{
+		//Boo's passive route
+		//start in center of tile with flywheel facing our goal
+		drive.setMaxDriveSpeed(0.55); 
+		drive.setMaxTurnSpeed(0.5);
+		drive.setMaxDriveAccel(0.1);
+		//drive toward roller and prep flywheels
+		drive.driveTiles(-1200);
+		flywheelsGroup.move(85);
+		pros::delay(700);
+
+		//turn, backup and spin roller
+		drive.turnDegreesAbsolute(90);
+		pros::delay(700);
+		drive.driveTiles(-500);
+		pros::delay(700);
+		drive.driveTiles(-150, false);
+		topRoller.move(127);
+		pros::delay(300);
+		topRoller.brake();
+
+		//move forward, turn and shoot preloads
+		drive.driveTiles(300);
+		drive.turnDegreesAbsolute(85);
+		
+		shoot1.set_value(1);
+		pros::delay(100);
+		shoot1.set_value(0);
+		pros::delay(1800);
+		shoot1.set_value(1);
+		pros::delay(100);
+		shoot1.set_value(0);
+		pros::delay(300);
+
+		//drive and pick up three in a line
+		drive.setMaxDriveSpeed(0.3);
+		drive.setMaxDriveAccel(0.05);
+		intake1.move(-127);
+		intake2.move(-127);
+		drive.turnDegreesAbsolute(-138);
+		drive.driveTiles(-3575);
+		pros::delay(500);
+
+		//backup, turn and shoot 3
+		drive.driveTiles(100);
+		drive.turnDegreesAbsolute(119);
+		flywheelsGroup.move(82);
+		
+		shoot1.set_value(1);
+		pros::delay(100);
+		shoot1.set_value(0);
+		pros::delay(1800);
+		shoot1.set_value(1);
+		pros::delay(100);
+		shoot1.set_value(0);
+		pros::delay(1800);
+		shoot1.set_value(1);
+		pros::delay(100);
+		shoot1.set_value(0);
+		pros::delay(300);
+
+		//backup to line of three
+		drive.turnDegreesAbsolute(-90);
+		pros::delay(700);
+		drive.driveTiles(2000);
+		pros::delay(700);
+		//turn along edge
+		drive.turnDegreesAbsolute(-120);
+		drive.driveTiles(-300);
+		pros::delay(500);
+		drive.turnDegreesAbsolute(-90);
+		drive.driveTiles(-1700);
+		pros::delay(500);
+		flywheelsGroup.brake();
+		intake1.brake();
+		intake2.brake();
+
+
+
+
+
+
+		//*****************************************************************/
+		/* //previous auton route, could use for Mike
 		// Start spinning up flywheels and get the first roller
 		drive.driveTiles(-100,false);
 		topRoller.set_zero_position(0);
@@ -329,6 +412,7 @@ void autonomous()
 		pros::delay(100);
 		shoot1.set_value(0);
 		pros::delay(500);
+		//*/
 	}
 
 	drive.killPIDs();
