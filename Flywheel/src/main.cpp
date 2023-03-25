@@ -298,13 +298,30 @@ void autonomous()
 		pros::delay(700);
 		drive.driveTiles(2000);
 		pros::delay(700);
-		//turn along edge
+		//turn along edge and pick up three
 		drive.turnDegreesAbsolute(-120);
 		drive.driveTiles(-300);
 		pros::delay(500);
 		drive.turnDegreesAbsolute(-90);
 		drive.driveTiles(-1700);
 		pros::delay(500);
+
+		//turn and shoot 3
+		drive.turnDegreesAbsolute(125);
+		flywheelsGroup.move(90);
+		shoot1.set_value(1);
+		pros::delay(100);
+		shoot1.set_value(0);
+		pros::delay(1800);
+		shoot1.set_value(1);
+		pros::delay(100);
+		shoot1.set_value(0);
+		pros::delay(1800);
+		shoot1.set_value(1);
+		pros::delay(100);
+		shoot1.set_value(0);
+		pros::delay(300);
+		
 		flywheelsGroup.brake();
 		intake1.brake();
 		intake2.brake();
