@@ -42,6 +42,7 @@
 #include "MinesMotorGroup.h"
 #include "botFunctions.h"
 #include "Logger.h"
+#include "AimAssist.h"
 
 /**
  * You should add more #includes here

@@ -4,6 +4,7 @@
 pros::Controller MasterController (pros::E_CONTROLLER_MASTER);
 
 pros::Imu intertialSensor(INERTIAL_SENSOR);
+pros::Vision vision(VISION_SENSOR);
 
 pros::Motor topRoller(TOP_ROLLER, pros::E_MOTOR_GEARSET_18, false);
 
@@ -39,5 +40,8 @@ double axisPercentRed = 100.0 / 127;
 int blue = 600;
 int green = 200;
 int red = 100;
+
+uint8_t RED_GOAL_SIG_ID = 1;
+uint8_t BLUE_GOAL_SIG_ID = 2;
 
 bool skills = false;

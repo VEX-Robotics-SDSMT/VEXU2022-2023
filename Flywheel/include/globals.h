@@ -5,6 +5,7 @@
 #include "MinesMotorGroup.h"
 
 #define INERTIAL_SENSOR 10
+#define VISION_SENSOR 1
 
 #define TOP_ROLLER 11
 
@@ -30,6 +31,7 @@
 extern pros::Controller MasterController;
 
 extern pros::Imu intertialSensor;
+extern pros::Vision vision;
 
 extern pros::Motor topRoller;
 extern pros::Motor intake1;
@@ -54,6 +56,7 @@ extern Mines::MinesMotorGroup flywheelsGroup;
 extern Mines::MinesMotorGroup intakeGroup;
 
 
+
 extern pros::Motor string;
 
 extern double axisPercentBlue;
@@ -64,6 +67,9 @@ extern int green;
 extern int red;
 
 extern bool skills;
+
+extern uint8_t RED_GOAL_SIG_ID;
+extern uint8_t BLUE_GOAL_SIG_ID;
 
 #define buttonUp pros::E_CONTROLLER_DIGITAL_UP
 #define buttonDown pros::E_CONTROLLER_DIGITAL_DOWN

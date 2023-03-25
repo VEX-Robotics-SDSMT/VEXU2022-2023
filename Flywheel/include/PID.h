@@ -57,11 +57,12 @@ namespace Mines
 
             void StartTask();
             void updateTask();
+            void kill();
+            
             void SetPIDConst(double kp, double ki, double kd);
             void SetTolerance(double tolerance);
             void SetTarget(double target);
             void SetStopped(bool stopped);
-            void kill();
 
             double GetVelocity();
             double GetTimeSinceTargetReached();
