@@ -76,7 +76,7 @@ void autonomous()
 {
 	ScreenLogger logger(LoggerSettings::verbose);
 	DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
-	drive.setDrivePIDVals(0.15, 0, 0);//0.2
+	drive.setDrivePIDVals(0.2, 0, 0);//0.2
 	drive.setDrivePIDTol(5);
 	drive.setTurnPIDVals(1.2, 0, 0);//1.2
 	drive.setTurnPIDTol(1);
@@ -238,7 +238,7 @@ void autonomous()
 	else // Match auton route
 	{
 		//Boo's passive route
-		//start in center of tile with flywheel facing our goal
+		//start on edge of tile with flywheel facing our goal
 		drive.setMaxDriveSpeed(0.55); 
 		drive.setMaxTurnSpeed(0.5);
 		drive.setMaxDriveAccel(0.1);
@@ -300,11 +300,12 @@ void autonomous()
 		//backup to line of three
 		drive.turnDegreesAbsolute(-90);
 		pros::delay(700);
-		drive.driveTiles(2000);
+		drive.driveTiles(2375);
 		pros::delay(700);
+
 		//turn along edge and pick up three
 		drive.turnDegreesAbsolute(-120);
-		drive.driveTiles(-300);
+		drive.driveTiles(-900);
 		pros::delay(500);
 		drive.turnDegreesAbsolute(-90);
 		drive.driveTiles(-1700);
@@ -329,7 +330,7 @@ void autonomous()
 		flywheelsGroup.brake();
 		intake1.brake();
 		intake2.brake();
-
+//*/
 
 
 
