@@ -12,7 +12,6 @@ class TaskBase
         bool paused = false;
         bool killed = false;
         uint32_t totalTime;
-        int deltaTime = 20;
         pros::Task *taskPtr;
 
         static void taskTrampoline(void* arg);
@@ -20,6 +19,7 @@ class TaskBase
 
     protected:
         virtual void update() = 0;
+        int deltaTime = 20;
 
     public:
         TaskBase();

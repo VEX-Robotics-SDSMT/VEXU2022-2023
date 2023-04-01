@@ -6,6 +6,7 @@
 #include <queue>
 #include <vector>
 #include "math.h"
+#include "Logger.h"
 
 namespace Mines{
 
@@ -25,14 +26,21 @@ struct Target
     double distVar;
 };
 
-class AimAssist: TaskBase
+class AimAssist: public TaskBase
 {
     private:
-        int TARGET_COUNT = 20;
+        int TARGET_COUNT = 50;
+        int DELTA_TIME = 5;
 
-        pros::Vision *vision;
+        double TOP_RATIO = 50.0/ 330.0; //(mm)
+        double BOTTOM_RATIO = 100.0 / 400.0; //(mm)
+        double MAX_DIST = 50.0; //(mm)
+        int OBS_TO_GET = 5;
+
+        pros::Vision vision;
         uint8_t targetSig;
         std::queue<SubTarget> frameQueue;
+        ScreenLogger logger;
 
         double meanCertainty;
         double degreeMean;
@@ -40,9 +48,13 @@ class AimAssist: TaskBase
         double distMean;
         double distVariance;
 
+        int testCount = 0;
+
         void update();
         SubTarget checkTargeting();
         std::vector<pros::vision_object_s_t> getObjectsBySig();
+        double getPairAccuracy(pros::vision_object_s_t top, pros::vision_object_s_t bottom);
+        double getDistanceAccuracy(double distance);
 
     public:
         AimAssist(pros::Vision pVision, uint8_t targetSigID);

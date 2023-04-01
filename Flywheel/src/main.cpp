@@ -75,6 +75,20 @@ void competition_initialize()
 void autonomous() 
 {
 	ScreenLogger logger(LoggerSettings::verbose);
+	AimAssist aimAssist(vision, RED_GOAL_SIG_ID);
+	aimAssist.StartTask();
+
+	while(true)
+	{
+		Mines::Target target = aimAssist.GetTarget();
+		logger.Log("degrees: " + std::to_string(target.degrees), 0, LoggerSettings::verbose);
+		logger.Log("distance: " + std::to_string(target.distance), 1, LoggerSettings::verbose);
+		logger.Log("certainty: " + std::to_string(target.certainty), 2, LoggerSettings::verbose);
+		std::cout << "box: " << target.degrees << " " << target.distance << " " << target.certainty << std::endl;
+		//std::cout << strerror(errno) << std::endl;
+		pros::delay(500);
+	}
+
 	DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
 	drive.setDrivePIDVals(0.15, 0, 0);//0.2
 	drive.setDrivePIDTol(5);
