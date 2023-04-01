@@ -15,12 +15,12 @@
 #define R_FRONT 9
 #define R_REAR 13
 #define R_MID 8
-#define STRING 13
+#define STRING 13 //not in 13
 #define FLY1 21
 #define FLY2 20
 #define INTAKE1 2
 #define INTAKE2 19
-#define LAUNCH 8
+#define LAUNCH 8 //not in 8
 #define PUSH 7
 #define PUSH3 6
 
