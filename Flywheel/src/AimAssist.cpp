@@ -1,19 +1,20 @@
 #include "../include/AimAssist.h"
 using namespace Mines;
 
-AimAssist::AimAssist(pros::Vision pVision, uint8_t targetSigID) : frameQueue(), 
-logger(LoggerSettings::none), vision(pVision)
+AimAssist::AimAssist(pros::Vision pVision, uint8_t targetSigID, DiffDrive drive, void (*fireFunc)()) : frameQueue(), 
+logger(LoggerSettings::none), vision(pVision), drive(drive)
 {
     targetSig = targetSigID;
     deltaTime = DELTA_TIME;
+    fire = fireFunc; //setting a function pointer
 }
 
 Target AimAssist::GetTarget()
 {
     Target retVal;
     retVal.certainty = meanCertainty;
-    retVal.degrees = degreeMean;
-    retVal.degVar = degreeVariance;
+    retVal.rotation = degreeMean;
+    retVal.rotVar = degreeVariance;
     retVal.distance = distMean;
     retVal.distVar = distVariance;
     
@@ -37,8 +38,8 @@ void AimAssist::update(double deltaT)
     meanCertainty += newFrame.certainty / TARGET_COUNT;
     distMean += newFrame.distance / TARGET_COUNT;
     distVariance += pow(newFrame.distance - distMean, 2) / TARGET_COUNT;
-    degreeMean += newFrame.degrees / TARGET_COUNT;
-    degreeVariance += pow(newFrame.degrees - degreeMean, 2) / TARGET_COUNT;
+    degreeMean += newFrame.rotation / TARGET_COUNT;
+    degreeVariance += pow(newFrame.rotation - degreeMean, 2) / TARGET_COUNT;
 
     //remove oldest data if the max count is reached
     if (frameQueue.size() > TARGET_COUNT)
@@ -49,8 +50,8 @@ void AimAssist::update(double deltaT)
         meanCertainty -= oldFrame.certainty / TARGET_COUNT;
         distMean -= oldFrame.distance / TARGET_COUNT;
         distVariance -= pow(oldFrame.distance - distMean, 2) / TARGET_COUNT;
-        degreeMean -= oldFrame.degrees / TARGET_COUNT;
-        degreeVariance -= pow(oldFrame.degrees - degreeMean, 2) / TARGET_COUNT;
+        degreeMean -= oldFrame.rotation / TARGET_COUNT;
+        degreeVariance -= pow(oldFrame.rotation - degreeMean, 2) / TARGET_COUNT;
     }
 }
 
@@ -105,7 +106,7 @@ SubTarget AimAssist::checkTargeting()
     }
 
     SubTarget target = SubTarget();
-    target.degrees = objectList[bestBottom].x_middle_coord; // might need to be rotated to center
+    target.rotation = objectList[bestBottom].x_middle_coord; // might need to be rotated to center
     target.distance = objectList[bestBottom].y_middle_coord - objectList[bestTop].y_middle_coord; //TODO: some fancy trig here
     target.certainty = bestAccuracy;
     //std::cout << "target: " << target.degrees << " " << target.distance << " " << target.certainty << std::endl;
@@ -131,4 +132,37 @@ std::vector<pros::vision_object_s_t> AimAssist::getObjectsBySig()
 
     std::sort(retOb.begin(), retOb.end(), sortHelper);
     return retOb;
+}
+
+
+
+
+
+void AimAssist::AimFire(int disksToFire)
+{
+    int FiredDisks = 0;
+    drive.SetPausedPID(true);
+
+    while (FiredDisks < disksToFire)
+    {
+        Target target = GetTarget();
+
+
+        if (target.rotation > (leftOffset + turnTol))
+        {
+            drive.setTurnVelocity(-turnSpeed);
+        }
+        else if (target.rotation < (leftOffset - turnTol))
+        {
+            drive.setTurnVelocity(turnSpeed);
+        }
+        else
+        {
+            drive.setTurnVelocity(0);
+            fire();
+            pros::delay(250);
+        }
+    }
+
+    drive.SetPausedPID(false);
 }

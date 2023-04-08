@@ -7,22 +7,23 @@
 #include <vector>
 #include "math.h"
 #include "Logger.h"
+#include "DiffDrive.h"
 
 namespace Mines{
 
 struct SubTarget
 {
-    double degrees;
+    double rotation;
     double distance;
     double certainty; //between 0 and 1
 };
 
 struct Target
 {
-    double degrees;
+    double rotation;
     double distance;
     double certainty; //between 0 and 1
-    double degVar;
+    double rotVar;
     double distVar;
 };
 
@@ -42,6 +43,9 @@ class AimAssist: public TaskBase
         std::queue<SubTarget> frameQueue;
         ScreenLogger logger;
 
+        DiffDrive drive;
+        void (*fire)();
+
         double meanCertainty;
         double degreeMean;
         double degreeVariance;
@@ -57,9 +61,16 @@ class AimAssist: public TaskBase
         double getDistanceAccuracy(double distance);
 
     public:
-        AimAssist(pros::Vision pVision, uint8_t targetSigID);
+        double turnSpeed = 1;
+        double leftOffset = 500;
+        double turnTol = 10;
+        int fireDelay = 250;
+
+        AimAssist(pros::Vision pVision, uint8_t targetSigID, DiffDrive drive, void (*fireFunc)());
         Target GetTarget();
         void Clear();
+
+        void AimFire(int disksToShoot);
         
 };
 

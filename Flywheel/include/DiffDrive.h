@@ -124,8 +124,9 @@ class DiffDrive
         void StartPIDs();
         void SetPausedPID(bool paused);
 
-        //these should only be called from the inside or when the PID is off
+        //DO NOT CALL unless you have paused the PID
         void setTurnVelocity(double value);
+        //DO NOT CALL unless you have paused the PID
         void setDriveVelocity(double value);
 
     private:

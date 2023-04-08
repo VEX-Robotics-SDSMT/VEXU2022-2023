@@ -139,7 +139,7 @@ void DiffDrive::setMaxTurnAccel(double value)
 
 double DiffDrive::getDrivePosition()
 {
-    driveSensorInterface.Get();
+    return driveSensorInterface.Get();
 }
 
 void DiffDrive::setDriveVelocity(double value)
@@ -270,6 +270,17 @@ double DiffDrive::TurnInterface::getPositionPID()
 void DiffDrive::TurnInterface::setVelocityPID(double value)
 {
     parent->setTurnVelocity(value);
+}
+
+//base Sensor
+double SensorInterface::Get()
+{
+    return 0;
+}
+
+void SensorInterface::Reset()
+{
+
 }
 
 

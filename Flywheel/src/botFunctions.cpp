@@ -50,3 +50,10 @@ void flywheelLoopToggle(Mines::MinesMotorGroup flywheels, int pct)
     else
         flywheels.brake();
 }
+
+void shootDisk()
+{
+    shoot1.set_value(1);
+    pros::delay(100);
+    shoot1.set_value(0);
+}

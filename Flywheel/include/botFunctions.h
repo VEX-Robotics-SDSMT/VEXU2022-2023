@@ -10,5 +10,6 @@ void rollerLoop(pros::Motor rollerMotor, int pct, bool runButton);
 void intakeLoopHold(Mines::MinesMotorGroup intakeMotors, int pct, bool runButton, bool revButton);
 void flywheelLoopToggle(Mines::MinesMotorGroup flywheels, int pct);
 void toggleFlywheels();
+void shootDisk();
 
 #endif

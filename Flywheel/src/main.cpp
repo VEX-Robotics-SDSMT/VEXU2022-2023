@@ -74,21 +74,6 @@ void competition_initialize()
  */
 void autonomous() 
 {
-	ScreenLogger logger(LoggerSettings::verbose);
-	AimAssist aimAssist(vision, RED_GOAL_SIG_ID);
-	aimAssist.StartTask();
-
-	while(true)
-	{
-		Mines::Target target = aimAssist.GetTarget();
-		logger.Log("degrees: " + std::to_string(target.degrees), 0, LoggerSettings::verbose);
-		logger.Log("distance: " + std::to_string(target.distance), 1, LoggerSettings::verbose);
-		logger.Log("certainty: " + std::to_string(target.certainty), 2, LoggerSettings::verbose);
-		std::cout << "box: " << target.degrees << " " << target.distance << " " << target.certainty << std::endl;
-		//std::cout << strerror(errno) << std::endl;
-		pros::delay(500);
-	}
-
 	DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
 	drive.setDrivePIDVals(0.2, 0, 0);//0.2
 	drive.setDrivePIDTol(5);
@@ -98,6 +83,21 @@ void autonomous()
 	drive.setMaxTurnSpeed(0.7);
 
 	drive.setMaxDriveAccel(0.12);
+
+	ScreenLogger logger(LoggerSettings::verbose);
+	AimAssist aimAssist(vision, RED_GOAL_SIG_ID, drive, shootDisk);
+	aimAssist.StartTask();
+
+	while(true)
+	{
+		Mines::Target target = aimAssist.GetTarget();
+		logger.Log("rotation: " + std::to_string(target.rotation), 0, LoggerSettings::verbose);
+		logger.Log("distance: " + std::to_string(target.distance), 1, LoggerSettings::verbose);
+		logger.Log("certainty: " + std::to_string(target.certainty), 2, LoggerSettings::verbose);
+		std::cout << "box: " << target.rotation << " " << target.distance << " " << target.certainty << std::endl;
+		//std::cout << strerror(errno) << std::endl;
+		pros::delay(500);
+	}
 
 	if(skills) // Skills route
 	{
@@ -120,13 +120,9 @@ void autonomous()
 		pros::delay(500);
 
 		//Fire preloads
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(1100);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(300);
 
 		// Slow down flywheels for next shot and move forward picking up the stack of 3 discs, then turn towards the goal
@@ -141,17 +137,11 @@ void autonomous()
 
 		//Fire first stack
 		pros::delay(500);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(1100);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(1100);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(500);
 
 		// Turn and pick up the single disc (first disc in line of 3)
@@ -165,9 +155,7 @@ void autonomous()
 		flywheelsGroup.move(71);  // 80, 30
 		drive.turnDegreesAbsolute(127); //pick up one 128
 		pros::delay(700); //500
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(300); //shoot one
 
 
@@ -186,17 +174,11 @@ void autonomous()
 		//drive.driveTiles(-250);
 		
 		//Fire line of discs
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(800);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(1100);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(500);
 		flywheelsGroup.move(89);//105
 
@@ -229,17 +211,11 @@ void autonomous()
 		drive.driveTiles(800);
 		drive.turnDegreesAbsolute(84);
 
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(1000);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(1200);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(300);
 
 		// Fire endgame, then turn so that each wheel is touching its own tile
@@ -275,13 +251,9 @@ void autonomous()
 		drive.driveTiles(300);
 		drive.turnDegreesAbsolute(85);
 		
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(1800);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(300);
 
 		//drive and pick up three in a line
@@ -298,17 +270,11 @@ void autonomous()
 		drive.turnDegreesAbsolute(119);
 		flywheelsGroup.move(82);
 		
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(1800);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(1800);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(300);
 
 		//backup to line of three
@@ -328,17 +294,11 @@ void autonomous()
 		//turn and shoot 3
 		drive.turnDegreesAbsolute(125);
 		flywheelsGroup.move(90);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(1800);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(1800);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(300);
 		
 		flywheelsGroup.brake();
@@ -370,13 +330,9 @@ void autonomous()
 		drive.turnDegreesAbsolute(-15, false);
 		pros::delay(2000);
 
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(1800);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(300);
 
 		// Turn towards first stack of 3, then move forward and intake them
@@ -393,17 +349,11 @@ void autonomous()
 
 		pros::delay(1000);
 
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(1900);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(2100);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(500);
 
 		// Turn towards single disc (First disc in line of 3) and intake it
@@ -416,9 +366,7 @@ void autonomous()
 		flywheelsGroup.move(88);  
 		drive.turnDegreesAbsolute(-55.5); 
 		pros::delay(700); 
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(700);
 		pros::delay(300); 
 		
@@ -436,17 +384,11 @@ void autonomous()
 		drive.turnDegreesAbsolute(-43);
 		
 		// Shoot the 3 discs that were on the low goal
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(1600);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(1600);
-		shoot1.set_value(1);
-		pros::delay(100);
-		shoot1.set_value(0);
+        shootDisk();
 		pros::delay(500);
 		//*/
 	}
