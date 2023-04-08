@@ -6,7 +6,7 @@ using namespace std;
 
 DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::IMU imu) : 
     leftMotors(left), rightMotors(right), inertial(imu),
-    driveInterface(this), turnInterface(this),
+    driveInterface(this), turnInterface(this), driveSensorInterface(DriveSensorInterface(left, right)),
     drivePID(&driveInterface, LoggerSettings::none), turnPID(&turnInterface, LoggerSettings::none),
     logger(LoggerSettings::none)
 {
@@ -14,8 +14,21 @@ DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::IMU imu)
 
     logger.Log("status: constructor called", 10, LoggerSettings::verbose);
 
-    leftMotors.tarePosition();
-    rightMotors.tarePosition();
+    driveSensorInterface.Reset();
+    StartPIDs();
+}
+
+DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, SensorInterface driveSensorInterface, pros::Imu imu):
+    leftMotors(left), rightMotors(right), inertial(imu),
+    driveInterface(this), turnInterface(this), driveSensorInterface(driveSensorInterface),
+    drivePID(&driveInterface, LoggerSettings::none), turnPID(&turnInterface, LoggerSettings::none),
+    logger(LoggerSettings::none)
+{
+    MAX_SPEED = rightMotors.getMaxVelocity();
+
+    logger.Log("status: constructor called", 10, LoggerSettings::verbose);
+
+    driveSensorInterface.Reset();
     StartPIDs();
 }
 
@@ -31,8 +44,7 @@ double DiffDrive::getTurnVelocity()
 
 void DiffDrive::driveTiles(double target, bool waitForCompletion)
 {
-    leftMotors.tarePosition();
-    rightMotors.tarePosition();
+    driveSensorInterface.Reset();
 
     drivePID.SetTarget(target);
     if(waitForCompletion)
@@ -46,9 +58,7 @@ void DiffDrive::driveTiles(double target, bool waitForCompletion)
 
 void DiffDrive::driveTiles(double target, int timeOut)
 {
-    leftMotors.tarePosition();
-    rightMotors.tarePosition();
-
+    driveSensorInterface.Reset();
     drivePID.SetTarget(target);
 
     while(drivePID.GetTimeSinceTargetReached() < GOAL_TIME && drivePID.GetTimeSinceTargetSet() < timeOut)
@@ -129,7 +139,7 @@ void DiffDrive::setMaxTurnAccel(double value)
 
 double DiffDrive::getDrivePosition()
 {
-    return (leftMotors.getPosition() + rightMotors.getPosition()) / 2;
+    driveSensorInterface.Get();
 }
 
 void DiffDrive::setDriveVelocity(double value)
@@ -260,6 +270,34 @@ double DiffDrive::TurnInterface::getPositionPID()
 void DiffDrive::TurnInterface::setVelocityPID(double value)
 {
     parent->setTurnVelocity(value);
+}
+
+
+//Encoder Wheel Sensor
+EncoderWheelSensorInterface::EncoderWheelSensorInterface(pros::ADIEncoder encoder) : encoder(encoder) {}
+
+double EncoderWheelSensorInterface::Get()
+{
+    return encoder.get_value();
+}
+
+void EncoderWheelSensorInterface::Reset()
+{
+    encoder.reset();
+}
+
+//Motor Wheel Sensor
+DiffDrive::DriveSensorInterface::DriveSensorInterface(MinesMotorGroup left, MinesMotorGroup right) : left(left), right(right) {}
+
+double DiffDrive::DriveSensorInterface::Get()
+{
+    return (left.getPosition() + right.getPosition()) / 2;
+}
+
+void DiffDrive::DriveSensorInterface::Reset()
+{
+    left.tarePosition();
+    right.tarePosition();
 }
 
 

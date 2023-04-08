@@ -19,8 +19,18 @@ namespace Mines {
 class SensorInterface
 {
     public:
+        virtual double Get();
+        virtual void Reset();
+};
+
+class EncoderWheelSensorInterface : public SensorInterface
+{
+    pros::ADIEncoder encoder;
+
+    public:
+        EncoderWheelSensorInterface(pros::ADIEncoder encoder);
         double Get();
-        double Reset();
+        void Reset();
 };
 
 
@@ -47,6 +57,16 @@ class DiffDrive
             double getPositionPID() override;
             void setVelocityPID(double value) override;
     };
+    class DriveSensorInterface : public SensorInterface
+    {
+        Mines::MinesMotorGroup left;
+        Mines::MinesMotorGroup right;
+
+        public:
+            DriveSensorInterface(MinesMotorGroup left, MinesMotorGroup right);
+            double Get();
+            void Reset();
+    };
 
     //instance variables
     MinesMotorGroup leftMotors;
@@ -55,6 +75,7 @@ class DiffDrive
 
     DriveInterface driveInterface;
     TurnInterface turnInterface;
+    SensorInterface driveSensorInterface;
     PID drivePID;
     PID turnPID;
 
