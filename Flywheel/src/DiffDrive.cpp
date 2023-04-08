@@ -6,7 +6,7 @@ using namespace std;
 
 DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::IMU imu) : 
     leftMotors(left), rightMotors(right), inertial(imu),
-    driveInterface(this), turnInterface(this), driveSensorInterface(DriveSensorInterface(left, right)),
+    driveInterface(this), turnInterface(this),
     drivePID(&driveInterface, LoggerSettings::none), turnPID(&turnInterface, LoggerSettings::none),
     logger(LoggerSettings::none)
 {
@@ -14,13 +14,15 @@ DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::IMU imu)
 
     logger.Log("status: constructor called", 10, LoggerSettings::verbose);
 
-    driveSensorInterface.Reset();
+    DriveSensorInterface driveSensors(left, right);
+    driveSensorInterface = &driveSensors;
+    driveSensorInterface->Reset();
     StartPIDs();
 }
 
-DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, SensorInterface driveSensorInterface, pros::Imu imu):
+DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, SensorInterface *driveSensors, pros::Imu imu):
     leftMotors(left), rightMotors(right), inertial(imu),
-    driveInterface(this), turnInterface(this), driveSensorInterface(driveSensorInterface),
+    driveInterface(this), turnInterface(this),
     drivePID(&driveInterface, LoggerSettings::none), turnPID(&turnInterface, LoggerSettings::none),
     logger(LoggerSettings::none)
 {
@@ -28,7 +30,8 @@ DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, SensorInterfac
 
     logger.Log("status: constructor called", 10, LoggerSettings::verbose);
 
-    driveSensorInterface.Reset();
+    driveSensorInterface = driveSensors;
+    driveSensorInterface->Reset();
     StartPIDs();
 }
 
@@ -44,7 +47,7 @@ double DiffDrive::getTurnVelocity()
 
 void DiffDrive::driveTiles(double target, bool waitForCompletion)
 {
-    driveSensorInterface.Reset();
+    driveSensorInterface->Reset();
 
     drivePID.SetTarget(target);
     if(waitForCompletion)
@@ -58,7 +61,7 @@ void DiffDrive::driveTiles(double target, bool waitForCompletion)
 
 void DiffDrive::driveTiles(double target, int timeOut)
 {
-    driveSensorInterface.Reset();
+    driveSensorInterface->Reset();
     drivePID.SetTarget(target);
 
     while(drivePID.GetTimeSinceTargetReached() < GOAL_TIME && drivePID.GetTimeSinceTargetSet() < timeOut)
@@ -139,7 +142,9 @@ void DiffDrive::setMaxTurnAccel(double value)
 
 double DiffDrive::getDrivePosition()
 {
-    return driveSensorInterface.Get();
+    double sensorVal = driveSensorInterface->Get();
+    std::cout << sensorVal << "\n";
+    return sensorVal;
 }
 
 void DiffDrive::setDriveVelocity(double value)
@@ -280,15 +285,16 @@ void DiffDrive::TurnInterface::setVelocityPID(double value)
 }
 
 //base Sensor
+/*
 double SensorInterface::Get()
 {
-    return 0;
+    return 2;
 }
 
 void SensorInterface::Reset()
 {
 
-}
+}*/
 
 
 //Encoder Wheel Sensor
@@ -296,7 +302,10 @@ EncoderWheelSensorInterface::EncoderWheelSensorInterface(pros::ADIEncoder encode
 
 double EncoderWheelSensorInterface::Get()
 {
-    return encoder.get_value();
+    double sensorVal = encoder.get_value();
+    std::cout << "encoder val: " << sensorVal <<"errno:" <<errno <<  "\n";
+
+    return sensorVal;
 }
 
 void EncoderWheelSensorInterface::Reset()

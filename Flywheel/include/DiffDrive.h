@@ -19,8 +19,8 @@ namespace Mines {
 class SensorInterface
 {
     public:
-        virtual double Get();
-        virtual void Reset();
+        virtual double Get() = 0;
+        virtual void Reset() = 0;
 };
 
 class EncoderWheelSensorInterface : public SensorInterface
@@ -75,7 +75,7 @@ class DiffDrive
 
     DriveInterface driveInterface;
     TurnInterface turnInterface;
-    SensorInterface driveSensorInterface;
+    SensorInterface *driveSensorInterface;
     PID drivePID;
     PID turnPID;
 
@@ -98,7 +98,7 @@ class DiffDrive
 
     public:
         DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::Imu Imu);
-        DiffDrive(MinesMotorGroup left, MinesMotorGroup right, SensorInterface driveSensorInterface, pros::Imu Imu);
+        DiffDrive(MinesMotorGroup left, MinesMotorGroup right, SensorInterface *driveSensorInterface, pros::Imu Imu);
 
         double getDriveVelocity();
         double getTurnVelocity();

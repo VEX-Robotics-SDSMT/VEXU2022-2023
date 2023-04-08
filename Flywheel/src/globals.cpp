@@ -4,7 +4,7 @@
 pros::Controller MasterController (pros::E_CONTROLLER_MASTER);
 
 pros::Imu intertialSensor(INERTIAL_SENSOR);
-pros::ADIEncoder driveEncoder(1, 2, false);
+pros::ADIEncoder driveEncoder(ENCODER_TOP, ENCODER_BOTTOM, false);
 pros::Vision vision(VISION_SENSOR);
 
 pros::Motor topRoller(TOP_ROLLER, pros::E_MOTOR_GEARSET_18, false);

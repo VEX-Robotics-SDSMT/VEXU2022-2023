@@ -6,8 +6,8 @@
 
 #define INERTIAL_SENSOR 10
 #define VISION_SENSOR 7
-//#define ENCODER_A 1
-//#define ENCODER_B 2
+#define ENCODER_TOP 1
+#define ENCODER_BOTTOM 2
 
 #define TOP_ROLLER 11
 
@@ -34,6 +34,7 @@ extern pros::Controller MasterController;
 
 extern pros::Imu intertialSensor;
 extern pros::Vision vision;
+extern pros::ADIEncoder driveEncoder;
 
 extern pros::Motor topRoller;
 extern pros::Motor intake1;

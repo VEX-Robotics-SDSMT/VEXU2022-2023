@@ -74,7 +74,9 @@ void competition_initialize()
  */
 void autonomous() 
 {
-	DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
+	//DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
+	EncoderWheelSensorInterface encoderInterface(driveEncoder);
+	DiffDrive drive(leftDriveMotors, rightDriveMotors, &encoderInterface, intertialSensor);
 	drive.setDrivePIDVals(0.2, 0, 0);//0.2
 	drive.setDrivePIDTol(5);
 	drive.setTurnPIDVals(1.2, 0, 0);//1.2
@@ -91,7 +93,8 @@ void autonomous()
 	aimAssist.leftOffset = 170;
 	aimAssist.turnTol = 0.2;
 
-	aimAssist.AimFire(10000);
+	//aimAssist.AimFire(10000);
+	drive.driveTiles(-500);
 
 
 	if(skills) // Skills route
