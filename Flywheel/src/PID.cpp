@@ -58,24 +58,6 @@ namespace Mines
         setOutput(controlVariable);
     }
 
-    void PID::updateTask()
-    {
-        std::uint32_t startTime = pros::millis();
-        int deltaTime = 20;
-        int count = 0;
-
-        while(!killed)
-        {
-            count++;
-            if(!stopped)
-            {
-                update(deltaTime);
-            }
-            
-            pros::Task::delay(deltaTime);
-        }
-    }
-
     double PID::getPosition()
     {
         return interface->getPositionPID();
@@ -85,16 +67,6 @@ namespace Mines
     {
         velocity = value;
         interface->setVelocityPID(value);
-    }
-
-    void PID::taskStarter(void* arg)
-    {
-        PID* pidPtr = static_cast<PID *>(arg);  
-        pidPtr->updateTask();
-    }
-
-    void PID::StartTask(){
-        pros::Task my_task(taskStarter, this, "PID task");
     }
 
     //----------------Getters/Setters-------------------
@@ -122,12 +94,6 @@ namespace Mines
         this->target = target;
     }
 
-    void PID::SetStopped(bool stopped)
-    {
-        this->stopped = stopped;
-        setOutput(0);
-    }
-
     double PID::GetVelocity()
     {
         return velocity;
@@ -143,19 +109,9 @@ namespace Mines
         return timeSinceTargetSet;
     }
 
-    bool PID::GetStopped()
-    {
-        return stopped;
-    }
-
     double PID::GetTarget()
     {
         return target;
-    }
-
-    void PID::kill()
-    {
-        killed = true;
     }
 }
 

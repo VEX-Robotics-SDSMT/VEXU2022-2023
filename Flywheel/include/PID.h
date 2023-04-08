@@ -6,6 +6,7 @@
 #include "api.h"
 #include <math.h>
 #include "Logger.h"
+#include "TaskBase.h"
 
 namespace Mines
 {
@@ -17,7 +18,7 @@ namespace Mines
     };
 
 
-    class PID
+    class PID : public TaskBase
     {        
         //Logger
         ScreenLogger logger;
@@ -30,8 +31,6 @@ namespace Mines
         //Setpoints - goal variables of the algorithm
         double target = 0;
         double tolerance = 0.05;
-        bool stopped = false;
-        bool killed = false;
 
         //Transients - change programatically every loop
         double lastError = 0;
@@ -43,7 +42,6 @@ namespace Mines
         double velocity;
 
         private:
-            static void taskStarter(void* arg);
             void resetTimers();
             void update(double deltaT);
             double getPosition();
@@ -54,20 +52,14 @@ namespace Mines
 
             PID(double (*positionFunction)());
             PID(PIDInterface *inputInterface, LoggerSettings settings);
-
-            void StartTask();
-            void updateTask();
-            void kill();
             
             void SetPIDConst(double kp, double ki, double kd);
             void SetTolerance(double tolerance);
             void SetTarget(double target);
-            void SetStopped(bool stopped);
 
             double GetVelocity();
             double GetTimeSinceTargetReached();
             double GetTimeSinceTargetSet();
-            bool GetStopped();
             double GetTarget();
     };
 }

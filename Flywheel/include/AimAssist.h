@@ -50,7 +50,7 @@ class AimAssist: public TaskBase
 
         int testCount = 0;
 
-        void update();
+        void update(double deltaT);
         SubTarget checkTargeting();
         std::vector<pros::vision_object_s_t> getObjectsBySig();
         double getPairAccuracy(pros::vision_object_s_t top, pros::vision_object_s_t bottom);

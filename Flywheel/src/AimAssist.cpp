@@ -29,7 +29,7 @@ void AimAssist::Clear()
     meanCertainty = 0;
 }
 
-void AimAssist::update()
+void AimAssist::update(double deltaT)
 {
     //add the new data to the queue and if it has any certainty, update the running totals
     SubTarget newFrame = checkTargeting();

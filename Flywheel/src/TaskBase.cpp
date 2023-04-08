@@ -24,7 +24,7 @@ void TaskBase::updateTask()
     {
         if(!paused)
         {
-            update();
+            update(deltaTime);
         } 
         pros::Task::delay_until(&totalTime, deltaTime);
     }
@@ -40,6 +40,11 @@ void TaskBase::KillTask()
 void TaskBase::SetTaskPaused(bool pause)
 {
     paused = pause;
+}
+
+bool TaskBase::GetTaskPaused()
+{
+    return paused;
 }
 
 

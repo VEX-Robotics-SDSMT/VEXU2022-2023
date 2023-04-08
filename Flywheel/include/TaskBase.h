@@ -18,7 +18,7 @@ class TaskBase
         void updateTask();
 
     protected:
-        virtual void update() = 0;
+        virtual void update(double deltaT) = 0;
         int deltaTime = 20;
 
     public:
@@ -26,6 +26,7 @@ class TaskBase
         void StartTask();
         void KillTask();
         void SetTaskPaused(bool pause);
+        bool GetTaskPaused();
 
 };
 

@@ -12,7 +12,6 @@
 #include <algorithm>
 #include <cmath>
 #include <limits.h>
-#include "TaskBase.h"
 
 namespace Mines {
 
@@ -102,6 +101,7 @@ class DiffDrive
 
         void killPIDs();
         void StartPIDs();
+        void SetPausedPID(bool paused);
 
         //these should only be called from the inside or when the PID is off
         void setTurnVelocity(double value);

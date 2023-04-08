@@ -211,8 +211,8 @@ void DiffDrive::setActive(bool active)
 
 void DiffDrive::killPIDs()
 {
-    drivePID.kill();
-    turnPID.kill();
+    drivePID.KillTask();
+    turnPID.KillTask();
     pros::delay(200);
 }
 
@@ -220,6 +220,12 @@ void DiffDrive::StartPIDs()
 {
     drivePID.StartTask();
     turnPID.StartTask();
+}
+
+void DiffDrive::SetPausedPID(bool paused)
+{
+    drivePID.SetTaskPaused(paused);
+    turnPID.SetTaskPaused(paused);
 }
 
 
