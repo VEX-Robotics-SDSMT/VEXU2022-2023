@@ -1,12 +1,13 @@
 #include "../include/AimAssist.h"
 using namespace Mines;
 
-AimAssist::AimAssist(pros::Vision pVision, uint8_t targetSigID, DiffDrive drive, void (*fireFunc)()) : frameQueue(), 
-logger(LoggerSettings::none), vision(pVision), drive(drive)
+AimAssist::AimAssist(pros::Vision pVision, uint8_t targetSigID, DiffDrive *diffDrive, void (*fireFunc)()) : frameQueue(), 
+logger(LoggerSettings::none), vision(pVision)
 {
     targetSig = targetSigID;
     deltaTime = DELTA_TIME;
     fire = fireFunc; //setting a function pointer
+    drive = diffDrive;
 }
 
 Target AimAssist::GetTarget()
@@ -41,6 +42,8 @@ void AimAssist::update(double deltaT)
     degreeMean += newFrame.rotation / TARGET_COUNT;
     degreeVariance += pow(newFrame.rotation - degreeMean, 2) / TARGET_COUNT;
 
+    //std::cout << "inVal: " << newFrame.rotation / TARGET_COUNT << std::endl;
+
     //remove oldest data if the max count is reached
     if (frameQueue.size() > TARGET_COUNT)
     {
@@ -52,7 +55,11 @@ void AimAssist::update(double deltaT)
         distVariance -= pow(oldFrame.distance - distMean, 2) / TARGET_COUNT;
         degreeMean -= oldFrame.rotation / TARGET_COUNT;
         degreeVariance -= pow(oldFrame.rotation - degreeMean, 2) / TARGET_COUNT;
+
+        //std::cout << "outVal: " << oldFrame.rotation / TARGET_COUNT << std::endl;
     }
+
+    //std::cout << degreeMean << std::endl;
 }
 
 double getRatioAccuracy(double target, double other)
@@ -141,28 +148,43 @@ std::vector<pros::vision_object_s_t> AimAssist::getObjectsBySig()
 void AimAssist::AimFire(int disksToFire)
 {
     int FiredDisks = 0;
-    drive.SetPausedPID(true);
+    drive->SetPausedPID(true);
 
     while (FiredDisks < disksToFire)
     {
         Target target = GetTarget();
+        //std::cout << "Rot: " << target.rotation << " rotVar: " << target.rotVar << " certainty: " << target.certainty << std::endl;
+        double targetSpeed = fabs(target.rotation - leftOffset) * turnSpeed;
 
+        if (target.certainty > 0.6)
+        {
 
-        if (target.rotation > (leftOffset + turnTol))
-        {
-            drive.setTurnVelocity(-turnSpeed);
-        }
-        else if (target.rotation < (leftOffset - turnTol))
-        {
-            drive.setTurnVelocity(turnSpeed);
+            if (target.rotation > (leftOffset + turnTol))
+            {
+                drive->setTurnVelocity(targetSpeed);
+                std::cout << "Too much: " << targetSpeed << std::endl;
+            }
+            else if (target.rotation < (leftOffset - turnTol))
+            {
+                drive->setTurnVelocity(-targetSpeed);
+                std::cout << "Not Enough: " << targetSpeed << std::endl;
+            }
+            else
+            {
+                std::cout << "Just right\n";
+                drive->setTurnVelocity(0);
+                //fire();
+                //pros::delay(250);
+            }
         }
         else
         {
-            drive.setTurnVelocity(0);
-            fire();
-            pros::delay(250);
+            std::cout << "Uncertain: " << target.certainty << std::endl;
+            drive->setTurnVelocity(0);
         }
+
+        pros::delay(20);
     }
 
-    drive.SetPausedPID(false);
+    drive->SetPausedPID(false);
 }

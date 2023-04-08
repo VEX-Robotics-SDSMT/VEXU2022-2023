@@ -55,6 +55,7 @@ namespace Mines
         }
 
         //setting output variables
+        //std::cout << controlVariable << endl;
         setOutput(controlVariable);
     }
 

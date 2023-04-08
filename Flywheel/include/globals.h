@@ -5,7 +5,9 @@
 #include "MinesMotorGroup.h"
 
 #define INERTIAL_SENSOR 10
-#define VISION_SENSOR 1
+#define VISION_SENSOR 7
+//#define ENCODER_A 1
+//#define ENCODER_B 2
 
 #define TOP_ROLLER 11
 

@@ -184,6 +184,7 @@ void DiffDrive::setTurnVelocity(double value)
     logger.Log("Target turn velocity: " + std::to_string(clampedVal), 2, LoggerSettings::verbose);
 
     turnVelocity = clampedVal;*/
+    //std::cout << value << endl;
     turnVelocity = value;
     setMotorVelocities();
 }
@@ -234,8 +235,14 @@ void DiffDrive::StartPIDs()
 
 void DiffDrive::SetPausedPID(bool paused)
 {
+    PIDPaused = paused;
     drivePID.SetTaskPaused(paused);
     turnPID.SetTaskPaused(paused);
+}
+
+bool DiffDrive::GetPausedPID()
+{
+    return PIDPaused; 
 }
 
 

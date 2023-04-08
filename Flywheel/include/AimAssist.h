@@ -43,7 +43,7 @@ class AimAssist: public TaskBase
         std::queue<SubTarget> frameQueue;
         ScreenLogger logger;
 
-        DiffDrive drive;
+        DiffDrive *drive;
         void (*fire)();
 
         double meanCertainty;
@@ -61,12 +61,12 @@ class AimAssist: public TaskBase
         double getDistanceAccuracy(double distance);
 
     public:
-        double turnSpeed = 1;
-        double leftOffset = 500;
+        double turnSpeed = 10;
+        double leftOffset = 200;
         double turnTol = 10;
-        int fireDelay = 250;
+        int fireDelay = 1000;
 
-        AimAssist(pros::Vision pVision, uint8_t targetSigID, DiffDrive drive, void (*fireFunc)());
+        AimAssist(pros::Vision pVision, uint8_t targetSigID, DiffDrive *drive, void (*fireFunc)());
         Target GetTarget();
         void Clear();
 

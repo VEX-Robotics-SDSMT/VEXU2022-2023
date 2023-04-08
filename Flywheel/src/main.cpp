@@ -85,19 +85,14 @@ void autonomous()
 	drive.setMaxDriveAccel(0.12);
 
 	ScreenLogger logger(LoggerSettings::verbose);
-	AimAssist aimAssist(vision, RED_GOAL_SIG_ID, drive, shootDisk);
+	AimAssist aimAssist(vision, RED_GOAL_SIG_ID, &drive, shootDisk);
 	aimAssist.StartTask();
+	aimAssist.turnSpeed = 0.25;
+	aimAssist.leftOffset = 170;
+	aimAssist.turnTol = 0.2;
 
-	while(true)
-	{
-		Mines::Target target = aimAssist.GetTarget();
-		logger.Log("rotation: " + std::to_string(target.rotation), 0, LoggerSettings::verbose);
-		logger.Log("distance: " + std::to_string(target.distance), 1, LoggerSettings::verbose);
-		logger.Log("certainty: " + std::to_string(target.certainty), 2, LoggerSettings::verbose);
-		std::cout << "box: " << target.rotation << " " << target.distance << " " << target.certainty << std::endl;
-		//std::cout << strerror(errno) << std::endl;
-		pros::delay(500);
-	}
+	aimAssist.AimFire(10000);
+
 
 	if(skills) // Skills route
 	{

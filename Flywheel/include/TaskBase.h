@@ -2,6 +2,7 @@
 #define TASK_BASE
 
 #include "pros/rtos.hpp"
+#include <iostream>
 
 namespace Mines
 {

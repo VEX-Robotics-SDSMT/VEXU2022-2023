@@ -90,7 +90,7 @@ class DiffDrive
     double MAX_TURN_ACCEL = 1;
     
     bool ACTIVE = true;
-
+    bool PIDPaused = false;
 
     //updateable variables
     double turnVelocity = 0;
@@ -123,6 +123,7 @@ class DiffDrive
         void killPIDs();
         void StartPIDs();
         void SetPausedPID(bool paused);
+        bool GetPausedPID();
 
         //DO NOT CALL unless you have paused the PID
         void setTurnVelocity(double value);
