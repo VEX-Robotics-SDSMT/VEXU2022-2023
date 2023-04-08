@@ -12,8 +12,18 @@
 #include <algorithm>
 #include <cmath>
 #include <limits.h>
+#include "TaskBase.h"
 
 namespace Mines {
+
+
+class SensorInterface
+{
+    public:
+        double Get();
+        double Reset();
+};
+
 
 class DiffDrive
 {
@@ -68,6 +78,7 @@ class DiffDrive
 
     public:
         DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::Imu Imu);
+        DiffDrive(MinesMotorGroup left, MinesMotorGroup right, SensorInterface driveSensorInterface, pros::Imu Imu);
 
         double getDriveVelocity();
         double getTurnVelocity();
@@ -92,12 +103,13 @@ class DiffDrive
         void killPIDs();
         void StartPIDs();
 
+        //these should only be called from the inside or when the PID is off
+        void setTurnVelocity(double value);
+        void setDriveVelocity(double value);
 
     private:
         double getDrivePosition();
-        void setDriveVelocity(double value);
         double getTurnPosition();
-        void setTurnVelocity(double value);
         void setMotorVelocities();
 
 };

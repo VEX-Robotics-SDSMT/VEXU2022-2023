@@ -31,39 +31,6 @@ void AimAssist::Clear()
 
 void AimAssist::update()
 {
-    /*logger.Log("count: " + std::to_string(testCount), 10, LoggerSettings::verbose);
-    testCount++;
-    SubTarget newFrame = checkTargeting();
-
-    //add the new data to the queue and if it has any certainty, update the running totals
-    frameQueue.push(newFrame);
-    int size = frameQueue.size();
-    meanCertainty += newFrame.certainty / size;
-    if (newFrame.certainty > 0.01)
-    {
-        distMean += newFrame.distance / size;
-        distVariance += pow(newFrame.distance - distMean, 2) / size;
-        degreeMean += newFrame.degrees / size;
-        degreeVariance += pow(newFrame.degrees - degreeMean, 2) / size;
-    }
-
-    //remove oldest data if the max count is reached
-    if (frameQueue.size() >= TARGET_COUNT)
-    {
-        SubTarget oldFrame = frameQueue.front();
-        frameQueue.pop();
-
-        size = frameQueue.size();
-        meanCertainty -= oldFrame.certainty / size;
-        if (oldFrame.certainty > 0.01)
-        {
-            distMean -= oldFrame.distance / size;
-            distVariance -= pow(oldFrame.distance - distMean, 2) / size;
-            degreeMean -= oldFrame.degrees / size;
-            degreeVariance -= pow(oldFrame.degrees - degreeMean, 2) / size;
-        }
-    }*/
-
     //add the new data to the queue and if it has any certainty, update the running totals
     SubTarget newFrame = checkTargeting();
     frameQueue.push(newFrame);
