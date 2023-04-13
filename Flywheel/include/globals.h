@@ -23,8 +23,8 @@
 #define INTAKE1 2
 #define INTAKE2 19
 #define LAUNCH 8 //not in 8
-#define PUSH 7
-#define PUSH3 6
+#define PUSH 3
+#define PUSH3 4
 
 #define INTAKE_MOTOR_GEARSET red
 #define FLYWHEELS_MOTOR_GEARSET blue
