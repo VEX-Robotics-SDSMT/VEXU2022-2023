@@ -9,7 +9,9 @@ void driveLoop(Mines::MinesMotorGroup leftMotorGroup, Mines::MinesMotorGroup rig
 void rollerLoop(pros::Motor rollerMotor, int pct, bool runButton);
 void intakeLoopHold(Mines::MinesMotorGroup intakeMotors, int pct, bool runButton, bool revButton);
 void flywheelLoopToggle(Mines::MinesMotorGroup flywheels, int pct);
+void compressLoopToggle(pros::ADIDigitalOut compress);
 void toggleFlywheels();
+void toggleCompress();
 void shootDisk();
 
 #endif

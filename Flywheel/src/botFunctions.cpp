@@ -2,6 +2,7 @@
 
 bool intakeToggle = 0;
 bool flywheelToggle = 0;
+bool compressToggle = 0;
 
 void toggleIntake()
 {
@@ -17,6 +18,14 @@ void toggleFlywheels()
         flywheelToggle = 1;
     else
         flywheelToggle = 0;
+}
+
+void toggleCompress()
+{
+    if(compressToggle == 0)
+        compressToggle = 1;
+    else
+        compressToggle = 0;
 }
 
 void driveLoop(Mines::MinesMotorGroup leftMotorGroup, Mines::MinesMotorGroup rightMotorGroup, double leftVelocity, double rightVelocity)
@@ -49,6 +58,14 @@ void flywheelLoopToggle(Mines::MinesMotorGroup flywheels, int pct)
         flywheels.move(((0.01)* (pct) * 127));
     else
         flywheels.brake();
+}
+
+void compressLoopToggle(pros::ADIDigitalOut compress)
+{
+    if(compressToggle == 1)
+        compress.set_value(true);
+    else
+        compress.set_value(false);
 }
 
 void shootDisk()

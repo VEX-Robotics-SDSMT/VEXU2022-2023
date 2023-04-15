@@ -100,8 +100,20 @@ void autonomous()
 	if(skills) // Skills route
 	{
 		//Boo's aggressive Route
+		//start in same spot
+		//preloads of to the side
+
+		//extend rake and drive forward to pick up three stack
 		rake.set_value(true);
-		pros::delay(1000);
+		drive.turnDegreesAbsolute(-45);
+		intake1.move(127);
+		intake2.move(127);
+		drive.driveTiles(-1000);
+
+		//turn and shoot away from line
+		drive.driveTiles(800);
+		drive.turnDegreesAbsolute(100);
+
 		rake.set_value(false);
 		/******* OLD SKILLS ROUTE *******************************
 		// Start spinning up the flywheel and drive into the roller
@@ -478,10 +490,6 @@ void opcontrol()
 		{
 			flywheelPct = 80;
 		}
-		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT))
-		{
-			flywheelPct = 72;
-		}
 
 		flywheelLoopToggle(flywheelsGroup, flywheelPct);
 		// *************************************************
@@ -489,7 +497,19 @@ void opcontrol()
 
 		
 		// ********************ROLLER********************
-		rollerLoop(topRoller, 100, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_L1));
+		//rollerLoop(topRoller, 100, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X));
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X))
+		{
+			topRoller.move(100);
+			pros::delay(100);
+			topRoller.brake();
+		}
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_Y))
+		{
+			topRoller.move(-100);
+			pros::delay(100);
+			topRoller.brake();
+		}
 		// **********************************************
 
 
@@ -501,7 +521,7 @@ void opcontrol()
 
 
 		// ********************ENDGAME********************
-		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT))
 			endgame.set_value(true);
 		else
 			endgame.set_value(false);
@@ -514,7 +534,7 @@ void opcontrol()
 		{
 			shoot1.set_value(true);
 		}
-		else if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_Y))
+		else if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
 		{
 			shoot1.set_value(true);
 			shoot3.set_value(true);
@@ -527,13 +547,11 @@ void opcontrol()
 		// *********************************************
 
 		// ********************COMPRESS*****************
-		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X))
+		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_L1))
 		{
-			compress.set_value(true);
+			toggleCompress();
 		}
-		else
-		{
-			compress.set_value(false);
-		}
+
+		compressLoopToggle(compress);
 	}
 }
