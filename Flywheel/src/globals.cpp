@@ -47,4 +47,4 @@ int red = 100;
 uint8_t RED_GOAL_SIG_ID = 1;
 uint8_t BLUE_GOAL_SIG_ID = 2;
 
-bool skills = true;
+bool skills = false;
