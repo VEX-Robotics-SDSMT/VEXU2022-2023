@@ -23,8 +23,10 @@ pros::Motor fly1(FLY1, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor fly2(FLY2, pros::E_MOTOR_GEARSET_06, false);
 
 pros::ADIDigitalOut endgame(LAUNCH);
+pros::ADIDigitalOut rake(RAKES);
 pros::ADIDigitalOut shoot1(PUSH);
 pros::ADIDigitalOut shoot3(PUSH3);
+pros::ADIDigitalOut compress(COMPRESSION);
 
 std::vector<pros::Motor> leftDriveVector = {leftFrontDrive, leftRearDrive, leftMidDrive};
 std::vector<pros::Motor> rightDriveVector = {rightFrontDrive, rightRearDrive, rightMidDrive};
@@ -45,4 +47,4 @@ int red = 100;
 uint8_t RED_GOAL_SIG_ID = 1;
 uint8_t BLUE_GOAL_SIG_ID = 2;
 
-bool skills = false;
+bool skills = true;

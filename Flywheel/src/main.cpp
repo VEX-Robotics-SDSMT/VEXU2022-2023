@@ -99,6 +99,11 @@ void autonomous()
 
 	if(skills) // Skills route
 	{
+		//Boo's aggressive Route
+		rake.set_value(true);
+		pros::delay(1000);
+		rake.set_value(false);
+		/******* OLD SKILLS ROUTE *******************************
 		// Start spinning up the flywheel and drive into the roller
 		flywheelsGroup.move(84);  //82, 90
 		drive.driveTiles(-100,false);
@@ -222,24 +227,25 @@ void autonomous()
 		drive.driveTiles(-1200);
 		endgame.set_value(true);
 		drive.turnDegreesAbsolute(0);
+		*/
 	}
 	else // Match auton route
 	{
 		//Boo's passive route
 		//start on edge of tile with flywheel facing our goal
-		drive.setMaxDriveSpeed(0.4); 
+		drive.setMaxDriveSpeed(0.5); 
 		drive.setMaxTurnSpeed(0.5);
-		drive.setMaxDriveAccel(0.1);
+		drive.setMaxDriveAccel(0.15);
 		//drive toward roller and prep flywheels
 		drive.driveTiles(-850);
 		
-		flywheelsGroup.move(88);
+		flywheelsGroup.move(86);
 		pros::delay(200);
 
 		//turn, backup and spin roller
 		drive.turnDegreesAbsolute(90);
 		pros::delay(200);
-		drive.driveTiles(-350);
+		drive.driveTiles(-340);
 		pros::delay(200);
 		drive.driveTiles(-100, false);
 		topRoller.move(127);
@@ -248,26 +254,30 @@ void autonomous()
 
 		//move forward, turn and shoot preloads
 		drive.driveTiles(300);
-		drive.turnDegreesAbsolute(83);
+		drive.turnDegreesAbsolute(84);
 		
         shootDisk();
 		pros::delay(1800);
         shootDisk();
-		pros::delay(200);
+		pros::delay(100);
 
 		//drive and pick up three in a line
-		drive.setMaxDriveSpeed(0.35);
-		drive.setMaxDriveAccel(0.05);
+		drive.setMaxDriveSpeed(0.4);
+		drive.setMaxDriveAccel(0.1);
+		flywheelsGroup.move(83);
 		intake1.move(-127);
 		intake2.move(-127);
 		drive.turnDegreesAbsolute(-138);
-		drive.driveTiles(-3200);
-		pros::delay(500);
+		drive.driveTiles(-3100);
+		pros::delay(200);
 
-		//backup, turn and shoot 3
-		flywheelsGroup.move(82);
-		drive.driveTiles(800);
-		drive.turnDegreesAbsolute(117);
+		//backup, compress turn and shoot 3
+		
+		drive.driveTiles(700);
+		compress.set_value(true);
+		pros::delay(50);
+		compress.set_value(false);
+		drive.turnDegreesAbsolute(115);
 		
         shootDisk();
 		pros::delay(1800);
@@ -276,23 +286,23 @@ void autonomous()
         shootDisk();
 		pros::delay(200);
 
-		//backup to line of three
-		drive.turnDegreesAbsolute(-90);
+		//turn to pick up along edge
+		drive.turnDegreesAbsolute(160);
 		pros::delay(200);
-		drive.driveTiles(1600);
+		drive.driveTiles(-570);
 		pros::delay(200);
 
-		//turn along edge and pick up three
-		drive.turnDegreesAbsolute(-160);
-		drive.driveTiles(-560);
-		pros::delay(300);
-		drive.turnDegreesAbsolute(-90);
-		drive.driveTiles(-1700);
-		pros::delay(500);
+		//turn even with edge and go down line
+		drive.turnDegreesAbsolute(100);
+		drive.driveTiles(-1500);
+		pros::delay(200);
+		compress.set_value(true);
+		pros::delay(50);
+		compress.set_value(false);
 
 		//turn and shoot 3
-		flywheelsGroup.move(85);
-		drive.turnDegreesAbsolute(125);
+		flywheelsGroup.move(101);
+		drive.turnDegreesAbsolute(109);
         shootDisk();
 		pros::delay(1800);
         shootDisk();
@@ -515,5 +525,15 @@ void opcontrol()
 			shoot3.set_value(false);			
 		}
 		// *********************************************
+
+		// ********************COMPRESS*****************
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X))
+		{
+			compress.set_value(true);
+		}
+		else
+		{
+			compress.set_value(false);
+		}
 	}
 }

@@ -17,12 +17,14 @@
 #define R_FRONT 9
 #define R_REAR 13
 #define R_MID 8
-#define STRING 13 //not in 13
+#define STRING 13
 #define FLY1 21
 #define FLY2 20
 #define INTAKE1 2
 #define INTAKE2 19
-#define LAUNCH 8 //not in 8
+#define COMPRESSION 5
+#define RAKES 8
+#define LAUNCH 7
 #define PUSH 3
 #define PUSH3 4
 
@@ -50,6 +52,8 @@ extern pros::Motor rightBot;
 extern pros::ADIDigitalOut endgame;
 extern pros::ADIDigitalOut shoot1;
 extern pros::ADIDigitalOut shoot3;
+extern pros::ADIDigitalOut compress;
+extern pros::ADIDigitalOut rake;
 
 extern std::vector<pros::Motor> leftDriveVector;
 extern std::vector<pros::Motor> rightDriveVector;
