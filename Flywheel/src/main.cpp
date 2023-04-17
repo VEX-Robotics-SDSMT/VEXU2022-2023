@@ -330,7 +330,7 @@ void autonomous()
 		//drive toward roller and prep flywheels
 		drive.driveTiles(-850);
 		
-		flywheelsGroup.move(89);
+		flywheelsGroup.move(88);
 		pros::delay(200);
 
 		//turn, backup and spin roller
@@ -356,9 +356,8 @@ void autonomous()
 		compress.set_value(false);
 
 		//drive and pick up three in a line
-		drive.setMaxDriveSpeed(0.4);
-		drive.setMaxDriveAccel(0.1);
-		flywheelsGroup.move(88);
+		drive.setMaxDriveSpeed(0.45);
+		flywheelsGroup.move(86);
 		intake1.move(-127);
 		intake2.move(-127);
 		drive.turnDegreesAbsolute(-139);
@@ -368,37 +367,45 @@ void autonomous()
 		//backup, compress turn and shoot 3
 		
 		drive.driveTiles(1750);
-		pros::delay(100);
-		drive.turnDegreesAbsolute(104);
-		
-        shootDisk();
-		pros::delay(1800);
 		compress.set_value(true);
+		pros::delay(100);
+		compress.set_value(false);
+		drive.turnDegreesAbsolute(102);
+
+        shootDisk();
+		pros::delay(1400);
+		compress.set_value(true);
+		pros::delay(400);
         shootDisk();
 		pros::delay(1800);
         shootDisk();
 		pros::delay(200);
 		compress.set_value(false);
 
-
 		//turn to pick up along edge
 		drive.turnDegreesAbsolute(146);
 		pros::delay(200);
-		drive.driveTiles(-1600);
+		drive.driveTiles(-1500);
 		pros::delay(200);
 
 		//********************************************************************Tuned to here
 
 
 		//turn even with edge and go down line
-		drive.turnDegreesAbsolute(-88);
+		drive.turnDegreesAbsolute(-91);
 		drive.driveTiles(-1750);
 		//turn and shoot 3
-		flywheelsGroup.move(101);
-		drive.turnDegreesAbsolute(109);
-        shootDisk();
-		pros::delay(1800);
+		flywheelsGroup.move(88);
 		compress.set_value(true);
+		pros::delay(100);
+		compress.set_value(false);
+		drive.turnDegreesAbsolute(125);
+
+
+        shootDisk();
+		pros::delay(1400);
+		compress.set_value(true);
+		pros::delay(400);
         shootDisk();
 		pros::delay(1800);
         shootDisk();
