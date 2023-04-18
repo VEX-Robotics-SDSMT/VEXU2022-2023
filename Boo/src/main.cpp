@@ -100,26 +100,67 @@ void autonomous()
 	if(skills) // Skills route
 	{
 		//Boo's aggressive Route
-		//start in same spot
+		//start in same spot at angle
 		//preloads of to the side
-		//this route is most likely not going to
-		//finish in 0:45
 
-		//extend rake and drive forward to pick up three stack
+		//NOTE ALL SHOT ANGLES AND SPEEDS ARE COMPLETELY UNTUNED
+
+		//lift rake and drive forward to pick up three stack
 		rake.set_value(true);
-		drive.turnDegreesAbsolute(-45);
-		intake1.move(127);
-		intake2.move(127);
-		drive.driveTiles(-1000);
-
-		//back up and spin roller
-		flywheelsGroup.move(80);
-		drive.driveTiles(800);
-		pros::delay(100);
-		drive.turnDegreesAbsolute(100);
+		intake1.move(-127);
+		intake2.move(-127);
+		drive.driveTiles(-950);
 		rake.set_value(false);
-		flywheelsGroup.move(86);
+		pros::delay(2000);
+
+		//back up and shoot 3
+		flywheelsGroup.move(91);
+		drive.driveTiles(800);
+		compress.set_value(true);
 		pros::delay(200);
+		compress.set_value(false);
+		pros::delay(200);
+		drive.turnDegreesAbsolute(136);
+
+		shootDisk();
+		pros::delay(300);
+		compress.set_value(true);
+		pros::delay(1500);
+		shootDisk();
+		pros::delay(1800);
+		shootDisk();
+		pros::delay(200);
+		compress.set_value(false);
+
+		//back up to grab preloads
+		drive.turnDegreesAbsolute(180);
+		rake.set_value(true);
+		pros::delay(200);
+		drive.driveTiles(-325);
+		rake.set_value(false);
+		pros::delay(1000);
+
+		//turn to grab other contested
+		drive.turnDegreesAbsolute(45);
+		pros::delay(500);
+		drive.driveTiles(-1250);
+		pros::delay(200);
+
+		//back up to turn and get roller
+		drive.driveTiles(300);
+		drive.turnDegreesAbsolute(135);
+		drive.driveTiles(-200);
+		pros::delay(200);
+		drive.driveTiles(-100, false);
+		topRoller.move(127);
+		pros::delay(300);
+		topRoller.brake();
+
+		//pull forward to shoot 3
+		drive.driveTiles(200);
+		//drive.turnDegreesAbsolute(135);
+
+/*
 
 		//turn, backup and spin roller
 		drive.turnDegreesAbsolute(90);
@@ -194,6 +235,8 @@ void autonomous()
 		flywheelsGroup.brake();
 		intake1.brake();
 		intake2.brake();
+
+		*/
 		/******* OLD SKILLS ROUTE *******************************
 		// Start spinning up the flywheel and drive into the roller
 		flywheelsGroup.move(84);  //82, 90
