@@ -109,9 +109,10 @@ void autonomous()
 		rake.set_value(true);
 		intake1.move(-127);
 		intake2.move(-127);
-		drive.driveTiles(-950);
+		drive.driveTiles(-900);
 		rake.set_value(false);
-		pros::delay(2000);
+		drive.driveTiles(-50);
+		pros::delay(1800);
 
 		//back up and shoot 3
 		flywheelsGroup.move(91);
@@ -139,104 +140,58 @@ void autonomous()
 		drive.driveTiles(-325);
 		rake.set_value(false);
 		pros::delay(1000);
+		drive.driveTiles(-150);
+		drive.driveTiles(400);
 
-		//turn to grab other contested
+
+		//drive to get roller
 		drive.turnDegreesAbsolute(45);
-		pros::delay(500);
-		drive.driveTiles(-1250);
-		pros::delay(200);
-
-		//back up to turn and get roller
-		drive.driveTiles(300);
+		drive.driveTiles(-650);
 		drive.turnDegreesAbsolute(135);
-		drive.driveTiles(-200);
+		flywheelsGroup.move(91);
+		drive.driveTiles(-275);
 		pros::delay(200);
 		drive.driveTiles(-100, false);
 		topRoller.move(127);
 		pros::delay(300);
 		topRoller.brake();
+		compress.set_value(true);
 
-		//pull forward to shoot 3
+		//pull forward to shoot 2
 		drive.driveTiles(200);
-		//drive.turnDegreesAbsolute(135);
-
-/*
-
-		//turn, backup and spin roller
-		drive.turnDegreesAbsolute(90);
-		pros::delay(200);
-		drive.driveTiles(-340);
-		pros::delay(200);
-		drive.driveTiles(-100, false);
-		topRoller.move(127);
-		pros::delay(300);
-		topRoller.brake();
-
-		//move forward, turn and shoot 3
-		drive.driveTiles(300);
-		drive.turnDegreesAbsolute(84);
-		
-        shootDisk();
-		pros::delay(1800);
-        shootDisk();
+		pros::delay(100);
+		drive.turnDegreesAbsolute(130);
+		shootDisk();
 		pros::delay(1800);
 		shootDisk();
-		pros::delay(100);
-
-		//drive and pick up three in a line
-		drive.setMaxDriveSpeed(0.4);
-		drive.setMaxDriveAccel(0.1);
-		flywheelsGroup.move(83);
-		intake1.move(-127);
-		intake2.move(-127);
-		drive.turnDegreesAbsolute(-138);
-		drive.driveTiles(-3100);
 		pros::delay(200);
 
-		//backup, compress turn and shoot 3
-		
+		compress.set_value(false);
+
+		//drive in line of three
+		drive.setMaxDriveSpeed(0.4);
+		drive.turnDegreesAbsolute(-95);
+		drive.driveTiles(-3000);
+
+		//back out of way, turn and shoot
+		flywheelsGroup.move(86);
 		drive.driveTiles(700);
 		compress.set_value(true);
 		pros::delay(50);
 		compress.set_value(false);
-		drive.turnDegreesAbsolute(115);
-		
-        shootDisk();
-		pros::delay(1800);
-        shootDisk();
-		pros::delay(1800);
-        shootDisk();
-		pros::delay(200);
-
-		//turn to pick up along edge
 		drive.turnDegreesAbsolute(160);
-		pros::delay(200);
-		drive.driveTiles(-570);
-		pros::delay(200);
-
-		//turn even with edge and go down line
-		drive.turnDegreesAbsolute(100);
-		drive.driveTiles(-1500);
-		pros::delay(200);
-		compress.set_value(true);
-		pros::delay(50);
-		compress.set_value(false);
-
-		//turn and shoot 3
-		flywheelsGroup.move(101);
-		drive.turnDegreesAbsolute(109);
-        shootDisk();
-		pros::delay(1800);
-        shootDisk();
-		pros::delay(1800);
-        shootDisk();
-		pros::delay(300);
 		
+        shootDisk();
+		pros::delay(1800);
+        shootDisk();
+		pros::delay(1800);
+        shootDisk();
+		pros::delay(200);
+
 		flywheelsGroup.brake();
 		intake1.brake();
 		intake2.brake();
 
-		*/
 		/******* OLD SKILLS ROUTE *******************************
 		// Start spinning up the flywheel and drive into the roller
 		flywheelsGroup.move(84);  //82, 90
