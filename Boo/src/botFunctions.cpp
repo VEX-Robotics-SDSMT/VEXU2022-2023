@@ -55,9 +55,16 @@ void intakeLoopHold(Mines::MinesMotorGroup intakeMotors, int pct, bool run, bool
 void flywheelLoopToggle(Mines::MinesMotorGroup flywheels, int pct)
 {
     if(flywheelToggle == 1)
+    {
         flywheels.move(((0.01)* (pct) * 127));
+       // std::cout << "FLYWHEEL MOVE" << std::endl;
+    }
+
     else
+    {
         flywheels.brake();
+        //std::cout << "FLYWHEEL BREAK" << std::endl;
+    }
 }
 
 void compressLoopToggle(pros::ADIDigitalOut compress)
