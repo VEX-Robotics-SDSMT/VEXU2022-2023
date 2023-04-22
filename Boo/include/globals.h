@@ -24,7 +24,7 @@
 #define INTAKE2 19
 #define COMPRESSION 5
 #define RAKES 8
-#define LAUNCH 7
+#define LAUNCH 6
 #define PUSH 3
 #define PUSH3 4
 

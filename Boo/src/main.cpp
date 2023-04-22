@@ -386,9 +386,6 @@ void autonomous()
 		drive.driveTiles(-1500);
 		pros::delay(200);
 
-		//********************************************************************Tuned to here
-
-
 		//turn even with edge and go down line
 		drive.turnDegreesAbsolute(-91);
 		drive.driveTiles(-1750);
@@ -398,7 +395,6 @@ void autonomous()
 		pros::delay(100);
 		compress.set_value(false);
 		drive.turnDegreesAbsolute(125);
-
 
         shootDisk();
 		pros::delay(1400);
@@ -414,10 +410,6 @@ void autonomous()
 		intake1.brake();
 		intake2.brake();
 //*/
-
-
-
-
 
 		//*****************************************************************/
 		/* //previous auton route, could use for Mike
@@ -522,7 +514,7 @@ void autonomous()
 void opcontrol()
 {	
 	// Initialize the flywheel speed to 100% and brake type to coast
-	int flywheelPct = 100;
+	int flywheelPct = 67;
 	flywheelsGroup.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 
 	while(true)
@@ -572,11 +564,11 @@ void opcontrol()
 		// Flywheel speed control
 		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT))
 		{
-			flywheelPct = 85;
+			flywheelPct = 60;
 		}
 		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN))
 		{
-			flywheelPct = 80;
+			flywheelPct = 55;
 		}
 
 		flywheelLoopToggle(flywheelsGroup, flywheelPct);
@@ -624,7 +616,6 @@ void opcontrol()
 		}
 		else if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_UP))
 		{
-			shoot1.set_value(true);
 			shoot3.set_value(true);
 		}
 		else
