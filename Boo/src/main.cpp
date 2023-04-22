@@ -78,9 +78,9 @@ void autonomous()
 	EncoderWheelSensorInterface encoderInterface(driveEncoder);
 	DiffDrive drive(leftDriveMotors, rightDriveMotors, &encoderInterface, intertialSensor);
 	drive.setDrivePIDVals(0.2, 0, 0);//0.2
-	drive.setDrivePIDTol(25);
+	drive.setDrivePIDTol(50);
 	drive.setTurnPIDVals(1.2, 0, 0);//1.2
-	drive.setTurnPIDTol(1);
+	drive.setTurnPIDTol(2);
 	drive.setMaxDriveSpeed(1); 
 	drive.setMaxTurnSpeed(0.7);
 
@@ -105,23 +105,23 @@ void autonomous()
 
 		//NOTE ALL SHOT ANGLES AND SPEEDS ARE COMPLETELY UNTUNED
 
-		//lift rake and drive forward to pick up three stack
+		//lift intake and drive forward to pick up three stack
 		rake.set_value(true);
-		intake1.move(-127);
-		intake2.move(-127);
+		intake1.move(-120);
+		intake2.move(-120);
 		drive.driveTiles(-900);
 		rake.set_value(false);
 		drive.driveTiles(-50);
 		pros::delay(1800);
 
 		//back up and shoot 3
-		flywheelsGroup.move(91);
+		flywheelsGroup.move(90);
 		drive.driveTiles(800);
 		compress.set_value(true);
 		pros::delay(200);
 		compress.set_value(false);
 		pros::delay(200);
-		drive.turnDegreesAbsolute(136);
+		drive.turnDegreesAbsolute(136, 1500);
 
 		shootDisk();
 		pros::delay(300);
@@ -134,7 +134,7 @@ void autonomous()
 		compress.set_value(false);
 
 		//back up to grab preloads
-		drive.turnDegreesAbsolute(180);
+		drive.turnDegreesAbsolute(180, 750);
 		rake.set_value(true);
 		pros::delay(200);
 		drive.driveTiles(-325);
@@ -145,24 +145,24 @@ void autonomous()
 
 
 		//drive to get roller
-		drive.turnDegreesAbsolute(45);
+		drive.turnDegreesAbsolute(45, 1200);
 		drive.driveTiles(-650);
-		drive.turnDegreesAbsolute(135);
-		flywheelsGroup.move(91);
-		drive.driveTiles(-275);
+		drive.turnDegreesAbsolute(135, 1200);
+		flywheelsGroup.move(89);
+		drive.driveTiles(-450, 1000);
 		pros::delay(200);
 		drive.driveTiles(-100, false);
 		topRoller.move(127);
-		pros::delay(300);
+		pros::delay(200);
 		topRoller.brake();
 		compress.set_value(true);
 
 		//pull forward to shoot 2
 		drive.driveTiles(200);
 		pros::delay(100);
-		drive.turnDegreesAbsolute(130);
+		drive.turnDegreesAbsolute(127, 1100);
 		shootDisk();
-		pros::delay(1800);
+		pros::delay(1500);
 		shootDisk();
 		pros::delay(200);
 
@@ -170,21 +170,22 @@ void autonomous()
 
 		//drive in line of three
 		drive.setMaxDriveSpeed(0.4);
-		drive.turnDegreesAbsolute(-95);
+		drive.turnDegreesAbsolute(-95, 1500);
 		drive.driveTiles(-3000);
 
 		//back out of way, turn and shoot
-		flywheelsGroup.move(86);
+		drive.setMaxDriveSpeed(0.5);
+		flywheelsGroup.move(85);
 		drive.driveTiles(700);
 		compress.set_value(true);
 		pros::delay(50);
 		compress.set_value(false);
-		drive.turnDegreesAbsolute(160);
+		drive.turnDegreesAbsolute(159, 1000);
 		
         shootDisk();
-		pros::delay(1800);
+		pros::delay(1500);
         shootDisk();
-		pros::delay(1800);
+		pros::delay(1500);
         shootDisk();
 		pros::delay(200);
 
@@ -514,8 +515,9 @@ void autonomous()
 void opcontrol()
 {	
 	// Initialize the flywheel speed to 100% and brake type to coast
-	int flywheelPct = 67;
+	int flywheelPct = 60; //60
 	flywheelsGroup.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
+	ScreenLogger logger(LoggerSettings::verbose);
 
 	while(true)
 	{	
@@ -564,11 +566,15 @@ void opcontrol()
 		// Flywheel speed control
 		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT))
 		{
-			flywheelPct = 60;
+			flywheelPct = 75;
 		}
 		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN))
 		{
 			flywheelPct = 55;
+		}
+		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT))
+		{
+			flywheelPct = 60;
 		}
 
 		flywheelLoopToggle(flywheelsGroup, flywheelPct);
@@ -601,10 +607,10 @@ void opcontrol()
 
 
 		// ********************ENDGAME********************
-		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT))
-			endgame.set_value(true);
-		else
-			endgame.set_value(false);
+		//if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT))
+		//	endgame.set_value(true);
+		//else
+		//	endgame.set_value(false);
 		// ***********************************************
 
 
@@ -631,6 +637,8 @@ void opcontrol()
 			toggleCompress();
 		}
 
+		logger.Log(std::to_string(flywheelsGroup.getActualVelocity()), 3, LoggerSettings::verbose);
 		compressLoopToggle(compress);
+		pros::delay(10);
 	}
 }
