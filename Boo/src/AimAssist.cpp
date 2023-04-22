@@ -69,7 +69,7 @@ double getRatioAccuracy(double target, double other)
     return std::min(currentScaled, 1 / currentScaled);
 }
 
-double AimAssist::getDistanceAccuracy(double distance)
+double AimAssist::getOffsetAccuracy(double distance)
 {
     return std::max((-std::fabs(distance) / MAX_DIST) + 1.0, 0.0);
 }
@@ -80,7 +80,7 @@ double AimAssist::getPairAccuracy(pros::vision_object_s_t top, pros::vision_obje
     logger.Log("top acc: " + std::to_string(topAccuracy), 3, LoggerSettings::verbose);
     double bottomAccuracy = getRatioAccuracy(BOTTOM_RATIO, bottom.height/(double)bottom.width);
     logger.Log("bot acc: " + std::to_string(bottomAccuracy), 4, LoggerSettings::verbose);
-    double distanceAccuracy = getDistanceAccuracy(top.x_middle_coord - bottom.x_middle_coord);
+    double distanceAccuracy = getOffsetAccuracy(top.x_middle_coord - bottom.x_middle_coord);
     logger.Log("dist acc: " + std::to_string(distanceAccuracy), 5, LoggerSettings::verbose);
     //std::cout << "top:" << topAccuracy << " bot:" << bottomAccuracy << " dist:" << distanceAccuracy << std::endl;
     return (topAccuracy + bottomAccuracy + distanceAccuracy) / 3;
@@ -187,4 +187,21 @@ void AimAssist::AimFire(int disksToFire)
     }
 
     drive->SetPausedPID(false);
+}
+
+//d = (h / tan(theta)) - (h1*h2)
+double doDistCalc(double hHigh, double hLow, double theta)
+{
+    double hMid = hHigh - hLow;
+    return (hMid / tan(theta)) - (hHigh - hLow);
+}
+
+double AimAssist::getDistanceFromGoal()
+{
+    
+    
+
+
+
+    
 }

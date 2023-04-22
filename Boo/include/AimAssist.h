@@ -54,11 +54,19 @@ class AimAssist: public TaskBase
 
         int testCount = 0;
 
+        //heights - in inches
+        double CamHeight;
+        const double BottomBasket = 21.25;
+        const double TopBasket = 25;
+        const double BottomCap = 35;
+        const double TopCap = 36;
+
         void update(double deltaT);
         SubTarget checkTargeting();
         std::vector<pros::vision_object_s_t> getObjectsBySig();
         double getPairAccuracy(pros::vision_object_s_t top, pros::vision_object_s_t bottom);
-        double getDistanceAccuracy(double distance);
+        double getOffsetAccuracy(double distance);
+        double getDistanceFromGoal();
 
     public:
         double turnSpeed = 10;

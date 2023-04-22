@@ -74,3 +74,72 @@ void shootDisk()
     pros::delay(250);
     shoot1.set_value(0);
 }
+
+Color getColor(pros::c::optical_rgb_s_t color)
+{
+    if (fabs(color.blue - color.red) < 0.3)
+    {
+        return Color::purple;
+    }
+    else if (color.blue > color.red)
+    {
+        return Color::blue;
+    }
+    else
+    {
+        return Color::red;
+    }
+}
+
+
+void swapRollerColor(Color targetColor, double voltage)
+{
+    opticalSensor.set_led_pwm(100);
+    int loopCount = 0;
+    int timeout = pros::millis() + ROLLER_TIMEOUT;
+    double rollerSpeed;
+
+    //check if currently purple
+    while (getColor(opticalSensor.get_rgb()) == Color::purple && timeout > pros::millis() )
+    {
+        topRoller.move(voltage);
+        std::cout << "Started purple, checking" << std::endl;
+    }
+
+    //roll until purple
+    while (loopCount < requiredColorLoops && timeout > pros::millis() )
+    {
+        Color foundColor = getColor(opticalSensor.get_rgb());
+
+        if(foundColor != Color::purple)
+        {
+            //reset the filter, move the roller and log
+            loopCount = 0;
+            if (getColor(opticalSensor.get_rgb()) == targetColor)
+            {
+                topRoller.move(-voltage);
+                std::cout << "found target" << std::endl;
+            }
+            else
+            {
+                topRoller.move(voltage);
+                std::cout << "found non-target" << std::endl;
+            }
+        }
+        else
+        {
+            //if we see the right color, stop moving the roller and start filtering
+            loopCount++;
+            topRoller.brake();
+            std::cout << "Found Purple" << std::endl;
+        }
+
+        std::cout << pros::millis() << std::endl;
+        pros::delay(10);
+    }
+
+    //stop the roller and turn off the light
+    topRoller.brake();
+    opticalSensor.set_led_pwm(0);
+}
+

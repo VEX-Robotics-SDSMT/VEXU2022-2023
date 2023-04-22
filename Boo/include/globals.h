@@ -8,6 +8,7 @@
 #define VISION_SENSOR 7
 #define ENCODER_TOP 1
 #define ENCODER_BOTTOM 2
+#define COLOR_SENSOR 18
 
 #define TOP_ROLLER 11
 
@@ -28,15 +29,16 @@
 #define PUSH 3
 #define PUSH3 4
 
-#define INTAKE_MOTOR_GEARSET red
-#define FLYWHEELS_MOTOR_GEARSET blue
-#define ROLLER_MOTOR_GEARSET green
+#define INTAKE_MOTOR_GEARSET redGearbox
+#define FLYWHEELS_MOTOR_GEARSET blueGearbox
+#define ROLLER_MOTOR_GEARSET greenGearbox
 
 extern pros::Controller MasterController;
 
 extern pros::Imu intertialSensor;
 extern pros::Vision vision;
 extern pros::ADIEncoder driveEncoder;
+extern pros::Optical opticalSensor;
 
 extern pros::Motor topRoller;
 extern pros::Motor intake1;
@@ -63,20 +65,23 @@ extern Mines::MinesMotorGroup flywheelsGroup;
 extern Mines::MinesMotorGroup intakeGroup;
 
 
-
+enum Color { red, blue, purple };
 extern pros::Motor string;
 
 extern double axisPercentBlue;
 extern double axisPercentGreen;
 extern double axisPercentRed;
-extern int blue;
-extern int green;
-extern int red;
+extern int blueGearbox;
+extern int greenGearbox;
+extern int redGearbox;
 
 extern bool skills;
 
 extern uint8_t RED_GOAL_SIG_ID;
 extern uint8_t BLUE_GOAL_SIG_ID;
+
+extern int requiredColorLoops;
+extern const double ROLLER_TIMEOUT;
 
 #define buttonUp pros::E_CONTROLLER_DIGITAL_UP
 #define buttonDown pros::E_CONTROLLER_DIGITAL_DOWN

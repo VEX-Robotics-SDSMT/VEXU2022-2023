@@ -13,5 +13,7 @@ void compressLoopToggle(pros::ADIDigitalOut compress);
 void toggleFlywheels();
 void toggleCompress();
 void shootDisk();
+Color getColor(pros::c::optical_rgb_s_t color);
+void swapRollerColor(Color color, double voltage);
 
 #endif

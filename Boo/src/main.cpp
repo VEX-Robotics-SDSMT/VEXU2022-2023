@@ -588,15 +588,21 @@ void opcontrol()
 		//rollerLoop(topRoller, 100, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X));
 		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X))
 		{
+			swapRollerColor(Color::blue, 80);
+			/*
 			topRoller.move(100);
 			pros::delay(100);
 			topRoller.brake();
+			*/
 		}
 		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_Y))
 		{
+			swapRollerColor(Color::red, 80);
+			/*
 			topRoller.move(-100);
 			pros::delay(100);
 			topRoller.brake();
+			*/
 		}
 		// **********************************************
 

@@ -6,6 +6,7 @@ pros::Controller MasterController (pros::E_CONTROLLER_MASTER);
 pros::Imu intertialSensor(INERTIAL_SENSOR);
 pros::ADIEncoder driveEncoder(ENCODER_TOP, ENCODER_BOTTOM, false);
 pros::Vision vision(VISION_SENSOR);
+pros::Optical opticalSensor(COLOR_SENSOR);
 
 pros::Motor topRoller(TOP_ROLLER, pros::E_MOTOR_GEARSET_18, false);
 
@@ -40,11 +41,14 @@ Mines::MinesMotorGroup intakeGroup(intakes);
 double axisPercentBlue = 600.0 / 127;
 double axisPercentGreen = 200.0 / 127;
 double axisPercentRed = 100.0 / 127;
-int blue = 600;
-int green = 200;
-int red = 100;
+int blueGearbox = 600;
+int greenGearbox = 200;
+int redGearbox = 100;
 
 uint8_t RED_GOAL_SIG_ID = 1;
 uint8_t BLUE_GOAL_SIG_ID = 2;
+
+int requiredColorLoops = 3;
+const double ROLLER_TIMEOUT = 3000;
 
 bool skills = true;
