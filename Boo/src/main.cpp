@@ -518,7 +518,7 @@ void autonomous()
 void opcontrol()
 {	
 	// Initialize the flywheel speed to 100% and brake type to coast
-	int flywheelPct = 60; //60
+	int flywheelPct = 65; //60
 	flywheelsGroup.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 	ScreenLogger logger(LoggerSettings::verbose);
 
@@ -573,11 +573,7 @@ void opcontrol()
 		}
 		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN))
 		{
-			flywheelPct = 55;
-		}
-		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_LEFT))
-		{
-			flywheelPct = 60;
+			flywheelPct = 65;
 		}
 
 		flywheelLoopToggle(flywheelsGroup, flywheelPct);
@@ -589,21 +585,21 @@ void opcontrol()
 		//rollerLoop(topRoller, 100, MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X));
 		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_X))
 		{
-			swapRollerColor(Color::blue, 80);
-			/*
+			//swapRollerColor(Color::blue, 80);
+			
 			topRoller.move(100);
 			pros::delay(100);
 			topRoller.brake();
-			*/
+			
 		}
 		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_Y))
 		{
-			swapRollerColor(Color::red, 80);
-			/*
+			//swapRollerColor(Color::red, 80);
+			
 			topRoller.move(-100);
 			pros::delay(100);
 			topRoller.brake();
-			*/
+			
 		}
 		// **********************************************
 
@@ -616,10 +612,10 @@ void opcontrol()
 
 
 		// ********************ENDGAME********************
-		//if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT))
-		//	endgame.set_value(true);
-		//else
-		//	endgame.set_value(false);
+		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT))
+			endgame.set_value(true);
+		else
+			endgame.set_value(false);
 		// ***********************************************
 
 

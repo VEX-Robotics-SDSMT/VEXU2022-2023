@@ -5,33 +5,38 @@ pros::Controller MasterController (pros::E_CONTROLLER_MASTER);
 
 pros::Imu intertialSensor(INERTIAL_SENSOR);
 pros::ADIEncoder driveEncoder(ENCODER_TOP, ENCODER_BOTTOM, false);
-pros::Vision vision(VISION_SENSOR);
+pros::Vision vision(VISION);
 
-pros::Motor topRoller(TOP_ROLLER, pros::E_MOTOR_GEARSET_18, false);
 
-pros::Motor intake1(INTAKE1, pros::E_MOTOR_GEARSET_18, true);
-pros::Motor intake2(INTAKE2, pros::E_MOTOR_GEARSET_18, false);
+pros::Motor frontRoller(FRONT_ROLLER, pros::E_MOTOR_GEARSET_18, false);
+pros::Motor backRoller(BACK_ROLLER, pros::E_MOTOR_GEARSET_18, true);
 
-pros::Motor leftFrontDrive(L_FRONT, pros::E_MOTOR_GEARSET_18, true);
-pros::Motor leftRearDrive(L_REAR, pros::E_MOTOR_GEARSET_18, true);
-pros::Motor leftMidDrive(L_MID, pros::E_MOTOR_GEARSET_18, true);
-pros::Motor rightFrontDrive(R_FRONT, pros::E_MOTOR_GEARSET_18, false);
-pros::Motor rightRearDrive(R_REAR, pros::E_MOTOR_GEARSET_18, false);
-pros::Motor rightMidDrive(R_MID, pros::E_MOTOR_GEARSET_18, false);
 
-pros::Motor fly1(FLY1, pros::E_MOTOR_GEARSET_06, true);
-pros::Motor fly2(FLY2, pros::E_MOTOR_GEARSET_06, false);
+pros::Motor intakeR(RIGHT_INTAKE, pros::E_MOTOR_GEARSET_18, true);
+pros::Motor intakeL(LEFT_INTAKE, pros::E_MOTOR_GEARSET_18, false);
 
-pros::ADIDigitalOut endgame(LAUNCH);
-pros::ADIDigitalOut rake(RAKES);
-pros::ADIDigitalOut shoot1(PUSH);
-pros::ADIDigitalOut shoot3(PUSH3);
-pros::ADIDigitalOut compress(COMPRESSION);
+pros::Motor driveL1(LEFT1, pros::E_MOTOR_GEARSET_18, true);
+pros::Motor driveL2(LEFT2, pros::E_MOTOR_GEARSET_18, false);
+pros::Motor driveL3(LEFT3, pros::E_MOTOR_GEARSET_18, true);
+pros::Motor driveL4(LEFT4, pros::E_MOTOR_GEARSET_18, true);
+pros::Motor driveR1(RIGHT1, pros::E_MOTOR_GEARSET_18, true);
+pros::Motor driveR2(RIGHT2, pros::E_MOTOR_GEARSET_18, false);
+pros::Motor driveR3(RIGHT3, pros::E_MOTOR_GEARSET_18, true);
+pros::Motor driveR4(RIGHT4, pros::E_MOTOR_GEARSET_18, true);
 
-std::vector<pros::Motor> leftDriveVector = {leftFrontDrive, leftRearDrive, leftMidDrive};
-std::vector<pros::Motor> rightDriveVector = {rightFrontDrive, rightRearDrive, rightMidDrive};
-std::vector<pros::Motor> flywheels = {fly1, fly2};
-std::vector<pros::Motor> intakes = {intake1, intake2};
+pros::Motor flyF(FRONT_FLY, pros::E_MOTOR_GEARSET_06, true);
+pros::Motor flyB(BACK_FLY, pros::E_MOTOR_GEARSET_06, false);
+
+pros::ADIDigitalOut intake(INTAKE);
+pros::ADIDigitalOut shoot1(SINGLE);
+pros::ADIDigitalOut shoot3(TRIPLE);
+pros::ADIDigitalOut compress(COMPRESS);
+pros::ADIDigitalOut endgame(ENDGAME);
+
+std::vector<pros::Motor> leftDriveVector = {driveL1, driveL2, driveL3, driveL4};
+std::vector<pros::Motor> rightDriveVector = {driveR1, driveR2, driveR3, driveR4};
+std::vector<pros::Motor> flywheels = {flyF, flyB};
+std::vector<pros::Motor> intakes = {intakeR, intakeL};
 Mines::MinesMotorGroup leftDriveMotors(leftDriveVector);
 Mines::MinesMotorGroup rightDriveMotors(rightDriveVector);
 Mines::MinesMotorGroup flywheelsGroup(flywheels);

@@ -4,56 +4,68 @@
 #include "api.h"
 #include "MinesMotorGroup.h"
 
-#define INERTIAL_SENSOR 10
-#define VISION_SENSOR 7
+#define INERTIAL_SENSOR 15
+#define RADIO 2
+#define VISION 10
+
+#define LEFT1 16
+#define LEFT2 19
+#define LEFT3 17
+#define LEFT4 18
+
+#define RIGHT1 14
+#define RIGHT2 13
+#define RIGHT3 12
+#define RIGHT4 1
+
+#define FRONT_FLY 3
+#define BACK_FLY 5
+
+#define RIGHT_INTAKE 6
+#define LEFT_INTAKE 7
+
+#define FRONT_ROLLER 9
+#define BACK_ROLLER 2
+
+#define COMPRESS 4
+#define INTAKE 5
+#define SINGLE 6
+#define TRIPLE 7
 #define ENCODER_TOP 1
 #define ENCODER_BOTTOM 2
+#define ENDGAME 3
 
-#define TOP_ROLLER 11
-
-#define L_FRONT 17
-#define L_REAR 16
-#define L_MID 14
-#define R_FRONT 9
-#define R_REAR 13
-#define R_MID 8
-#define STRING 13
-#define FLY1 21
-#define FLY2 20
-#define INTAKE1 2
-#define INTAKE2 19
-#define COMPRESSION 5
-#define RAKES 8
-#define LAUNCH 7
-#define PUSH 3
-#define PUSH3 4
-
-#define INTAKE_MOTOR_GEARSET red
-#define FLYWHEELS_MOTOR_GEARSET blue
-#define ROLLER_MOTOR_GEARSET green
+#define ROLLER_MOTOR_GEARSET 600
+#define INTAKE_MOTOR_GEARSET 600
 
 extern pros::Controller MasterController;
 
 extern pros::Imu intertialSensor;
-extern pros::Vision vision;
 extern pros::ADIEncoder driveEncoder;
+extern pros::Vision vision;
 
-extern pros::Motor topRoller;
-extern pros::Motor intake1;
-extern pros::Motor intake2;
+extern pros::Motor frontRoller;
+extern pros::Motor backRoller;
+extern pros::Motor intakeR;
+extern pros::Motor intakeL;
 
-extern pros::Motor leftTopFrontDrive;
-extern pros::Motor leftTopRearDrive;
-extern pros::Motor leftBotDrive;
-extern pros::Motor rightTopFrontDrive;
-extern pros::Motor rightTopRearDrive;
-extern pros::Motor rightBot;
+extern pros::Motor driveL1;
+extern pros::Motor driveL2;
+extern pros::Motor driveL3;
+extern pros::Motor driveL4;
+extern pros::Motor driveR1;
+extern pros::Motor driveR2;
+extern pros::Motor driveR3;
+extern pros::Motor driveR4;
 
-extern pros::ADIDigitalOut endgame;
+extern pros::Motor flyF;
+extern pros::Motor flyB;
+
 extern pros::ADIDigitalOut shoot1;
 extern pros::ADIDigitalOut shoot3;
 extern pros::ADIDigitalOut compress;
-extern pros::ADIDigitalOut rake;
+extern pros::ADIDigitalOut intake;
+extern pros::ADIDigitalOut endgame;
 
 extern std::vector<pros::Motor> leftDriveVector;
 extern std::vector<pros::Motor> rightDriveVector;
@@ -61,10 +73,6 @@ extern Mines::MinesMotorGroup leftDriveMotors;
 extern Mines::MinesMotorGroup rightDriveMotors;
 extern Mines::MinesMotorGroup flywheelsGroup;
 extern Mines::MinesMotorGroup intakeGroup;
-
-
-
-extern pros::Motor string;
 
 extern double axisPercentBlue;
 extern double axisPercentGreen;
