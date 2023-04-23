@@ -100,7 +100,6 @@ void autonomous()
 
 	if(skills) 
 	{
-		drive.driveTiles(2000);
 
 		//drive.turnDegreesAbsolute(-90);
 		//drive.driveTiles(100);
@@ -109,6 +108,19 @@ void autonomous()
 	}
 	else 
 	{
+		intake.set_value(true);
+		compress.set_value(true);
+		intakeGroup.move(-127);
+		drive.driveTiles(150);
+		intake.set_value(false);
+		pros::delay(500);
+		drive.driveTiles(-250);
+		drive.turnDegreesAbsolute(45);
+		drive.driveTiles(-75);
+		drive.driveTiles(-75, false);
+		backRoller.move(-127);
+		pros::delay(170);
+		backRoller.brake();
 		//Aggressive
 	}
 
