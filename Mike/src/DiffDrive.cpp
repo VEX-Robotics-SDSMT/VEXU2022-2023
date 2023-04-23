@@ -7,7 +7,7 @@ using namespace std;
 DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::IMU imu) : 
     leftMotors(left), rightMotors(right), inertial(imu),
     driveInterface(this), turnInterface(this),
-    drivePID(&driveInterface, LoggerSettings::none), turnPID(&turnInterface, LoggerSettings::none),
+    drivePID(&driveInterface, LoggerSettings::none), turnPID(&turnInterface, LoggerSettings::verbose),
     logger(LoggerSettings::none)
 {
     MAX_SPEED = rightMotors.getMaxVelocity();
