@@ -377,7 +377,7 @@ void autonomous()
 		shootDisk();
 
 		//back to get roller
-		drive.turnDegreesAbsolute(135);
+		drive.turnDegreesAbsolute(125);
 		drive.driveTiles(-1500);
 		drive.turnDegreesAbsolute(180);
 		drive.driveTiles(-350, 1000);
