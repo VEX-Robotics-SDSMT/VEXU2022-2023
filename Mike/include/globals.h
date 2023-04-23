@@ -31,8 +31,8 @@
 #define INTAKE 5
 #define SINGLE 6
 #define TRIPLE 7
-#define ENCODER_TOP 1
-#define ENCODER_BOTTOM 2
+#define ENCODER_TOP 2
+#define ENCODER_BOTTOM 1
 #define ENDGAME 3
 
 #define ROLLER_MOTOR_GEARSET 600
