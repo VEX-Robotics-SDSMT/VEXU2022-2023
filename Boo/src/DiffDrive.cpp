@@ -229,6 +229,8 @@ void DiffDrive::killPIDs()
 {
     drivePID.KillTask();
     turnPID.KillTask();
+    leftDriveMotors.brake();
+    rightDriveMotors.brake();
     pros::delay(200);
 }
 

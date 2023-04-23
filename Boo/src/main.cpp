@@ -99,11 +99,10 @@ void autonomous()
 
 	if(skills) // Skills route
 	{
-		//Boo's aggressive Route
+
+		//Boo's Aggressive Route
 		//start in same spot at angle
 		//preloads of to the side
-
-		//NOTE ALL SHOT ANGLES AND SPEEDS ARE COMPLETELY UNTUNED
 
 		//lift intake and drive forward to pick up three stack
 		rake.set_value(true);
@@ -124,14 +123,11 @@ void autonomous()
 		drive.turnDegreesAbsolute(138, 1500);
 
 		shootDisk();
-		//pros::delay(300);
-		//compress.set_value(true);
 		pros::delay(2000);
 		shootDisk();
 		pros::delay(2000);
 		shootDisk();
 		pros::delay(200);
-		//compress.set_value(false);
 
 		//back up to grab preloads
 		drive.turnDegreesAbsolute(180, 750);
@@ -197,132 +193,7 @@ void autonomous()
 		flywheelsGroup.brake();
 		intake1.brake();
 		intake2.brake();
-
-		/******* OLD SKILLS ROUTE *******************************
-		// Start spinning up the flywheel and drive into the roller
-		flywheelsGroup.move(84);  //82, 90
-		drive.driveTiles(-100,false);
-		topRoller.set_zero_position(0);
-	
-		pros::delay(600);
- 	
-		// Move the roller
-		topRoller.move_absolute(-750,127); //move roller
-		pros::delay(100);
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
-
-		// Drive forward to avoid hitting the wall, then turn towards the high goal
-		drive.driveTiles(300, true); //turn and shoot two preloads
-		drive.turnDegreesAbsolute(72); //72
-		pros::delay(500);
-
-		//Fire preloads
-        shootDisk();
-		pros::delay(1100);
-        shootDisk();
-		pros::delay(300);
-
-		// Slow down flywheels for next shot and move forward picking up the stack of 3 discs, then turn towards the goal
-		flywheelsGroup.move(76);   //82, 60		
-		drive.turnDegreesAbsolute(-130); //pick up three
-		intake1.move(-118);
-		intake2.move(-118);
-		drive.setMaxDriveSpeed(0.20);
-		drive.driveTiles(-2800);
-		pros::delay(100);
-		drive.turnDegreesAbsolute(102); //turn and shoot, 113
-
-		//Fire first stack
-		pros::delay(500);
-        shootDisk();
-		pros::delay(1100);
-        shootDisk();
-		pros::delay(1100);
-        shootDisk();
-		pros::delay(500);
-
-		// Turn and pick up the single disc (first disc in line of 3)
-		drive.setMaxDriveSpeed(0.40);
-		drive.turnDegreesAbsolute(-140);
-		intake1.move(-118);
-		intake2.move(-118);
-		drive.driveTiles(-1375);
-
-		//fire single disc
-		flywheelsGroup.move(71);  // 80, 30
-		drive.turnDegreesAbsolute(127); //pick up one 128
-		pros::delay(700); //500
-        shootDisk();
-		pros::delay(300); //shoot one
-
-
-		//turn towards line of 3 on the low goal
-		drive.turnDegreesAbsolute(0);
 		
-		//Slow down and drive towards the line of 3, intaking them
-		drive.setMaxDriveSpeed(0.25);
-		drive.driveTiles(-2300);
-		
-		//Speed up the flywheels and turn towards the goal
-		flywheelsGroup.move(74);  //75, 30
-		drive.setMaxDriveSpeed(0.5);
-
-		drive.turnDegreesAbsolute(76);
-		//drive.driveTiles(-250);
-		
-		//Fire line of discs
-        shootDisk();
-		pros::delay(800);
-        shootDisk();
-		pros::delay(1100);
-        shootDisk();
-		pros::delay(500);
-		flywheelsGroup.move(89);//105
-
-
-		// Back up and turn towards a position that is in line with the 2nd stack of 3 discs and the 2nd roller, then drive to that point
-		drive.driveTiles(-250);
-		drive.turnDegreesAbsolute(-42);
-		drive.setMaxDriveSpeed(0.75);
-		drive.driveTiles(950);
-
-		// Drive forward, picking up discs and then driving into the roller and scoring it
-		drive.turnDegreesAbsolute(90);
-		drive.setMaxDriveSpeed(0.20);
-		drive.driveTiles(-3000);
-		drive.setMaxDriveSpeed(0.5);
-		drive.driveTiles(-600, false);
-
-		topRoller.set_zero_position(0);
-	
-		pros::delay(600);
-
- 	
-		topRoller.move_absolute(-950,127); 
-		pros::delay(100);
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
-
-
-		//Turn towards the goal and shoot the 2nd stack of 3 discs
-		drive.driveTiles(800);
-		drive.turnDegreesAbsolute(84);
-
-        shootDisk();
-		pros::delay(1000);
-        shootDisk();
-		pros::delay(1200);
-        shootDisk();
-		pros::delay(300);
-
-		// Fire endgame, then turn so that each wheel is touching its own tile
-		drive.driveTiles(800);
-		drive.turnDegreesAbsolute(45, 1000);
-		drive.driveTiles(-1200);
-		endgame.set_value(true);
-		drive.turnDegreesAbsolute(0);
-		*/
 	}
 	else // Match auton route
 	{
@@ -338,7 +209,7 @@ void autonomous()
 		drive.driveTiles(-800);
 
 		//turn and shoot 3
-		flywheelsGroup.move(87);
+		flywheelsGroup.move(87); //87
 		drive.turnDegreesAbsolute(190);
 		compress.set_value(true);
 		pros::delay(100);
@@ -360,8 +231,8 @@ void autonomous()
 
 		//drive to line to pick other 2
 		drive.turnDegreesAbsolute(-45);
-		drive.driveTiles(-2000);
-		drive.driveTiles(1500);
+		drive.driveTiles(-1500);
+		drive.driveTiles(1000);
 
 		//turn and shoot
 		flywheelsGroup.move(86);
@@ -388,97 +259,12 @@ void autonomous()
 		topRoller.brake();
 
 		drive.driveTiles(500);
-		
-		
-
-
-
+		//spin and do a little dance
 		flywheelsGroup.brake();
 		intake1.brake();
 		intake2.brake();
-//*/
 
-		//*****************************************************************/
-		/* //previous auton route, could use for Mike
-		// Start spinning up flywheels and get the first roller
-		drive.driveTiles(-100,false);
-		topRoller.set_zero_position(0);
-	
-		pros::delay(600);
- 	
-		topRoller.move_absolute(-250,127); 
-		pros::delay(100);
-		leftDriveMotors.brake();
-		rightDriveMotors.brake();
-
-		flywheelsGroup.move(96);  
-
-		// Shoot preloads
-		drive.driveTiles(300, true); 
-		drive.turnDegreesAbsolute(-15, false);
-		pros::delay(2000);
-
-        shootDisk();
-		pros::delay(1800);
-        shootDisk();
-		pros::delay(300);
-
-		// Turn towards first stack of 3, then move forward and intake them
-		drive.turnDegreesAbsolute(-130.5); 
-		intake1.move(-127);
-		intake2.move(-127);
-		drive.setMaxDriveSpeed(0.15);
-		drive.driveTiles(-2800);
-		flywheelsGroup.move(91);
-		pros::delay(100);
-
-		// Turn towards goal, shoot first stack of 3
-		drive.turnDegreesAbsolute(-42.5); 
-
-		pros::delay(1000);
-
-        shootDisk();
-		pros::delay(1900);
-        shootDisk();
-		pros::delay(2100);
-        shootDisk();
-		pros::delay(500);
-
-		// Turn towards single disc (First disc in line of 3) and intake it
-		drive.turnDegreesAbsolute(-143);
-		intake1.move(-127);
-		intake2.move(-127);
-		drive.driveTiles(-1100);
-
-		// Shoot the single disc
-		flywheelsGroup.move(88);  
-		drive.turnDegreesAbsolute(-55.5); 
-		pros::delay(700); 
-        shootDisk();
-		pros::delay(700);
-		pros::delay(300); 
-		
-		// Turn towards line of 3 discs on the low goal
-		drive.driveTiles(-180); //180
-		drive.turnDegreesAbsolute(0);
-		
-		// Slow down and intake the 3 discs on the low goal
-		drive.setMaxDriveSpeed(0.25);
-		drive.driveTiles(-2300);
-		
-		// Speed up the flywheels and turn towards the high goal
-		flywheelsGroup.move(105);  //103
-		drive.setMaxDriveSpeed(0.5);
-		drive.turnDegreesAbsolute(-43);
-		
-		// Shoot the 3 discs that were on the low goal
-        shootDisk();
-		pros::delay(1600);
-        shootDisk();
-		pros::delay(1600);
-        shootDisk();
-		pros::delay(500);
-		//*/
+		drive.killPIDs();
 	}
 
 	drive.killPIDs();
