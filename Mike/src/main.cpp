@@ -78,14 +78,14 @@ void autonomous()
 	//DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
 	EncoderWheelSensorInterface encoderInterface(driveEncoder);
 	DiffDrive drive(leftDriveMotors, rightDriveMotors, &encoderInterface, intertialSensor);
-	drive.setDrivePIDVals(0.155, 0, 0);//0.2
+	drive.setDrivePIDVals(0.15, 0, 0);//0.2
 	drive.setDrivePIDTol(25);
 	drive.setTurnPIDVals(1.2, 0, 0);//1.2
 	drive.setTurnPIDTol(1);
-	drive.setMaxDriveSpeed(1); 
+	drive.setMaxDriveSpeed(0.8); 
 	drive.setMaxTurnSpeed(0.7);
 
-	drive.setMaxDriveAccel(0.8);
+	drive.setMaxDriveAccel(0.6);
 
 	ScreenLogger logger(LoggerSettings::verbose);
 	//AimAssist aimAssist(vision, RED_GOAL_SIG_ID, &drive, shootDisk);
@@ -104,23 +104,61 @@ void autonomous()
 		//drive.turnDegreesAbsolute(-90);
 		//drive.driveTiles(100);
 		//drive.turnDegreesAbsolute(0);
-		//Passive
 	}
 	else 
 	{
-		intake.set_value(true);
+		//------Passive------
+		//grab center disc
 		compress.set_value(true);
 		intakeGroup.move(-127);
 		drive.driveTiles(150);
-		intake.set_value(false);
 		pros::delay(500);
-		drive.driveTiles(-250);
+		drive.driveTiles(-200);
+		intakeGroup.brake();
+
+		//turn roller
+		flywheelsGroup.move(87);
 		drive.turnDegreesAbsolute(45);
-		drive.driveTiles(-75);
-		drive.driveTiles(-75, false);
-		backRoller.move(-127);
-		pros::delay(170);
+		backRoller.move(127);
+		drive.driveTiles(-350, 700);
 		backRoller.brake();
+		drive.driveTiles(250);
+
+		//make first shot approach
+		drive.turnDegreesAbsolute(125);
+		drive.driveTiles(1700);
+		drive.turnDegreesAbsolute(220);
+		drive.driveTiles(-1250);
+
+		//fire first stack
+		drive.turnDegreesAbsolute(-166);
+		shootDisk();
+		pros::delay(2500);
+		shootDisk();
+		pros::delay(2500);
+		shootDisk();
+
+		//pick up second stack
+		drive.setMaxDriveSpeed(0.4);
+		drive.turnDegreesAbsolute(-100);
+		intakeGroup.move(-127);
+		intake.set_value(true);
+		drive.driveTiles(1000, false);
+		pros::delay(400);
+		intake.set_value(false);
+		pros::delay(3000);
+		drive.setMaxDriveSpeed(0.8);
+
+		//fire second stack
+		drive.driveTiles(-1000);
+		drive.turnDegreesAbsolute(-166);
+		shootDisk();
+		pros::delay(2500);
+		shootDisk();
+		pros::delay(2500);
+		shootDisk();
+
+
 		//Aggressive
 	}
 
