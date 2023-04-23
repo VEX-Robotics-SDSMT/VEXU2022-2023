@@ -20,9 +20,11 @@ enum LoggerSettings
 class ScreenLogger
 {
     LoggerSettings printSetting;
+    int starterRow = 0;
 
     public:
         ScreenLogger(LoggerSettings setting);
+        ScreenLogger(LoggerSettings setting, int row);
 
         void Log(std::string logLine, int row, LoggerSettings setting);
 };

@@ -78,14 +78,14 @@ void autonomous()
 	//DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
 	EncoderWheelSensorInterface encoderInterface(driveEncoder);
 	DiffDrive drive(leftDriveMotors, rightDriveMotors, &encoderInterface, intertialSensor);
-	drive.setDrivePIDVals(0.2, 0, 0);//0.2
+	drive.setDrivePIDVals(0.155, 0, 0);//0.2
 	drive.setDrivePIDTol(25);
 	drive.setTurnPIDVals(1.2, 0, 0);//1.2
 	drive.setTurnPIDTol(1);
 	drive.setMaxDriveSpeed(1); 
 	drive.setMaxTurnSpeed(0.7);
 
-	drive.setMaxDriveAccel(0.12);
+	drive.setMaxDriveAccel(0.8);
 
 	ScreenLogger logger(LoggerSettings::verbose);
 	//AimAssist aimAssist(vision, RED_GOAL_SIG_ID, &drive, shootDisk);
@@ -100,8 +100,9 @@ void autonomous()
 
 	if(skills) 
 	{
-		drive.driveTiles(10);
-		//drive.turnDegreesAbsolute(-180);
+		drive.driveTiles(2000);
+
+		//drive.turnDegreesAbsolute(-90);
 		//drive.driveTiles(100);
 		//drive.turnDegreesAbsolute(0);
 		//Passive
@@ -142,8 +143,8 @@ void opcontrol()
 		// 2 stick arcade
 		double leftAxisY = MasterController.get_analog(axisLeftY);
 		double rightAxisX = MasterController.get_analog(axisRightX);
-		double leftVelocity = ((leftAxisY + rightAxisX));
-		double rightVelocity = (-(leftAxisY - rightAxisX));
+		double leftVelocity = leftAxisY + rightAxisX;
+		double rightVelocity = leftAxisY - rightAxisX;
 
 		// 1 stick arcade
 		//double leftAxisY = MasterController.get_analog(axisLeftY);

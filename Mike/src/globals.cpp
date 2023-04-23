@@ -19,10 +19,10 @@ pros::Motor driveL1(LEFT1, pros::E_MOTOR_GEARSET_18, true);
 pros::Motor driveL2(LEFT2, pros::E_MOTOR_GEARSET_18, false);
 pros::Motor driveL3(LEFT3, pros::E_MOTOR_GEARSET_18, true);
 pros::Motor driveL4(LEFT4, pros::E_MOTOR_GEARSET_18, true);
-pros::Motor driveR1(RIGHT1, pros::E_MOTOR_GEARSET_18, true);
-pros::Motor driveR2(RIGHT2, pros::E_MOTOR_GEARSET_18, false);
-pros::Motor driveR3(RIGHT3, pros::E_MOTOR_GEARSET_18, true);
-pros::Motor driveR4(RIGHT4, pros::E_MOTOR_GEARSET_18, true);
+pros::Motor driveR1(RIGHT1, pros::E_MOTOR_GEARSET_18, false);
+pros::Motor driveR2(RIGHT2, pros::E_MOTOR_GEARSET_18, true);
+pros::Motor driveR3(RIGHT3, pros::E_MOTOR_GEARSET_18, false);
+pros::Motor driveR4(RIGHT4, pros::E_MOTOR_GEARSET_18, false);
 
 pros::Motor flyF(FRONT_FLY, pros::E_MOTOR_GEARSET_06, true);
 pros::Motor flyB(BACK_FLY, pros::E_MOTOR_GEARSET_06, false);
