@@ -287,7 +287,7 @@ void autonomous()
 void opcontrol()
 {	
 	// Initialize the flywheel speed to 100% and brake type to coast
-	int flywheelPct = 65; //60
+	int flywheelPct = 60; //60
 	flywheelsGroup.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 	ScreenLogger logger(LoggerSettings::verbose);
 
@@ -338,11 +338,11 @@ void opcontrol()
 		// Flywheel speed control
 		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT))
 		{
-			flywheelPct = 75;
+			flywheelPct = 70;
 		}
 		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN))
 		{
-			flywheelPct = 65;
+			flywheelPct = 60;
 		}
 
 		flywheelLoopToggle(flywheelsGroup, flywheelPct);
