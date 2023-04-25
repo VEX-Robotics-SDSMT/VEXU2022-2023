@@ -14,5 +14,6 @@ void toggleFlywheels();
 void toggleIntake();
 void toggleCompress();
 void shootDisk();
+void shoot3Disk();
 
 #endif

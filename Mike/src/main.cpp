@@ -144,14 +144,15 @@ void autonomous()
 		intakeGroup.move(-127);
 		intake.set_value(true);
 		drive.driveTiles(1000, false);
-		pros::delay(400);
+		pros::delay(800);
 		intake.set_value(false);
 		pros::delay(3000);
 		drive.setMaxDriveSpeed(0.8);
 
 		//fire second stack
+		flywheelsGroup.move(87);
 		drive.driveTiles(-1000);
-		drive.turnDegreesAbsolute(-166);
+		drive.turnDegreesAbsolute(-170);
 		shootDisk();
 		pros::delay(2500);
 		shootDisk();

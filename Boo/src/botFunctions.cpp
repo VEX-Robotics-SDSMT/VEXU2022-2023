@@ -82,6 +82,13 @@ void shootDisk()
     shoot1.set_value(0);
 }
 
+void shoot3Disk()
+{
+    shoot3.set_value(1);
+    pros::delay(250);
+    shoot3.set_value(0);
+}
+
 Color getColor(pros::c::optical_rgb_s_t color)
 {
     if (fabs(color.blue - color.red) < 0.3)

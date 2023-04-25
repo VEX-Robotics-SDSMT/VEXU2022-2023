@@ -71,3 +71,10 @@ void shootDisk()
     pros::delay(250);
     shoot1.set_value(0);
 }
+
+void shoot3Disk()
+{
+    shoot3.set_value(1);
+    pros::delay(250);
+    shoot3.set_value(0);
+}
