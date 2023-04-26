@@ -75,6 +75,9 @@ void competition_initialize()
  */
 void autonomous() 
 {
+	bool aggressive = true;
+
+
 	//DiffDrive drive(leftDriveMotors, rightDriveMotors, intertialSensor);
 	EncoderWheelSensorInterface encoderInterface(driveEncoder);
 	DiffDrive drive(leftDriveMotors, rightDriveMotors, &encoderInterface, intertialSensor);
@@ -98,14 +101,7 @@ void autonomous()
 	//drive.driveTiles(-500);
 
 
-	if(skills) 
-	{
-
-		//drive.turnDegreesAbsolute(-90);
-		//drive.driveTiles(100);
-		//drive.turnDegreesAbsolute(0);
-	}
-	else 
+	if (!aggressive)
 	{
 		//------Passive------
 		//grab center disc
@@ -158,10 +154,69 @@ void autonomous()
 		shootDisk();
 		pros::delay(2500);
 		shootDisk();
-
-
-		//Aggressive
 	}
+	else
+	{
+		//Aggressive
+		flywheelsGroup.move(94);
+		compress.set_value(true);
+		intake.set_value(true);
+		intakeGroup.move(-127);
+		drive.driveTiles(385);
+		intake.set_value(false);
+		pros::delay(2000);
+		drive.driveTiles(-160);
+
+		//turn and fire
+		drive.turnDegreesAbsolute(-165);
+		shootDisk();
+		pros::delay(2250);
+		shootDisk();
+		pros::delay(2250);
+		shootDisk();
+		flywheelsGroup.move(94);
+
+		//grab preloads and turn roller
+		//drive.turnDegreesAbsolute(-165);
+		intake.set_value(true);
+		drive.driveTiles(400);
+		intake.set_value(false);
+		drive.driveTiles(200, 750);
+
+		frontRoller.move(-100);
+		pros::delay(150);
+		frontRoller.brake();
+
+		drive.driveTiles(-250);
+		drive.turnDegreesAbsolute(-40);
+		drive.driveTiles(250);
+
+		//shoot the second stack
+		drive.driveTiles(-150);
+		drive.turnDegreesAbsolute(-163);
+		shootDisk();
+		pros::delay(2250);
+		shootDisk();
+		pros::delay(2250);
+		shootDisk();
+		flywheelsGroup.move(92);
+
+		//pick up the 
+		drive.turnDegreesAbsolute(75);
+		intake.set_value(true);
+		drive.driveTiles(900);
+		intake.set_value(false);
+		drive.driveTiles(800);
+
+		//shoot last stack
+		drive.turnDegreesAbsolute(175);
+		shootDisk();
+		pros::delay(2250);
+		shootDisk();
+		pros::delay(2250);
+		shootDisk();
+	}
+
 
 	drive.killPIDs();
 }
