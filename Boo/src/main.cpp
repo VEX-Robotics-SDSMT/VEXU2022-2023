@@ -1,5 +1,6 @@
 #include "main.h"
 #include "DiffDrive.h"
+#include "botFunctions.h"
 #include "globals.h"
 #include "pros/rtos.h"
 
@@ -105,22 +106,22 @@ void autonomous()
 		//preloads of to the side
 
 		//lift intake and drive forward to pick up three stack
+		flywheelsGroup.move(90);
 		rake.set_value(true);
-		intake1.move(-120);
-		intake2.move(-120);
-		drive.driveTiles(-900);
+		intake1.move(-127);
+		intake2.move(-127);
+		drive.driveTiles(-850);
 		rake.set_value(false);
 		drive.driveTiles(-50);
 		pros::delay(1800);
 
 		//back up and shoot 3
-		flywheelsGroup.move(93);
-		drive.driveTiles(800);
+		drive.driveTiles(450);
 		compress.set_value(true);
 		pros::delay(200);
 		compress.set_value(false);
 		pros::delay(200);
-		drive.turnDegreesAbsolute(138, 1500);
+		drive.turnDegreesAbsolute(137);
 
 		shootDisk();
 		pros::delay(2000);
@@ -129,70 +130,59 @@ void autonomous()
 		shootDisk();
 		pros::delay(200);
 
-		//back up to grab preloads
-		drive.turnDegreesAbsolute(180, 750);
-		rake.set_value(true);
-		pros::delay(200);
-		drive.driveTiles(-325);
-		rake.set_value(false);
-		pros::delay(1000);
-		drive.driveTiles(-150);
-		drive.driveTiles(400);
+		flywheelsGroup.move(86);
+		drive.turnDegreesAbsolute(-90);
+		drive.setMaxDriveSpeed(0.75);
+		drive.driveTiles(-2300);
 
 
-		//drive to get roller
-		drive.turnDegreesAbsolute(45, 1200);
-		drive.driveTiles(-650);
-		drive.turnDegreesAbsolute(135, 1200);
-		flywheelsGroup.move(93);
-		drive.driveTiles(-450, 1000);
+
+
+		//turn and shoot
 		compress.set_value(true);
-		pros::delay(200);
+		drive.turnDegreesAbsolute(168);
 		compress.set_value(false);
+
+		pros::delay(1500);
+		shootDisk();
+		pros::delay(2000);
+		shootDisk();
+		pros::delay(2000);
+		shootDisk();
+
+		//back to get roller
+		flywheelsGroup.move(100);
+		drive.turnDegreesAbsolute(90);
+		drive.driveTiles(-2750);
+		drive.turnDegreesAbsolute(137);
+		drive.driveTiles(-550, 1000);
+		pros::delay(200);
 		drive.driveTiles(-100, false);
 		topRoller.move(-127);
-		pros::delay(170);
+		pros::delay(210);
 		topRoller.brake();
-		
 
-		//pull forward to shoot 2
-		drive.driveTiles(200);
-		pros::delay(100);
-		drive.turnDegreesAbsolute(129, 1100);
-		pros::delay(200);
+		drive.driveTiles(150);
+		drive.turnDegreesAbsolute(-133);
+		rake.set_value(true);
+		drive.driveTiles(-1000);
+		rake.set_value(false);
+		pros::delay(1500);
+		drive.turnDegreesAbsolute(165);
+		//pros::delay(1500);
 		shootDisk();
-		pros::delay(2000);
+		pros::delay(1500);
 		shootDisk();
-		pros::delay(200);
 
-		
-		//drive in line of three
-		drive.setMaxDriveSpeed(0.4);
-		intake1.move(-100);
-		intake2.move(-100);
-		drive.turnDegreesAbsolute(-95, 1500);
-		drive.driveTiles(-3000);
-
-		//back out of way, turn and shoot
-		drive.setMaxDriveSpeed(0.5);
-		flywheelsGroup.move(86); //88 two made
-		drive.driveTiles(700);
-		compress.set_value(true);
-		pros::delay(50);
-		compress.set_value(false);
-		drive.turnDegreesAbsolute(160, 1000);
-		
-        shootDisk();
-		flywheelsGroup.move(87);
-		pros::delay(2000);
-        shootDisk();
-		pros::delay(2000);
-        shootDisk();
-		pros::delay(200);
-
+		//spin and do a little dance
+		//or not
 		flywheelsGroup.brake();
 		intake1.brake();
 		intake2.brake();
+
+		drive.killPIDs();
+
+		
 		
 	}
 	else // Match auton route
