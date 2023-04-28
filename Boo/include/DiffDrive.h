@@ -99,6 +99,7 @@ class DiffDrive
     public:
         DiffDrive(MinesMotorGroup left, MinesMotorGroup right, pros::Imu Imu);
         DiffDrive(MinesMotorGroup left, MinesMotorGroup right, SensorInterface *driveSensorInterface, pros::Imu Imu);
+        ~DiffDrive();
 
         double getDriveVelocity();
         double getTurnVelocity();

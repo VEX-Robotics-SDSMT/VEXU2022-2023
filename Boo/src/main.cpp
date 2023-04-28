@@ -35,10 +35,10 @@ void on_center_button() {
 void initialize() 
 {
 	intertialSensor.reset();
-	pros::vision_signature_s_t RED_GOAL_SIG = vision.signature_from_utility(1, 4391, 7505, 5948, -1303, -147, -725, 1.6, 0);
-	vision.set_signature(RED_GOAL_SIG_ID, &RED_GOAL_SIG);
-	pros::vision_signature_s_t BLUE_GOAL_SIG = vision.signature_from_utility(2, -3073, -1323, -2198, 4405, 9923, 7164, 1.5, 0);
-	vision.set_signature(BLUE_GOAL_SIG_ID, &BLUE_GOAL_SIG);
+	//pros::vision_signature_s_t RED_GOAL_SIG = vision.signature_from_utility(1, 4391, 7505, 5948, -1303, -147, -725, 1.6, 0);
+	//vision.set_signature(RED_GOAL_SIG_ID, &RED_GOAL_SIG);
+	//pros::vision_signature_s_t BLUE_GOAL_SIG = vision.signature_from_utility(2, -3073, -1323, -2198, 4405, 9923, 7164, 1.5, 0);
+	//vision.set_signature(BLUE_GOAL_SIG_ID, &BLUE_GOAL_SIG);
 }
 
 /**
@@ -87,12 +87,12 @@ void autonomous()
 
 	drive.setMaxDriveAccel(0.12);
 
-	ScreenLogger logger(LoggerSettings::verbose);
-	AimAssist aimAssist(vision, RED_GOAL_SIG_ID, &drive, shootDisk);
-	aimAssist.StartTask();
-	aimAssist.turnSpeed = 0.25;
-	aimAssist.leftOffset = 170;
-	aimAssist.turnTol = 0.2;
+	//ScreenLogger logger(LoggerSettings::verbose);
+	//AimAssist aimAssist(vision, RED_GOAL_SIG_ID, &drive, shootDisk);
+	//aimAssist.StartTask();
+	//aimAssist.turnSpeed = 0.25;
+	//aimAssist.leftOffset = 170;
+	//aimAssist.turnTol = 0.2;
 
 	//aimAssist.AimFire(10000);
 	//drive.driveTiles(-500);
@@ -106,22 +106,22 @@ void autonomous()
 		//preloads of to the side
 
 		//lift intake and drive forward to pick up three stack
-		flywheelsGroup.move(90);
+		flywheelsGroup.move(87);
 		rake.set_value(true);
-		intake1.move(-127);
-		intake2.move(-127);
+		intake1.move(-114);
+		intake2.move(-114);
 		drive.driveTiles(-850);
 		rake.set_value(false);
 		drive.driveTiles(-50);
 		pros::delay(1800);
 
 		//back up and shoot 3
-		drive.driveTiles(450);
+		drive.driveTiles(400);
 		compress.set_value(true);
 		pros::delay(200);
 		compress.set_value(false);
 		pros::delay(200);
-		drive.turnDegreesAbsolute(137);
+		drive.turnDegreesAbsolute(136.5);
 
 		shootDisk();
 		pros::delay(2000);
@@ -130,10 +130,10 @@ void autonomous()
 		shootDisk();
 		pros::delay(200);
 
-		flywheelsGroup.move(86);
+		flywheelsGroup.move(83);
 		drive.turnDegreesAbsolute(-90);
 		drive.setMaxDriveSpeed(0.75);
-		drive.driveTiles(-2300);
+		drive.driveTiles(-2250);
 
 
 
@@ -143,32 +143,36 @@ void autonomous()
 		drive.turnDegreesAbsolute(168);
 		compress.set_value(false);
 
-		pros::delay(1500);
+		pros::delay(1600);
 		shootDisk();
-		pros::delay(2000);
+		pros::delay(2500);
 		shootDisk();
-		pros::delay(2000);
+		pros::delay(2500);
 		shootDisk();
 
 		//back to get roller
-		flywheelsGroup.move(100);
-		drive.turnDegreesAbsolute(90);
-		drive.driveTiles(-2750);
+		flywheelsGroup.move(93);
+		drive.turnDegreesAbsolute(89.75);
+		drive.driveTiles(-3050,5000);
 		drive.turnDegreesAbsolute(137);
 		drive.driveTiles(-550, 1000);
 		pros::delay(200);
-		drive.driveTiles(-100, false);
+		drive.driveTiles(-75, false);
 		topRoller.move(-127);
-		pros::delay(210);
+		pros::delay(185);
 		topRoller.brake();
 
-		drive.driveTiles(150);
+		drive.driveTiles(250);
 		drive.turnDegreesAbsolute(-133);
 		rake.set_value(true);
-		drive.driveTiles(-1000);
+		drive.driveTiles(-1150);
 		rake.set_value(false);
 		pros::delay(1500);
-		drive.turnDegreesAbsolute(165);
+		drive.turnDegreesAbsolute(141.5);
+		compress.set_value(true);
+		pros::delay(250);
+		compress.set_value(false);
+		pros::delay(250);
 		//pros::delay(1500);
 		shootDisk();
 		pros::delay(1500);
@@ -278,7 +282,7 @@ void autonomous()
 void opcontrol()
 {	
 	// Initialize the flywheel speed to 100% and brake type to coast
-	int flywheelPct = 60; //60
+	int flywheelPct = 62; //60
 	flywheelsGroup.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 	ScreenLogger logger(LoggerSettings::verbose);
 
@@ -333,7 +337,7 @@ void opcontrol()
 		}
 		if(MasterController.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN))
 		{
-			flywheelPct = 60;
+			flywheelPct = 62;
 		}
 
 		flywheelLoopToggle(flywheelsGroup, flywheelPct);

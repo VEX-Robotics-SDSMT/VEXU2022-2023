@@ -35,6 +35,11 @@ DiffDrive::DiffDrive(MinesMotorGroup left, MinesMotorGroup right, SensorInterfac
     StartPIDs();
 }
 
+DiffDrive::~DiffDrive()
+{
+    killPIDs();
+}
+
 double DiffDrive::getDriveVelocity()
 {
     return (leftMotors.getActualVelocity() + rightMotors.getActualVelocity()) / 2;
@@ -236,8 +241,8 @@ void DiffDrive::killPIDs()
 
 void DiffDrive::StartPIDs()
 {
-    drivePID.StartTask();
-    turnPID.StartTask();
+    drivePID.StartTask("drive PID");
+    turnPID.StartTask("turn PID");
 }
 
 void DiffDrive::SetPausedPID(bool paused)

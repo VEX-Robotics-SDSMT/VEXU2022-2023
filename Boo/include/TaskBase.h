@@ -24,7 +24,7 @@ class TaskBase
 
     public:
         TaskBase();
-        void StartTask();
+        void StartTask(std::string taskName);
         void KillTask();
         void SetTaskPaused(bool pause);
         bool GetTaskPaused();
