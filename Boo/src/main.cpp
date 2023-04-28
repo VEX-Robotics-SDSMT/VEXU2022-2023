@@ -139,29 +139,10 @@ void autonomous()
 		pros::delay(180);
 		topRoller.brake();
 		drive.driveTiles(250);
-		drive.turnDegreesAbsolute();
+		drive.turnDegreesAbsolute(-90);
+		drive.driveTiles(3000);
 
 		
-		
-
-		drive.driveTiles(250);
-		drive.turnDegreesAbsolute(-133);
-		rake.set_value(true);
-		drive.driveTiles(-1150);
-		rake.set_value(false);
-		pros::delay(1500);
-		drive.turnDegreesAbsolute(141.5);
-		compress.set_value(true);
-		pros::delay(250);
-		compress.set_value(false);
-		pros::delay(250);
-		//pros::delay(1500);
-		shootDisk();
-		pros::delay(1500);
-		shootDisk();
-
-		//spin and do a little dance
-		//or not
 		flywheelsGroup.brake();
 		intake1.brake();
 		intake2.brake();
