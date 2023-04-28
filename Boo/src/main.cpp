@@ -130,37 +130,19 @@ void autonomous()
 		shootDisk();
 		pros::delay(200);
 
-		flywheelsGroup.move(83);
-		drive.turnDegreesAbsolute(-90);
-		drive.setMaxDriveSpeed(0.75);
-		drive.driveTiles(-2250);
-
-
-
-
-		//turn and shoot
-		compress.set_value(true);
-		drive.turnDegreesAbsolute(168);
-		compress.set_value(false);
-
-		pros::delay(1600);
-		shootDisk();
-		pros::delay(2500);
-		shootDisk();
-		pros::delay(2500);
-		shootDisk();
-
-		//back to get roller
-		flywheelsGroup.move(93);
-		drive.turnDegreesAbsolute(89.75);
-		drive.driveTiles(-3050,5000);
-		drive.turnDegreesAbsolute(137);
-		drive.driveTiles(-550, 1000);
-		pros::delay(200);
-		drive.driveTiles(-75, false);
-		topRoller.move(-127);
-		pros::delay(185);
+		drive.turnDegreesAbsolute(90);
+		drive.driveTiles(-500);
+		drive.turnDegreesAbsolute(135);
+		drive.driveTiles(-500, 1500);
+		drive.driveTiles(-150, false);
+		topRoller.move(127);
+		pros::delay(180);
 		topRoller.brake();
+		drive.driveTiles(250);
+		drive.turnDegreesAbsolute();
+
+		
+		
 
 		drive.driveTiles(250);
 		drive.turnDegreesAbsolute(-133);
