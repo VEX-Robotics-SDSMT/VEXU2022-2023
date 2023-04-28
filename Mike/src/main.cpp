@@ -163,59 +163,59 @@ void autonomous()
 		intake.set_value(true);
 		intakeGroup.move(-127);
 
-		drive.driveTiles(365);
+		drive.driveTiles(350);
 		intake.set_value(false);
 		pros::delay(2000);
-		drive.driveTiles(-150);
+		drive.driveTiles(-145);
 
 		//turn and fire
-		drive.turnDegreesAbsolute(-167);
+		drive.turnDegreesAbsolute(-165);
 		shootDisk();
-		pros::delay(2250);
+		pros::delay(2000);
 		shootDisk();
-		pros::delay(2250);
+		pros::delay(2000);
 		shootDisk();
 		flywheelsGroup.move(94);
 
 		//grab preloads and turn roller
 		//drive.turnDegreesAbsolute(-165);
 		intake.set_value(true);
-		drive.driveTiles(270, 5000);
-		pros::delay(500);
+		drive.driveTiles(375, 5000);
 		intake.set_value(false);
-		drive.driveTiles(330, 750);
+		pros::delay(500);
 
+		drive.driveTiles(400, 1500);
 		frontRoller.move(-100);
-		pros::delay(150);
+		pros::delay(250);
 		frontRoller.brake();
 
 		drive.driveTiles(-275, 5000);
 		drive.turnDegreesAbsolute(-40);
-		drive.driveTiles(285, 5000);
+		drive.driveTiles(275, 5000);
+		drive.driveTiles(-170);
 
 		//shoot the second stack
-		drive.driveTiles(-180);
 		drive.turnDegreesAbsolute(-163);
 		shootDisk();
-		pros::delay(2250);
+		pros::delay(2000);
 		shootDisk();
-		pros::delay(2250);
+		pros::delay(2000);
 		shootDisk();
-		flywheelsGroup.move(93);
+		flywheelsGroup.move(91);
 
 		//pick up the third stack
 		drive.turnDegreesAbsolute(75);
 		intake.set_value(true);	
-		drive.driveTiles(850);
+		drive.driveTiles(920);
 		intake.set_value(false);
 		pros::delay(3000);
 
 		//shoot last stack
-		drive.turnDegreesAbsolute(-179);
+		drive.turnDegreesAbsolute(-176);
 		shootDisk();
-		pros::delay(2250);
+		pros::delay(2000);
 		shootDisk();
-		pros::delay(2250);
+		pros::delay(2000);
 		shootDisk();
 	}
 

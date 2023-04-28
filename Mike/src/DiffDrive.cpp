@@ -57,7 +57,7 @@ void DiffDrive::driveTiles(double target, bool waitForCompletion)
         {
             pros::c::delay(20);
         }
-        SetPausedPID(true);
+        //SetPausedPID(true);
     }
 }
 
@@ -71,7 +71,7 @@ void DiffDrive::driveTiles(double target, int timeOut)
     {
         pros::c::delay(20);
     }
-    SetPausedPID(true);
+    //SetPausedPID(true);
 }
 
 void DiffDrive::turnDegreesAbsolute(double target, bool waitForCompletion)
