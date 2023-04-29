@@ -107,21 +107,32 @@ void autonomous()
 
 		//lift intake and drive forward to pick up three stack
 		flywheelsGroup.move(87);
-		rake.set_value(true);
+		//rake.set_value(true);
 		intake1.move(-114);
 		intake2.move(-114);
-		drive.driveTiles(-850);
-		rake.set_value(false);
-		drive.driveTiles(-50);
-		pros::delay(1800);
+		drive.driveTiles(-1350);
+		//rake.set_value(false);
+		drive.driveTiles(250);
 
-		//back up and shoot 3
-		drive.driveTiles(400);
+		drive.turnDegreesAbsolute(90);
+		drive.driveTiles(-500, 1500);
+		drive.driveTiles(-150, false);
+		topRoller.move(127);
+		pros::delay(180);
+		topRoller.brake();
+
 		compress.set_value(true);
 		pros::delay(200);
 		compress.set_value(false);
 		pros::delay(200);
 		drive.turnDegreesAbsolute(136.5);
+		drive.driveTiles(250);
+		drive.turnDegreesAbsolute(100);
+		drive.driveTiles(3000);
+		drive.turnDegreesAbsolute(30);
+		compress.set_value(true);
+		pros::delay(500);
+		compress.set_value(false);
 
 		shootDisk();
 		pros::delay(2000);
