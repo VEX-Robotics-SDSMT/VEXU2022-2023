@@ -201,7 +201,7 @@ void autonomous()
 		shootDisk();
 		pros::delay(2000);
 		shootDisk();
-		flywheelsGroup.move(91);
+		flywheelsGroup.move(92);
 
 		//pick up the third stack
 		drive.turnDegreesAbsolute(75);
@@ -309,10 +309,12 @@ void opcontrol()
 		if(MasterController.get_digital(pros::E_CONTROLLER_DIGITAL_Y))
 		{
 			backRoller.move(100);
-			pros::delay(100);
-			backRoller.brake();
+			
 			frontRoller.move(-100);
-			pros::delay(100);
+			
+		}
+		else{
+			backRoller.brake();
 			frontRoller.brake();
 		}
 		// **********************************************
